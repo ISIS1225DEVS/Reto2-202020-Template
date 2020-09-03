@@ -23,6 +23,7 @@ import config
 from DISClib.ADT import list as lt
 from DISClib.ADT import map as mp
 from DISClib.DataStructures import mapentry as me
+
 assert config
 
 """
@@ -36,9 +37,7 @@ es decir contiene los modelos con los datos en memoria
 # -----------------------------------------------------
 
 
-
 # Funciones para agregar informacion al catalogo
-
 
 
 # ==============================
@@ -46,9 +45,6 @@ es decir contiene los modelos con los datos en memoria
 # ==============================
 
 
-
 # ==============================
 # Funciones de Comparacion
 # ==============================
-
-

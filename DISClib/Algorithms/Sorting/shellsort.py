@@ -20,9 +20,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-
 import config as cf
 from DISClib.ADT import list as lt
+
 assert cf
 
 """
@@ -40,14 +40,14 @@ Sedgewick: 1,5,19,41,109,209,929,2161,...
 def shellSort(lst, lessfunction):
     n = lt.size(lst)
     h = 1
-    while h < n/3:   # primer gap. La lista se h-ordena con este tamaño
-        h = 3*h + 1
+    while h < n / 3:  # primer gap. La lista se h-ordena con este tamaño
+        h = 3 * h + 1
     while (h >= 1):
         for i in range(h, n):
             j = i
-            ant = lt.getElement(lst, j+1)
-            post = lt.getElement(lst, j-h+1)
+            ant = lt.getElement(lst, j + 1)
+            post = lt.getElement(lst, j - h + 1)
             while (j >= h) and lessfunction(ant, post):
-                lt.exchange(lst, j+1, j-h+1)
+                lt.exchange(lst, j + 1, j - h + 1)
                 j -= h
-        h //= 3    # h se decrementa en un tercio
+        h //= 3  # h se decrementa en un tercio
