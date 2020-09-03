@@ -23,7 +23,7 @@
 import config as cf
 from App import model
 import csv
-
+import model as mdl
 
 """
 El controlador se encarga de mediar entre la vista y el modelo.
@@ -38,10 +38,13 @@ recae sobre el controlador.
 # ___________________________________________________
 
 
-
-
 # ___________________________________________________
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
 # ___________________________________________________
+
+
+def cargar_archivo(archivo):
+    direccion = mdl.cargar(archivo)
+    return direccion
 
