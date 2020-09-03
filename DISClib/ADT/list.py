@@ -22,8 +22,8 @@
 import config
 from DISClib.Utils import error as error
 from DISClib.DataStructures import liststructure as lt
-assert config
 
+assert config
 
 """
   Este módulo implementa el tipo abstracto de datos (TAD) lista.

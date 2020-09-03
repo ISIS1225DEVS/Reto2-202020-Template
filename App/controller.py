@@ -24,7 +24,6 @@ import config as cf
 from App import model
 import csv
 
-
 """
 El controlador se encarga de mediar entre la vista y el modelo.
 Existen algunas operaciones en las que se necesita invocar
@@ -36,8 +35,6 @@ recae sobre el controlador.
 # ___________________________________________________
 #  Inicializacion del catalogo
 # ___________________________________________________
-
-
 
 
 # ___________________________________________________

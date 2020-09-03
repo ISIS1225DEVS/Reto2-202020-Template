@@ -25,6 +25,7 @@ import config
 from DISClib.ADT import list as lt
 from DISClib.DataStructures import listiterator as it
 from App import controller
+
 assert config
 
 """
@@ -39,15 +40,11 @@ operación seleccionada.
 # ___________________________________________________
 
 
-
-
-
 # ___________________________________________________
 #  Funciones para imprimir la inforamación de
 #  respuesta.  La vista solo interactua con
 #  el controlador.
 # ___________________________________________________
-
 
 
 # ___________________________________________________

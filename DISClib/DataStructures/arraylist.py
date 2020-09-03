@@ -19,9 +19,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-
 import config
 from DISClib.Utils import error as error
+
 assert config
 
 """
@@ -150,7 +150,7 @@ def lastElement(lst):
         Exception
     """
     try:
-        return lst['elements'][lst['size']-1]
+        return lst['elements'][lst['size'] - 1]
     except Exception as exp:
         error.reraise(exp, 'arraylist->lastElement: ')
 
@@ -171,7 +171,7 @@ def getElement(lst, pos):
         Exception
     """
     try:
-        return lst['elements'][pos-1]
+        return lst['elements'][pos - 1]
     except Exception as exp:
         error.reraise(exp, 'arraylist->getElement: ')
 
@@ -192,7 +192,7 @@ def deleteElement(lst, pos):
         Exception
     """
     try:
-        lst['elements'].pop(pos-1)
+        lst['elements'].pop(pos - 1)
         lst['size'] -= 1
     except Exception as exp:
         error.reraise(exp, 'arraylist->deleteElement: ')
@@ -233,7 +233,7 @@ def removeLast(lst):
         Exception
     """
     try:
-        element = lst['elements'].pop(lst['size']-1)
+        element = lst['elements'].pop(lst['size'] - 1)
         lst['size'] -= 1
         return element
     except Exception as exp:
@@ -257,7 +257,7 @@ def insertElement(lst, element, pos):
         Exception
     """
     try:
-        lst['elements'].insert(pos-1, element)
+        lst['elements'].insert(pos - 1, element)
         lst['size'] += 1
     except Exception as exp:
         error.reraise(exp, 'arraylist->insertElement: ')
@@ -283,8 +283,8 @@ def isPresent(lst, element):
         size = lst['size']
         if size > 0:
             keyexist = False
-            for keypos in range(1, size+1):
-                info = lst['elements'][keypos-1]
+            for keypos in range(1, size + 1):
+                info = lst['elements'][keypos - 1]
                 if (lst['cmpfunction'](element, info) == 0):
                     keyexist = True
                     break
@@ -309,7 +309,7 @@ def changeInfo(lst, pos, newinfo):
         Exception
     """
     try:
-        lst['elements'][pos-1] = newinfo
+        lst['elements'][pos - 1] = newinfo
     except Exception as exp:
         error.reraise(exp, 'arraylist->changeInfo: ')
 
@@ -355,7 +355,7 @@ def subList(lst, pos, numelem):
                   'size': 0,
                   'type': 'ARRAY_LIST',
                   'cmpfunction': lst['cmpfunction']}
-        elem = pos-1
+        elem = pos - 1
         cont = 1
         while cont <= numelem:
             sublst['elements'].append(lst['elements'][elem])
