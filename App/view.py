@@ -26,6 +26,7 @@ from DISClib.ADT import list as lt
 from DISClib.DataStructures import listiterator as it
 from App import controller
 assert config
+import controller as cont
 
 """
 La vista se encarga de la interacción con el usuario.
@@ -53,3 +54,13 @@ operación seleccionada.
 # ___________________________________________________
 #  Menu principal
 # ___________________________________________________
+
+def main():
+    print("""Seleccione opcion:
+    1 Cargar archivo""")
+    opcion=input("Ingrese opcion")
+    if opcion==1:
+        
+
+
+main()
