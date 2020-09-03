@@ -60,7 +60,9 @@ def main():
     1 Cargar archivo""")
     opcion=input("Ingrese opcion")
     if opcion==1:
-        
+        nombre=input("Inserte nombre del archivo a cargar")
+    
+
 
 
 main()
