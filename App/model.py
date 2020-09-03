@@ -25,16 +25,36 @@ from DISClib.ADT import map as mp
 from DISClib.DataStructures import mapentry as me
 assert config
 
+
 """
 En este archivo definimos los TADs que vamos a usar,
 es decir contiene los modelos con los datos en memoria
 
 """
-
+def compareRecordIds (recordA, recordB):
+    if int(recordA['id']) == int(recordB['id']):
+        return 0
+    elif int(recordA['id']) > int(recordB['id']):
+        return 1
+    return -1
 # -----------------------------------------------------
 # API del TAD Catalogo de Libros
 # -----------------------------------------------------
 
+def cargar(nombre,compareRecordIds):
+    lst=lt.newList("ARRAY_LIST")
+    dialect = csv.excel()
+    dialect.delimiter=";"
+    try:
+        with open(  cf.data_dir + file, encoding="utf-8") as csvfile:
+            row = csv.DictReader(csvfile, dialect=dialect)
+            for elemento in row: 
+                lt.addLast(lst,elemento)
+    except:
+        print("Hubo un error con la carga del archivo")
+    print(lt.firstElement(lst))
+    print(lt.lastElement(lst))
+    return lst
 
 
 # Funciones para agregar informacion al catalogo
