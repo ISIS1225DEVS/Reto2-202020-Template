@@ -61,6 +61,7 @@ def main():
     opcion=input("Ingrese opcion")
     if opcion==1:
         nombre=input("Inserte nombre del archivo a cargar")
-        cont.cargar_archivo(nombre)
+        lista=cont.cargar_archivo(nombre)
 
 main()
+
