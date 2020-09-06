@@ -50,5 +50,10 @@ es decir contiene los modelos con los datos en memoria
 # ==============================
 # Funciones de Comparacion
 # ==============================
-
+def compareRecordIds (recordA, recordB):
+    if int(recordA['id']) == int(recordB['id']):
+        return 0
+    elif int(recordA['id']) > int(recordB['id']):
+        return 1
+    return -1
 
