@@ -46,29 +46,8 @@ archivo_details = "Data\SmallMoviesDetailsCleaned.csv"
 #  respuesta.  La vista solo interactua con
 #  el controlador.
 # ___________________________________________________
-def loadCSVFile (file, cmpfunction):
-    lst=lt.newList("ARRAY_LIST", cmpfunction)
-    dialect = csv.excel()
-    dialect.delimiter=";"
-    try:
-        with open(  cf.data_dir + file, encoding="utf-8") as csvfile:
-            row = csv.DictReader(csvfile, dialect=dialect)
-            for elemento in row: 
-                lt.addLast(lst,elemento)
-    except:
-        print("Hubo un error con la carga del archivo")
-    return lst
 
 
-def loadMovies ():
-    lst = loadCSVFile((archivo_details),compareRecordIds) 
-    print("Datos cargados, " + str(lt.size(lst)) + " elementos cargados")
-    return lst
-
-def loadMovieCast ():
-    lst = loadCSVFile((archivo_casting),compareRecordIds) 
-    print("Datos cargados, " + str(lt.size(lst)) + " elementos cargados")
-    return lst
 
 
 # ___________________________________________________
