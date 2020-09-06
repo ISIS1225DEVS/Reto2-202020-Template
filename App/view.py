@@ -24,7 +24,7 @@ import sys
 import config
 from DISClib.ADT import list as lt
 from DISClib.DataStructures import listiterator as it
-from App import controller
+from App import controller as controller
 assert config
 
 """
@@ -36,6 +36,8 @@ operación seleccionada.
 
 # ___________________________________________________
 #  Ruta a los archivos
+Casting = "themovies/MoviesCastingRaw-small.csv"
+Details = "themovies/SmallMoviesDetailsCleaned.csv"
 # ___________________________________________________
 
 
@@ -47,9 +49,63 @@ operación seleccionada.
 #  respuesta.  La vista solo interactua con
 #  el controlador.
 # ___________________________________________________
+def printinfo(lst):
+    print("Se cargaron "+ str(controller.detailsSize(lista_details)))
+    print("Informacion Primera Pelicula\n ")
+    primer_elemento = lt.firstElement(lst)
+    print("Titulo: " + controller.getTitle(primer_elemento))
+    print("Fecha de estreno: " + controller.getDate(primer_elemento))
+    print("Promedio de votacion: " + controller.getAverage(primer_elemento))
+    print("Numero de votos: " + controller.getVotes(primer_elemento))
+    print("Idioma de la pelicula: " + controller.getLang(primer_elemento))
+    print("Informacion Ultima Pelicula\n")
+    last = lt.lastElement(lst)
+    print("Titulo: " + controller.getTitle(last))
+    print("Fecha de estreno: " + controller.getDate(last))
+    print("Promedio de votacion: " + controller.getAverage(last))
+    print("Numero de votos: " + controller.getVotes(last))
+    print("Idioma de la pelicula: " + controller.getLang(last))
+    
 
+
+def printMenu():
+    print("Opcion 1: Inicializar Catalogo")
+    print("opcion 2: Cargar Archivos")
 
 
 # ___________________________________________________
 #  Menu principal
 # ___________________________________________________
+while True:
+    
+    lista_details = controller.newListDetails()
+    printMenu()
+    inputs = input("Selecciones una opción para continuar\n")
+
+    if int(inputs[0]) == 1:
+        print("Inicializando Catálogo...")
+        cont = controller.initCatalog()
+        
+    elif int(inputs[0]) == 2:
+        print("Cargando Archivos...")
+        controller.loadDetails(lista_details, Details)
+        printinfo(lista_details)
+    
+    elif int(inputs[0]) == 3:
+        print(0)
+    elif int(inputs[0]) == 4:
+        print(0)
+    elif int(inputs[0]) == 5:
+        print(0)
+    elif int(inputs[0]) == 6:
+        print(0)
+    elif int(inputs[0]) == 7:
+        print(0)
+    else:
+        sys.exit(0)
+sys.exit()
+
+
+
+
+
