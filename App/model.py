@@ -51,10 +51,11 @@ def newCatalog():
                'production_companies': None,
                'director_name': None,
                'actor_name': None,
-               'genre': None,
+               'actor_director': None,
+               'genres': None,
                'production_countries': None}
 
-    catalog['id'] = lt.newList('SINGLE_LINKED', compareMoviesIds)
+    catalog['Movies'] = lt.newList('SINGLE_LINKED', compareMoviesIds)
     catalog["MoviesId"] = mp.newMap(2000,
                                     maptype='PROBING', # No entiendo
                                     loadfactor=0.4,  # No entiendo
@@ -71,7 +72,7 @@ def newCatalog():
                                       maptype='CHAINING', #No entiendo
                                       loadfactor=0.7, #No entiendo
                                       comparefunction=compareActorsByNames) # No entiendo
-    catalog['genre'] = mp.newMap(2000,
+    catalog['genres'] = mp.newMap(2000,
                                  maptype='CHAINING',
                                  loadfactor=0.7,
                                  comparefunction=compareByGenre)
@@ -79,20 +80,143 @@ def newCatalog():
                                                 maptype='CHAINING',
                                                 loadfactor=0.7,
                                                 comparefunction=compareCountries)
+    catalog['actor_director'] = mp.newMap(2000,
+                                          maptype='CHAINING',
+                                          loadfactor=0.7,
+                                          comparefunction=compareActorByDirector)
 
     return catalog
 
 
 # Funciones para agregar informacion al catalogo
 
-def addMovie():
-    return 0
+def addMovie(catalog, movie, casting):
+    lt.addLast(catalog["Movies"], movie)
+    mp.put(catalog["MoviesId"], movie["id"], movie)
+    addMovieGenre(catalog,movie)
+    addMovieCompany(catalog, movie)
+    addMovieDirector(catalog, movie, casting)
+    addMovieActor(catalog, movie, casting)
+    addMovieActorByDirector(catalog, casting)
 
-def addMovieCompanie():
-    return 0
+def addMovieGenre(catalog, movie):
+    """
+    Esta funcion adiciona un libro a la lista de libros que
+    fueron publicados en un año especifico.
+    Los años se guardan en un Map, donde la llave es el año
+    y el valor la lista de libros de ese año.
+    """
+    mapa = catalog['genres']
+    genres = movie['genres'].split("|")
+    for genre in genres:
+        existgenre = mp.contains(mapa, genre)
+        if existgenre:
+            entry = mp.get(mapa, genre)
+            genero = me.getValue(entry)
+        else:
+            genero = newGenre(genre)
+            mp.put(mapa, genre, genero)
+        lt.addLast(genero["movies"], movie)
+    
+def newGenre(genre):
+    """
+    Esta funcion crea la estructura de libros asociados
+    a un año.
+    """
+    entry = {'genre': "", "movies": None}
+    entry['genre'] = genre
+    entry["movies"] = lt.newList('SINGLE_LINKED', compareYears)
+    return entry
 
-def addMovieCountry():
-    return 0
+def addMovieCompany(catalog, movie):
+    
+    mapa = catalog["production_companies"]
+    company = movie["production_companies"]
+    existcompany = mp.contains(mapa, company)
+    if existcompany:
+        entry = mp.get(mapa,company)
+        comp = me.getValue(entry)
+    else:
+        comp = newCompany(company)
+        mp.put(mapa, company, comp)
+    lt.addLast(comp["movies"], movie)
+
+def newCompany(company):
+    entry = {"company": "", "movies": None}
+    entry["company"] = company
+    entry["movies"] = lt.newList("SINGLE_LINKED", compareCompanies)
+    return entry
+
+def addMovieCountry(catalog, movie):
+    mapa = catalog["production_countries"]
+    country = movie["production_countries"]
+    existcountry = mp.contains(mapa, country)
+    if existcountry:
+        entry = mp.get(mapa,country)
+        comp = me.getValue(entry)
+    else:
+        comp = newCountry(country)
+        mp.put(mapa, country, comp)
+    lt.addLast(comp["movies"], movie)
+
+def newCountry(country):
+    entry = {"country": "", "movies": None}
+    entry["country"] = country
+    entry["movies"] = lt.newList("SINGLE_LINKED", compareCountries)
+    return entry
+
+def addMovieDirector(catalog, details, casting):
+    mapa = catalog["director_name"]
+    director = casting["director_name"]
+    existdirector = mp.contains(mapa, director)
+    if existdirector:
+        entry = mp.get(mapa, director)
+        comp = me.getValue(entry)
+    else:
+        comp = newDirector(director)
+        mp.put(mapa, director, comp)
+    lt.addLast(comp["movies"], details)
+
+def newDirector(director):
+    entry = {"director": "", "movies": None}
+    entry["director"] = director
+    entry["movies"] = lt.newList("SINGLE_LINKED", compareDirectorsByName)
+    return entry
+
+def addMovieActor(catalog, details, casting):
+    mapa = catalog["actor_name"]
+    actors = [casting["actor1_name"],casting["actor2_name"],casting["actor3_name"],casting["actor4_name"],casting["actor5_name"]]
+    for actor in actors:
+        existActor = mp.contains(mapa, actor)
+        if existActor:
+            entry = mp.get(mapa,actor)
+            comp = me.getValue(entry)
+        else:
+            comp = newActor(actor)
+            mp.put(mapa,actor, comp)
+        lt.addLast(comp["movies"], details)
+
+def newActor(actor):
+    entry = {"actor": "", "movies": None}
+    entry["actor"] = actor
+    entry["movies"] = lt.newList("SINGLE_LINKED", compareActorsByNames)
+    return entry
+
+def addMovieActorByDirector(catalog,casting):
+    mapa = catalog["actor_director"]
+    actors = [casting["actor1_name"],casting["actor2_name"],casting["actor3_name"],casting["actor4_name"],casting["actor5_name"]]
+    for actor in actors:
+        existActor = mp.contains(mapa, actor)
+        if existActor:
+            entry = mp.get(mapa,actor)
+            comp = me.getValue(entry)
+        else:
+            comp = newActor(actor)
+            mp.put(mapa,actor, comp)
+        lt.addLast(comp["movies"], casting)
+    
+
+
 
 def addMovieGenre():
     return 0

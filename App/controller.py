@@ -55,7 +55,7 @@ def loadData(catalog, DetailsFile, CastingFile):
     loadDetails(catalog, DetailsFile)
     loadCasting(catalog, CastingFile)
 
-def loadDetails(catalog, detailsfile):
+def loadDetails(catalog, detailsfile, castingfile):
     """
     Carga cada una de las lineas del archivo de libros.
     - Se agrega cada libro al catalogo de libros
@@ -64,18 +64,11 @@ def loadDetails(catalog, detailsfile):
     """
     detailsfile = cf.data_dir + detailsfile
     input_file = csv.DictReader(open(detailsfile))
-    for movie in input_file:
-        model.addMovie(catalog, movie)
+    castingfile = cf.data_dir + castingfile
+    input_file2 = csv.DictReader(open(castingfile))
 
-        companie = movie["production_companies"] #Se obtienen las compañias
-        model.addMovieCompanie(catalog, companie.strip(), movie)
-
-        country = movie["production_countries"] # se obtienen los paises
-        model.addMovieCountry(catalog, country.strip(), movie)
-
-        genres = movie["genres"].split("|")
-        for genre in genres:
-            model.addMovieGenre(catalog, genre.strip(), movie)
+    for i in range(len(input_file)):
+        model.addMovie(catalog, input_file[i], input_file2[i])
 
 def loadCasting(catalog, castingfile):
 
