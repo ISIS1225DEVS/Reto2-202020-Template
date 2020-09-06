@@ -23,7 +23,7 @@
 import config as cf
 from App import model
 import csv
-
+from DISClib.ADT import list as lt
 
 """
 El controlador se encarga de mediar entre la vista y el modelo.
@@ -44,6 +44,33 @@ recae sobre el controlador.
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
 # ___________________________________________________
+"""
+def crear_lista(camino):
+    
+    lista = lt.newList('SINGLE_LINKED', None)
+    with open(camino, encoding="utf-8-sig") as csvfile:
+        reader = csv.DictReader(csvfile, delimiter=';')
+        for row in reader:
+            lt.addFirst(lista, row)
+    return lista
+"""
+def loadMovies ():
+    lst = loadCSVFile(("Data\SmallMoviesDetailsCleaned.csv"),compareRecordIds) 
+    print("Datos cargados, " + str(lt.size(lst)) + " elementos cargados")
+    return lst
+
+def loadMovieCast ():
+    lst = loadCSVFile(("Data\MoviesCastingRaw-small.csv"),compareRecordIds) 
+    print("Datos cargados, " + str(lt.size(lst)) + " elementos cargados")
+    return lst
+
+def compareRecordIds (recordA, recordB):
+    if int(recordA['id']) == int(recordB['id']):
+        return 0
+    elif int(recordA['id']) > int(recordB['id']):
+        return 1
+    return -1
+
 def loadCSVFile (file, cmpfunction):
     lst=lt.newList("ARRAY_LIST", cmpfunction)
     dialect = csv.excel()
@@ -56,21 +83,3 @@ def loadCSVFile (file, cmpfunction):
     except:
         print("Hubo un error con la carga del archivo")
     return lst
-
-
-def loadMovies ():
-    lst = loadCSVFile((archivo_details),compareRecordIds) 
-    print("Datos cargados, " + str(lt.size(lst)) + " elementos cargados")
-    return lst
-
-def loadMovieCast ():
-    lst = loadCSVFile((archivo_casting),compareRecordIds) 
-    print("Datos cargados, " + str(lt.size(lst)) + " elementos cargados")
-    return lst
-    
-def compareRecordIds (recordA, recordB):
-    if int(recordA['id']) == int(recordB['id']):
-        return 0
-    elif int(recordA['id']) > int(recordB['id']):
-        return 1
-    return -1
