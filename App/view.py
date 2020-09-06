@@ -38,9 +38,8 @@ operación seleccionada.
 #  Ruta a los archivos
 # ___________________________________________________
 
-
-
-
+archivo_casting = "Data\MoviesCastingRaw-small.csv"
+archivo_details = "Data\SmallMoviesDetailsCleaned.csv"
 
 # ___________________________________________________
 #  Funciones para imprimir la inforamación de
@@ -53,3 +52,14 @@ operación seleccionada.
 # ___________________________________________________
 #  Menu principal
 # ___________________________________________________
+def printMenu():
+    """
+    Imprime el menu de opciones
+    """
+    print("\nBienvenido")
+    print("1- Cargar Datos")
+    print("2- ")
+    print("3- ")
+    print("4- ")
+    print("5- ")
+    print("0- Salir")
