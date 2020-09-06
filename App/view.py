@@ -38,6 +38,8 @@ operación seleccionada.
 # ___________________________________________________
 #  Ruta a los archivos
 # ___________________________________________________
+booksfile = config.data_dir + 'books-small.csv'
+tagsfile = config.data_dir + 'GoodReadstags.csv'
 
 
 # ___________________________________________________
@@ -50,3 +52,22 @@ operación seleccionada.
 # ___________________________________________________
 #  Menu principal
 # ___________________________________________________
+def print_menu():
+    print("Bienvenido")
+    print("1- Cargar datos de los archivos")
+    print("0- Salir")
+
+
+while True:
+    print_menu()
+    inputs = input('Seleccione una opción para continuar\n')
+    if int(inputs[0]) == 1:
+        print("Cargando información de los archivos...")
+        controller.loadData(cont, booksfile, tagsfile, booktagsfile)
+        print('Libros cargados: ' + str(controller.booksSize(cont)))
+        print('Autores cargados: ' + str(controller.authorsSize(cont)))
+        print('Géneros cargados: ' + str(controller.tagsSize(cont)))
+    elif int(inputs[0]) == 0:
+        sys.exit(0)
+    else:
+        print('Opción no válida, intente de nuevo')
