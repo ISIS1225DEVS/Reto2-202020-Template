@@ -35,6 +35,14 @@ es decir contiene los modelos con los datos en memoria
 # API del TAD Catalogo de Libros
 # -----------------------------------------------------
 
+def crear_lista(camino):
+    
+    lista = lt.newList('SINGLE_LINKED', None)
+    with open(camino, encoding="utf-8-sig") as csvfile:
+        reader = csv.DictReader(csvfile, delimiter=';')
+        for row in reader:
+            lt.addFirst(lista, row)
+    return lista
 
 
 # Funciones para agregar informacion al catalogo
@@ -50,10 +58,4 @@ es decir contiene los modelos con los datos en memoria
 # ==============================
 # Funciones de Comparacion
 # ==============================
-def compareRecordIds (recordA, recordB):
-    if int(recordA['id']) == int(recordB['id']):
-        return 0
-    elif int(recordA['id']) > int(recordB['id']):
-        return 1
-    return -1
 
