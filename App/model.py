@@ -125,7 +125,7 @@ def newGenre(genre):
     """
     entry = {'genre': "", "movies": None}
     entry['genre'] = genre
-    entry["movies"] = lt.newList('SINGLE_LINKED', compareYears)
+    entry["movies"] = lt.newList('SINGLE_LINKED', compareByGenre)
     return entry
 
 def addMovieCompany(catalog, movie):

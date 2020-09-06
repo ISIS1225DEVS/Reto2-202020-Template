@@ -48,12 +48,6 @@ def initCatalog():
 #  de datos en los modelos
 # ___________________________________________________
 
-def loadData(catalog, DetailsFile, CastingFile):
-    """
-    Carga los datos de los archivos en el modelo
-    """
-    loadDetails(catalog, DetailsFile)
-    loadCasting(catalog, CastingFile)
 
 def loadDetails(catalog, detailsfile, castingfile):
     """
@@ -69,21 +63,3 @@ def loadDetails(catalog, detailsfile, castingfile):
 
     for i in range(len(input_file)):
         model.addMovie(catalog, input_file[i], input_file2[i])
-
-def loadCasting(catalog, castingfile):
-
-
-    castingfile = cf.data_dir + castingfile
-    input_file = csv.DictReader(open(castingfile))
-    for movie in input_file:
-        model.addCasting(catalog, movie)
-
-        actors = [movie["actor1_name"],movie["actor2_name"],movie["actor3_name"],movie["actor4_name"],movie["actor5_name"]]
-        for actor in actors:
-            model.addCastingActor(catalog,actor.strip(), movie)
-        
-        director = movie["director_name"]
-        model.addCastingDirector(catalog,director.strip(), movie)
-
-
-    
