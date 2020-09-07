@@ -38,9 +38,8 @@ operación seleccionada.
 #  Ruta a los archivos
 # ___________________________________________________
 
-
-
-
+moviesfile = 'Data/Peliculas/SmallMoviesDetailsCleaned.csv'
+castingfile = 'Data/Peliculas/MoviesCastingRaw-Small.csv'
 
 # ___________________________________________________
 #  Funciones para imprimir la inforamación de
@@ -53,3 +52,7 @@ operación seleccionada.
 # ___________________________________________________
 #  Menu principal
 # ___________________________________________________
+
+def printmenu():
+    print('Bienvenido')
+    print('1. Cargas Archivos')
