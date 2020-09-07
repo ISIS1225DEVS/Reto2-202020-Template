@@ -81,8 +81,10 @@ def main():
         if len(inputs)>0:
 
             if int(inputs[0]) ==1: #opcion 1
+                posicion = int(input("inserte posición de interes (0 o 1): "))
                 casting = controller.loadMovieCast()
                 details = controller.loadMovies()
+                pelicula_info = controller.encontrar_elemento(archivo_details,posicion)
             elif int(inputs[0]) ==2: #opcion 2
                 pass
             elif int(inputs[0])==3: #opcion 3

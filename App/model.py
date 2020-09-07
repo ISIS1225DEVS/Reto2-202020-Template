@@ -20,6 +20,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  """
 import config
+import csv
 from DISClib.ADT import list as lt
 from DISClib.ADT import map as mp
 from DISClib.DataStructures import mapentry as me
@@ -43,7 +44,14 @@ es decir contiene los modelos con los datos en memoria
 # Funciones de consulta
 # ==============================
 
-
+def crear_lista(camino):
+    
+    lista = lt.newList('SINGLE_LINKED', None)
+    with open(camino, encoding="utf-8-sig") as csvfile:
+        reader = csv.DictReader(csvfile, delimiter=';')
+        for row in reader:
+            lt.addFirst(lista, row)
+    return lista
 
 # ==============================
 # Funciones de Comparacion

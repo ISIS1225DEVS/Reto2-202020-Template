@@ -44,16 +44,9 @@ recae sobre el controlador.
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
 # ___________________________________________________
-"""
-def crear_lista(camino):
-    
-    lista = lt.newList('SINGLE_LINKED', None)
-    with open(camino, encoding="utf-8-sig") as csvfile:
-        reader = csv.DictReader(csvfile, delimiter=';')
-        for row in reader:
-            lt.addFirst(lista, row)
-    return lista
-"""
+
+
+
 def compareRecordIds (recordA, recordB):
     if int(recordA['id']) == int(recordB['id']):
         return 0
@@ -85,4 +78,11 @@ def loadMovieCast ():
     print("Datos cargados, " + str(lt.size(lst)) + " elementos cargados")
     return lst
 
-
+def encontrar_elemento(camino,posicion):
+    lista_details = model.crear_lista(camino)
+    primero = lt.getElement(lista_details,posicion)
+    print("El título de la película: " + primero["title"])
+    print("La fecha de estreno: " + primero["release_date"])
+    print("El promedio de la votación: " + primero["vote_average"])
+    print("Número de votos: " + primero["vote_count"])
+    print("Idioma de la película: " + primero["original_language"])
