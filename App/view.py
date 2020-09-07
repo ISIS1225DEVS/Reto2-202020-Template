@@ -74,33 +74,23 @@ def main():
     Return: None 
     """
 
-
     while True:
         printMenu() #imprimir el menu de opciones en consola
         inputs = input('Seleccione una opción para continuar\n') #leer opción ingresada
         if len(inputs)>0:
 
-            if int(inputs[0])==1: #opcion 1
-                details = controller.loadMovies()
-                casting = controller.loadMovieCast()
-            
-
-            elif int(inputs[0])==2: #opcion 2
-                x = 0
-            """
+            if int(inputs[0]) ==1: #opcion 1
+                pass
+            elif int(inputs[0]) ==2: #opcion 2
+                pass
             elif int(inputs[0])==3: #opcion 3
-
+                pass
             elif int(inputs[0])==4: #opcion 4
-
+                pass
             elif int(inputs[0])==5: #opcion 5
-            """
-
-            elif int(inputs[0])==0: #opcion 0, salir
+                pass
+            elif int(inputs[0])==0:
                 sys.exit(0)
-            
-            else:
-                print ("resultado no vállido.")
-
                 
-if __name__ == "__main__":
-    main()
+
+main()
