@@ -54,6 +54,13 @@ def crear_lista(camino):
             lt.addFirst(lista, row)
     return lista
 """
+def compareRecordIds (recordA, recordB):
+    if int(recordA['id']) == int(recordB['id']):
+        return 0
+    elif int(recordA['id']) > int(recordB['id']):
+        return 1
+    return -1
+
 def loadCSVFile (file, cmpfunction):
     lst=lt.newList("ARRAY_LIST", cmpfunction)
     dialect = csv.excel()
@@ -69,19 +76,13 @@ def loadCSVFile (file, cmpfunction):
 
     
 def loadMovies ():
-    lst = loadCSVFile(("Data\SmallMoviesDetailsCleaned.csv"),compareRecordIds) 
+    lst = loadCSVFile(("SmallMoviesDetailsCleaned.csv"),compareRecordIds) 
     print("Datos cargados, " + str(lt.size(lst)) + " elementos cargados")
     return lst
 
 def loadMovieCast ():
-    lst = loadCSVFile(("Data\MoviesCastingRaw-small.csv"),compareRecordIds) 
+    lst = loadCSVFile(("MoviesCastingRaw-small.csv"),compareRecordIds) 
     print("Datos cargados, " + str(lt.size(lst)) + " elementos cargados")
     return lst
 
-def compareRecordIds (recordA, recordB):
-    if int(recordA['id']) == int(recordB['id']):
-        return 0
-    elif int(recordA['id']) > int(recordB['id']):
-        return 1
-    return -1
 
