@@ -59,10 +59,11 @@ def printMenu():
     """
     print("\nBienvenido")
     print("1- Cargar Datos")
-    print("2- ")
-    print("3- ")
-    print("4- ")
-    print("5- ")
+    print("2- Descubrir productoras de cine")
+    print("3- Conocer a un director")
+    print("4- Conocer a un actor ")
+    print("5- Entender un género cinematográfico")
+    print("6- Encontrar películas por país ")
     print("0- Salir")
 
 
@@ -80,7 +81,8 @@ def main():
         if len(inputs)>0:
 
             if int(inputs[0]) ==1: #opcion 1
-                pass
+                casting = controller.loadMovieCast()
+                details = controller.loadMovies()
             elif int(inputs[0]) ==2: #opcion 2
                 pass
             elif int(inputs[0])==3: #opcion 3

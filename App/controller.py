@@ -54,6 +54,20 @@ def crear_lista(camino):
             lt.addFirst(lista, row)
     return lista
 """
+def loadCSVFile (file, cmpfunction):
+    lst=lt.newList("ARRAY_LIST", cmpfunction)
+    dialect = csv.excel()
+    dialect.delimiter=";"
+    try:
+        with open(  cf.data_dir + file, encoding="utf-8") as csvfile:
+            row = csv.DictReader(csvfile, dialect=dialect)
+            for elemento in row: 
+                lt.addLast(lst,elemento)
+    except:
+        print("Hubo un error con la carga del archivo")
+    return lst
+
+    
 def loadMovies ():
     lst = loadCSVFile(("Data\SmallMoviesDetailsCleaned.csv"),compareRecordIds) 
     print("Datos cargados, " + str(lt.size(lst)) + " elementos cargados")
@@ -71,15 +85,3 @@ def compareRecordIds (recordA, recordB):
         return 1
     return -1
 
-def loadCSVFile (file, cmpfunction):
-    lst=lt.newList("ARRAY_LIST", cmpfunction)
-    dialect = csv.excel()
-    dialect.delimiter=";"
-    try:
-        with open(  cf.data_dir + file, encoding="utf-8") as csvfile:
-            row = csv.DictReader(csvfile, dialect=dialect)
-            for elemento in row: 
-                lt.addLast(lst,elemento)
-    except:
-        print("Hubo un error con la carga del archivo")
-    return lst
