@@ -35,7 +35,7 @@ es decir contiene los modelos con los datos en memoria
 # API del TAD Catalogo de Libros
 # -----------------------------------------------------
 
-def newCatalog():
+def newCatalog_movies():
     """Inicializa el catálogo de películas
 
     Crea una lista vacia para guardar todas las películas 
@@ -170,7 +170,145 @@ def newCatalog():
                             maptype = 'PROBING',
                             loadfactor = 0.5,
                             comparefunction = )
-    
+    return catalog
+
+def newCatalog_casting():
+    """Inicializa el catálogo del casting
+
+    Crea una lista vacia para guardar los participantes de las 
+    perlículas
+
+    Se crean indices (Maps) por los siguientes criterios:
+
+    Id Movie
+    actor1_name
+    actor1_gender
+    actor2_name
+    actor2_gender
+    actor3_name
+    actor3_gender
+    actor4_name
+    actor4_gender
+    actor5_name
+    actor5_gender
+    actor_number
+    director_name
+    director_gender
+    director_number
+    producer_name
+    producer_number
+    screeplay_name
+    editor_name
+
+    """
+
+    catalog = {'Id Movie': None,
+               'actor1_name': None,
+               'actor1_gendre': None,
+               'actor2_name': None,
+               'actor2_gendre': None,
+               'actor3_name': None,
+               'actor3_gendre': None,
+               'actor4_name': None,
+               'actor4_gendre': None,'actor'
+               'actor5_name': None,
+               'actor5_gendre': None,
+               'actor_number': None,
+               'director_name': None,
+               'director_gendre': None,
+               'director_number' : None,
+               'producer_name': None,
+               'producer_number': None,
+               'screenplay': None,
+               'editor_name': None}
+    catalog['casting'] = lt.newList('SINGLE_LINKED', compareMoviesIds)
+    catalog['Id Movie'] = mp.newMap(4000,
+                                    maptype= 'PROBING',
+                                    loadfactor=0.5,
+                                    comparefunction=)
+    catalog['actor1_name'] = mp.newMap(4000,
+                                       maptype='PROBING',
+                                       loadfactor=0.5,
+                                       comparefunction=)
+    catalog['actor1_gender'] = mp.newMap(4000,
+                                    maptype= 'PROBING',
+                                    loadfactor=0.5,
+                                    comparefunction=)
+    catalog['actor2_name'] = mp.newMap(4000,
+                                       maptype='PROBING',
+                                       loadfactor=0.5,
+                                       comparefunction=)
+    catalog['actor2_gender'] = mp.newMap(4000,
+                                    maptype= 'PROBING',
+                                    loadfactor=0.5,
+                                    comparefunction=)
+    catalog['actor3_name'] = mp.newMap(4000,
+                                       maptype='PROBING',
+                                       loadfactor=0.5,
+                                       comparefunction=)
+    catalog['actor3_gender'] = mp.newMap(4000,
+                                    maptype= 'PROBING',
+                                    loadfactor=0.5,
+                                    comparefunction=)
+    catalog['actor4_name'] = mp.newMap(4000,
+                                       maptype='PROBING',
+                                       loadfactor=0.5,
+                                       comparefunction=)           
+    catalog['actor4_gender'] = mp.newMap(4000,
+                                    maptype= 'PROBING',
+                                    loadfactor=0.5,
+                                    comparefunction=)
+    catalog['actor5_name'] = mp.newMap(4000,
+                                       maptype='PROBING',
+                                       loadfactor=0.5,
+                                       comparefunction=)
+    catalog['actor5_gender'] = mp.newMap(4000,
+                                    maptype= 'PROBING',
+                                    loadfactor=0.5,
+                                    comparefunction=)
+    catalog['actor_number'] = mp.newMap(4000,
+                                       maptype='PROBING',
+                                       loadfactor=0.5,
+                                       comparefunction=)
+    catalog['director_name'] = mp.newMap(4000,
+                                    maptype= 'PROBING',
+                                    loadfactor=0.5,
+                                    comparefunction=)
+    catalog['director_gender'] = mp.newMap(4000,
+                                       maptype='PROBING',
+                                       loadfactor=0.5,
+                                       comparefunction=)
+    catalog['director_number'] = mp.newMap(4000,
+                                    maptype= 'PROBING',
+                                    loadfactor=0.5,
+                                    comparefunction=)
+    catalog['producer_name'] = mp.newMap(4000,
+                                       maptype='PROBING',
+                                       loadfactor=0.5,
+                                       comparefunction=)    
+    catalog['producer_number'] = mp.newMap(4000,
+                                       maptype='PROBING',
+                                       loadfactor=0.5,
+                                       comparefunction=)    
+    catalog['screenplay'] = mp.newMap(4000,
+                                       maptype='PROBING',
+                                       loadfactor=0.5,
+                                       comparefunction=) 
+    catalog['editor_name'] = mp.newMap(4000,
+                                       maptype='PROBING',
+                                       loadfactor=0.5,
+                                       comparefunction=)      
+    return catalog
+
+def newDirector(name):
+    """
+    Crea una estructura para modelar las peliculas de un director y su
+    promedio de raiting
+    """
+    director = {'name': "",'movies': None, "average_raiting": 0}
+    director['name'] = name
+    director['movies'] = lt.newList('SINGLE_LINKERD',compareDirectorsByName)
+    return director
 
 
 

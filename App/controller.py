@@ -37,10 +37,30 @@ recae sobre el controlador.
 #  Inicializacion del catalogo
 # ___________________________________________________
 
-
-
+def initCatalog_movies():
+    """
+    Llama la función de inicialización del catalogo de películas del modelo.
+    
+    """
+    # catalog_movies es utilizado para interactuar con el modelo de películas
+    catalog_movies = model.newCatalog_movies()
+    # catalog_casting es utilizado para interactural con l modelo de casting
+    catalog_casting = model.newCatalog_casting()
+    return catalog_movies,catalog_casting
 
 # ___________________________________________________
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
 # ___________________________________________________
+
+def loadMovies()
+
+def loadData(movies, casting):
+    """
+    Carga los datos de los archivos del modelo
+
+    Args:
+        movies (csv): Archivo  que contiene las películas
+        casting (csv): Archivo que contiene el casting de las películas
+    """
+    loadMovies()
