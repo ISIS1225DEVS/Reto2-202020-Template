@@ -81,7 +81,7 @@ def main():
         if len(inputs)>0:
 
             if int(inputs[0]) ==1: #opcion 1
-                posicion = int(input("inserte posición de interes (0 o 1): "))
+                posicion = int(input("inserte posición de interes (0 o 2000): "))
                 casting = controller.loadMovieCast()
                 details = controller.loadMovies()
                 pelicula_info = controller.encontrar_elemento(archivo_details,posicion)
