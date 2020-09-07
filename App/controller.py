@@ -36,7 +36,8 @@ recae sobre el controlador.
 # ___________________________________________________
 #  Inicializacion del catalogo
 # ___________________________________________________
-
+def iniciarCatalogo(tipo='ARRAY_LIST',cmpfunction=None):
+    return model.crearCatalogo(tipo,cmpfunction)
 
 
 
@@ -44,3 +45,24 @@ recae sobre el controlador.
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
 # ___________________________________________________
+def cargarArchivos(file1,file2, cmpfunction=None):
+    lst=iniciarCatalogo()
+    dialect = csv.excel()
+    dialect.delimiter=";"
+    # try:
+    with open(cf.data_dir + file1, encoding="utf-8-sig") as csvfile1:
+        row = csv.DictReader(csvfile1, dialect=dialect)
+        for elemento in row:
+            model.agregarFinal(lst,elemento)
+    with open(cf.data_dir + file2, encoding="utf-8-sig") as csvfile2: #Cambiamos el encoding ya que generaba
+        row = csv.DictReader(csvfile2,dialect=dialect)                #un error con los archivos grandes
+        i = 1
+        for elemento in row:
+            if elemento["id"] == model.buscarPeliculas(lst,i)["id"]:
+                for column in elemento:
+                    if column != "id":
+                        model.buscarPeliculas(lst,i)[column] = elemento[column]
+            i += 1
+    # except:
+        # print("Hubo un error con la carga del archivo")
+    return lst

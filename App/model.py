@@ -34,18 +34,20 @@ es decir contiene los modelos con los datos en memoria
 # -----------------------------------------------------
 # API del TAD Catalogo de Libros
 # -----------------------------------------------------
-
+def crearCatalogo(tipo,cmpfunction=None):
+    return lt.newList(tipo,cmpfunction)
 
 
 # Funciones para agregar informacion al catalogo
-
+def agregarFinal(lst,element):
+    lt.addLast(lst,element)
 
 
 # ==============================
 # Funciones de consulta
 # ==============================
-
-
+def buscarPeliculas(lst,pos):
+    return lt.getElement(lst,pos)
 
 # ==============================
 # Funciones de Comparacion
