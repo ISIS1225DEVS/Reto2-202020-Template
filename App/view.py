@@ -53,25 +53,32 @@ details_file = config.data_dir + 'MoviesDetailsCleaned-small.csv'
 #  Menu principal
 # ___________________________________________________
 def print_menu():
-    print('Bienvenido')
-    print('1- Reinicializar el catálogo de películas')
-    print('2- Cargar datos de películas de los archivos csv')
-    print('0- Salir')
+    print('\nBienvenido,')
+    print('1- Reinicializar el catálogo de películas.')
+    print('2- Cargar datos de películas de los archivos csv.')
+    print('3- Consultar información primera y última película.')
+    print('0- Salir.')
 
 
 cont = controller.init_catalog()
 while True:
     print_menu()
-    inputs = input('Seleccione una opción para continuar\n')
-    if int(inputs[0]) == 1:
+    input_ = input('Seleccione una opción para continuar: ')
+    print('')
+    if int(input_) == 1:
         print('Reinicializando Catálogo...')
         cont = controller.init_catalog()  # cont es el controlador que se usará en adelante.
-    if int(inputs[0]) == 2:
+    elif int(input_) == 2:
         print('Cargando información de los archivos...')
-        controller.loadData(cont, casting_file, details_file)
+        controller.load_data(cont, casting_file, details_file)
         print('Detalles de películas cargados: ' + str(controller.details_size(cont)))
         print('Casting de películas cargados: ' + str(controller.casting_size(cont)))
-    elif int(inputs[0]) == 0:
+    elif int(input_) == 2:
+        print('Cargando información de los archivos...')
+        controller.load_data(cont, casting_file, details_file)
+        print('Detalles de películas cargados: ' + str(controller.details_size(cont)))
+        print('Casting de películas cargados: ' + str(controller.casting_size(cont)))
+    elif int(input_) == 0:
         sys.exit(0)
     else:
         print('Opción no válida, intente de nuevo')

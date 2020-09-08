@@ -36,7 +36,7 @@ es decir contiene los modelos con los datos en memoria
 # -----------------------------------------------------
 # API del TAD Catalogo de películas.
 # -----------------------------------------------------
-def newCatalog():
+def new_catalog():
     """ Inicializa el catálogo de películas
 
     Crea una lista vacia para guardar todas las películas.
@@ -49,7 +49,7 @@ def newCatalog():
     catalog = {
         'details': lt.newList('SINGLE_LINKED'),
         'casting': lt.newList('SINGLE_LINKED'),
-        'movies_ids': mp.newMap(200, maptype='PROBING', loadfactor=0.4)
+        'movies_ids': mp.newMap(200, maptype='PROBING', loadfactor=0.4, comparefunction=compare_ids)
     }
     return catalog
 
@@ -84,3 +84,16 @@ def details_size(catalog):
 def casting_size(catalog):
     # Número de elencos en el catálogo.
     return lt.size(catalog['casting'])
+
+
+# ==============================
+# Funciones de Comparacion
+# ==============================
+def compare_ids(id, tag):
+    entry = me.getKey(tag)
+    if int(id) == int(entry):
+        return 0
+    elif int(id) > int(entry):
+        return 1
+    else:
+        return 0

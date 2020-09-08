@@ -40,8 +40,8 @@ def init_catalog():
     """
     Llama la funcion de inicializacion del catalogo del modelo.
     """
-    # catalog es utilizado para interactuar con el modelo
-    catalog = model.newCatalog()
+    # catalog es utilizado para interactuar con el modelo.
+    catalog = model.new_catalog()
     return catalog
 
 
