@@ -26,7 +26,6 @@ from DISClib.DataStructures import mapentry as me
 assert config
 
 
-<<<<<<< HEAD
 import config as cf
 import sys
 import csv
@@ -35,8 +34,6 @@ from time import process_time
 
 
 
-=======
->>>>>>> master
 """
 En este archivo definimos los TADs que vamos a usar,
 es decir contiene los modelos con los datos en memoria
