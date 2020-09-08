@@ -24,7 +24,10 @@ import config as cf
 from App import model
 import csv
 import model as mdl
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
 
 import config as cf
 import sys
@@ -53,6 +56,11 @@ recae sobre el controlador.
 
 
 def cargar_archivo(archivo):
+<<<<<<< HEAD
     lista=mdl.loadCSVFile(archivo)
     return lista
+=======
+    direccion = mdl.cargar(archivo)
+    return direccion
+>>>>>>> master
 
