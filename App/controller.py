@@ -49,3 +49,4 @@ def initCatalog():
 #  de datos en los modelos
 # ___________________________________________________
 
+def loadmovies()
