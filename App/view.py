@@ -73,11 +73,11 @@ while True:
         controller.load_data(cont, casting_file, details_file)
         print('Detalles de películas cargados: ' + str(controller.details_size(cont)))
         print('Casting de películas cargados: ' + str(controller.casting_size(cont)))
-    elif int(input_) == 2:
-        print('Cargando información de los archivos...')
-        controller.load_data(cont, casting_file, details_file)
-        print('Detalles de películas cargados: ' + str(controller.details_size(cont)))
-        print('Casting de películas cargados: ' + str(controller.casting_size(cont)))
+    elif int(input_) == 3:
+        print('La primera película de la lista es:')
+        controller.show_movie(cont, 1)
+        print('La última película de la lista es:')
+        controller.show_movie(cont, controller.casting_size(cont))
     elif int(input_) == 0:
         sys.exit(0)
     else:

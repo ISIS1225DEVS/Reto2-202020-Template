@@ -94,3 +94,7 @@ def details_size(catalog):
 def casting_size(catalog):
     # Numero de elencos leídos.
     return model.casting_size(catalog)
+
+
+def show_movie(catalog, index):
+    print(model.show_movie_data(catalog, index))

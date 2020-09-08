@@ -86,6 +86,13 @@ def casting_size(catalog):
     return lt.size(catalog['casting'])
 
 
+def show_movie_data(catalog, index):
+    el = lt.getElement(catalog['details'], index)
+    return (f'- {el["title"]}:'
+            + f'\n   con un puntaje promedio de {el["vote_average"]} y un total de {el["vote_count"]} votaciones,'
+            + f'\n   fue estrenada en {el["release_date"]} en el idioma "{el["original_language"]}".')
+
+
 # ==============================
 # Funciones de Comparacion
 # ==============================
