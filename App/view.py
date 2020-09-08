@@ -69,6 +69,7 @@ while true:
     if int(inputs[0]) == 1:
         print('Inicializando Catálogo....')
         cont = controller.initCatalog_movies()
+        controller.loadData()
     elif int(inputs[0]) == 0:
         sys.exit(0)
 sys.exit(0)

@@ -34,6 +34,8 @@ es decir contiene los modelos con los datos en memoria
 # -----------------------------------------------------
 # API del TAD Catalogo de Libros
 # -----------------------------------------------------
+def loadcsvfile():
+
 
 def newCatalog_movies():
     """Inicializa el catálogo de películas
@@ -101,75 +103,75 @@ def newCatalog_movies():
     catalog['imdb_id'] = mp.newMap(4000,
                             maptype = 'PROBING',
                             loadfactor = 0.5,
-                            comparefunction = )
+                            comparefunction =None )
     catalog["original_language"] = mp.newMap(4000,
                             maptype = 'PROBING',
                             loadfactor = 0.5,
-                            comparefunction = )
+                            comparefunction = None)
     catalog['iriginal_title'] = mp.newMap(4000,
                             maptype = 'PROBING',
                             loadfactor = 0.5,
-                            comparefunction = )
+                            comparefunction = None)
     catalog['overview'] = mp.newMap(4000,
                             maptype = 'PROBING',
                             loadfactor = 0.5,
-                            comparefunction = )
+                            comparefunction = None)
     catalog['popularity'] = mp.newMap(4000,
                             maptype = 'PROBING',
                             loadfactor = 0.5,
-                            comparefunction = )
+                            comparefunction = None)
     catalog['production_companies'] = mp.newMap(4000,
                             maptype = 'PROBING',
                             loadfactor = 0.5,
-                            comparefunction = )
+                            comparefunction = None)
     catalog['production_countries'] = mp.newMap(4000,
                             maptype = 'PROBING',
                             loadfactor = 0.5,
-                            comparefunction = )
+                            comparefunction = None)
     catalog['relase_date'] = mp.newMap(4000,
                             maptype = 'PROBING',
                             loadfactor = 0.5,
-                            comparefunction = )
+                            comparefunction =None )
     catalog['revenue'] = mp.newMap(4000,
                             maptype = 'PROBING',
                             loadfactor = 0.5,
-                            comparefunction = )
+                            comparefunction =None )
     catalog['runtime'] = mp.newMap(4000,
                             maptype = 'PROBING',
                             loadfactor = 0.5,
-                            comparefunction = )
+                            comparefunction = None)
     catalog['spoken_language'] = mp.newMap(4000,
                             maptype = 'PROBING',
                             loadfactor = 0.5,
-                            comparefunction = )
+                            comparefunction = None)
     catalog['status'] = mp.newMap(4000,
                             maptype = 'PROBING',
                             loadfactor = 0.5,
-                            comparefunction = )
+                            comparefunction = None)
     catalog['tag_line'] = mp.newMap(4000,
                             maptype = 'PROBING',
                             loadfactor = 0.5,
-                            comparefunction = )
+                            comparefunction = None)
     catalog['title'] = mp.newMap(4000,
                             maptype = 'PROBING',
                             loadfactor = 0.5,
-                            comparefunction = )
+                            comparefunction =None )
     catalog['vote_average'] = mp.newMap(4000,
                             maptype = 'PROBING',
                             loadfactor = 0.5,
-                            comparefunction = )
+                            comparefunction = None)
     catalog['vote_count'] = mp.newMap(4000,
                             maptype = 'PROBING',
                             loadfactor = 0.5,
-                            comparefunction = )
+                            comparefunction = None)
     catalog['production_companies_number'] = mp.newMap(4000,
                             maptype = 'PROBING',
                             loadfactor = 0.5,
-                            comparefunction = )
+                            comparefunction = None )
     catalog['production_conuntries_number'] = mp.newMap(4000,
                             maptype = 'PROBING',
                             loadfactor = 0.5,
-                            comparefunction = )
+                            comparefunction = None)
     return catalog
 
 def newCatalog_casting():
@@ -225,79 +227,79 @@ def newCatalog_casting():
     catalog['Id Movie'] = mp.newMap(4000,
                                     maptype= 'PROBING',
                                     loadfactor=0.5,
-                                    comparefunction=)
+                                    comparefunction=None)
     catalog['actor1_name'] = mp.newMap(4000,
                                        maptype='PROBING',
                                        loadfactor=0.5,
-                                       comparefunction=)
+                                       comparefunction=None)
     catalog['actor1_gender'] = mp.newMap(4000,
                                     maptype= 'PROBING',
                                     loadfactor=0.5,
-                                    comparefunction=)
+                                    comparefunction=None)
     catalog['actor2_name'] = mp.newMap(4000,
                                        maptype='PROBING',
                                        loadfactor=0.5,
-                                       comparefunction=)
+                                       comparefunction= None)
     catalog['actor2_gender'] = mp.newMap(4000,
                                     maptype= 'PROBING',
                                     loadfactor=0.5,
-                                    comparefunction=)
+                                    comparefunction= None)
     catalog['actor3_name'] = mp.newMap(4000,
                                        maptype='PROBING',
                                        loadfactor=0.5,
-                                       comparefunction=)
+                                       comparefunction= None)
     catalog['actor3_gender'] = mp.newMap(4000,
                                     maptype= 'PROBING',
                                     loadfactor=0.5,
-                                    comparefunction=)
+                                    comparefunction=None)
     catalog['actor4_name'] = mp.newMap(4000,
                                        maptype='PROBING',
                                        loadfactor=0.5,
-                                       comparefunction=)           
+                                       comparefunction=None)           
     catalog['actor4_gender'] = mp.newMap(4000,
                                     maptype= 'PROBING',
                                     loadfactor=0.5,
-                                    comparefunction=)
+                                    comparefunction= None)
     catalog['actor5_name'] = mp.newMap(4000,
                                        maptype='PROBING',
                                        loadfactor=0.5,
-                                       comparefunction=)
+                                       comparefunction=None)
     catalog['actor5_gender'] = mp.newMap(4000,
                                     maptype= 'PROBING',
                                     loadfactor=0.5,
-                                    comparefunction=)
+                                    comparefunction=None)
     catalog['actor_number'] = mp.newMap(4000,
                                        maptype='PROBING',
                                        loadfactor=0.5,
-                                       comparefunction=)
+                                       comparefunction=None)
     catalog['director_name'] = mp.newMap(4000,
                                     maptype= 'PROBING',
                                     loadfactor=0.5,
-                                    comparefunction=)
+                                    comparefunction=None)
     catalog['director_gender'] = mp.newMap(4000,
                                        maptype='PROBING',
                                        loadfactor=0.5,
-                                       comparefunction=)
+                                       comparefunction=None)
     catalog['director_number'] = mp.newMap(4000,
                                     maptype= 'PROBING',
                                     loadfactor=0.5,
-                                    comparefunction=)
+                                    comparefunction=None)
     catalog['producer_name'] = mp.newMap(4000,
                                        maptype='PROBING',
                                        loadfactor=0.5,
-                                       comparefunction=)    
+                                       comparefunction=None)    
     catalog['producer_number'] = mp.newMap(4000,
                                        maptype='PROBING',
                                        loadfactor=0.5,
-                                       comparefunction=)    
+                                       comparefunction=None)    
     catalog['screenplay'] = mp.newMap(4000,
                                        maptype='PROBING',
                                        loadfactor=0.5,
-                                       comparefunction=) 
+                                       comparefunction=None) 
     catalog['editor_name'] = mp.newMap(4000,
                                        maptype='PROBING',
                                        loadfactor=0.5,
-                                       comparefunction=)      
+                                       comparefunction=None)      
     return catalog
 
 def newDirector(name):
@@ -345,6 +347,13 @@ def addMovieDirector(catalog_movies, catalog_casting, directorname, movie):
 # ==============================
 # Funciones de consulta
 # ==============================
+
+def moviesSize(catalog):
+    """
+    Número de películas en el catago
+    """
+    return lt.size(catalog['movies'])
+
 
 
 
