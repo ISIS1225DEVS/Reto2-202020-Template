@@ -56,3 +56,22 @@ castingfile = 'Data/Peliculas/MoviesCastingRaw-Small.csv'
 def printmenu():
     print('Bienvenido')
     print('1. Cargas Archivos')
+    print('0. Salir del programa')
+
+
+"""
+ Menú principal
+"""
+while true:
+    printmenu()
+    inputs = input('Seleccione una opción para continuar: \n')
+    
+    if int(inputs[0]) == 1:
+        print('Inicializando Catálogo....')
+        cont = controller.initCatalog_movies()
+    elif int(inputs[0]) == 0:
+        sys.exit(0)
+sys.exit(0)
+
+
+

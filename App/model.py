@@ -311,11 +311,37 @@ def newDirector(name):
     return director
 
 
-
 # Funciones para agregar informacion al catalogo
 
+def addMovie(catalog, movie):
+    """
+    Esta función adiciona una película a la lista de películas,
+    adicionalmente lo guarda en un Map usando com llave su Id.
+    
+    """
+    lt.addLast(catalog['movies'], movie)
+    mp.put(catalog['moviesId']), movie['movie_id'], movie)
+
+def addMovieDirector(catalog_movies, catalog_casting, directorname, movie):
+    """
+    Esta función adiciona una película a la lista de películas dirigidas
+    por un director
+    Cuando se adiciona el libro, se actualiza el promedio de dicho autor
+    """
+    directors = catalog_casting['director_name']
+    movies = catalog_movies['movies']
+    existdirector = mp.contains(directors, directorname)
+    existmovie = mp.contains(movies, movie)
+
+    if existdirector:
+        entry = mp.get(directors,directorname)
+        value = mp.getValue(entry)
+    else:
+        director = newDirector(directorname)
+        mp.put(directors,directors,director)
 
 
+    
 # ==============================
 # Funciones de consulta
 # ==============================
@@ -339,4 +365,30 @@ def compareMoviesIds(id1, id2):
         return 1
     else:
         return .1
+
+def compareMapMoviesIds(id, entry):
+    """
+    Compara dos ids de las películas, id es un identificador
+    y entry una pareja llave-valor
+    """
+    identry = me.getKey(entry)
+    if (int(id) == int(identry)):
+        return 0
+    elif (int(id) > int(identry)):
+        return 1
+    else:
+        return -1
+
+def compareDirectorsByName(keyname, director):
+    """
+    Compara dos nombres de directores. El primero es una cadena
+    y el segundo un entry de un map
+    """
+    authentry = me.getKey(author)
+    if (keyname == authentry):
+        return 0
+    elif (keyname > authentry):
+        return 1
+    else:
+        return -1
 
