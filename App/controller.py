@@ -32,12 +32,65 @@ del modelo en una sola respuesta. Esta responsabilidad
 recae sobre el controlador.
 """
 
+
 # ___________________________________________________
 #  Inicializacion del catalogo
 # ___________________________________________________
+def init_catalog():
+    """
+    Llama la funcion de inicializacion del catalogo del modelo.
+    """
+    # catalog es utilizado para interactuar con el modelo
+    catalog = model.newCatalog()
+    return catalog
 
 
 # ___________________________________________________
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
 # ___________________________________________________
+def load_data(catalog, casting_file, details_file):
+    """
+    Carga los datos de los archivos en el modelo
+    """
+    load_details(catalog, details_file)
+    load_casting(catalog, casting_file)
+
+
+def load_details(catalog, details_file):
+    """
+    Carga cada una de las lineas del archivo de detalles.
+    - Se agrega cada película al catalogo de películas.
+    - Por cada libro se encuentran sus autores y por cada
+      autor, se crea una lista con sus libros
+    """
+    dialect, dialect.delimiter = csv.excel(), ';'
+    with open(details_file, encoding='utf-8-sig') as input_file:
+        file_reader = csv.DictReader(input_file, dialect=dialect)
+        for movie in file_reader:
+            model.add_details(catalog, movie)
+
+
+def load_casting(catalog, casting_file):
+    """
+    Carga en el catalogo el elenco a partir de la información
+    del archivo de casting.
+    """
+    dialect, dialect.delimiter = csv.excel(), ';'
+    with open(casting_file, encoding='utf-8-sig') as input_file:
+        file_reader = csv.DictReader(input_file, dialect=dialect)
+        for movie in file_reader:
+            model.add_casting(catalog, movie)
+
+
+# ___________________________________________________
+#  Funciones para consultas
+# ___________________________________________________
+def details_size(catalog):
+    # Numero de detallesleídos.
+    return model.details_size(catalog)
+
+
+def casting_size(catalog):
+    # Numero de elencos leídos.
+    return model.casting_size(catalog)

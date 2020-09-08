@@ -68,7 +68,7 @@ while True:
         cont = controller.init_catalog()  # cont es el controlador que se usará en adelante.
     if int(inputs[0]) == 2:
         print('Cargando información de los archivos...')
-        controller.loadData(casting_file, details_file)
+        controller.loadData(cont, casting_file, details_file)
         print('Detalles de películas cargados: ' + str(controller.details_size(cont)))
         print('Casting de películas cargados: ' + str(controller.casting_size(cont)))
     elif int(inputs[0]) == 0:
