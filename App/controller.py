@@ -37,6 +37,10 @@ recae sobre el controlador.
 #  Inicializacion del catalogo
 # ___________________________________________________
 
+def initCatalog():
+
+    catalog = model.newCatalog()
+    return catalog
 
 
 
@@ -44,3 +48,4 @@ recae sobre el controlador.
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
 # ___________________________________________________
+

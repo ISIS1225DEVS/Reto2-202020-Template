@@ -35,8 +35,58 @@ es decir contiene los modelos con los datos en memoria
 # API del TAD Catalogo de Libros
 # -----------------------------------------------------
 
-
-
+def newCatalog():
+    
+    catalog = {"Movies": None,
+                "ProdCompanies": None,
+                "AvgVote": None,
+                "Directors": None,
+                "Actors": None,
+                "Genres": None,
+                "VoteCounts": None,
+                "ProdCountries": None,
+                "Dates": None}
+                
+                "authors": None,
+                "tags": None,
+                "tagIds": None,
+                "years": None}
+    
+    catalog["Movies"] = lt.newList("SINGLE_LINKED", compareBookIds)
+    catalog["ProdCompanies"] = mp.newMap(1000,
+                                    maptype="PROBING",
+                                    loadfactor=0.4,
+                                    comparefunction=compareProdCompanies)
+    catalog["AvgVote"] = mp.newMap(1000,
+                                    maptype="PROBING",
+                                    loadfactor=0.4,
+                                    comparefunction=compareAvgVotes)
+    catalog["Directors"] = mp.newMap(1000,
+                                maptype="PROBING",
+                                loadfactor=0.7,
+                                comparefunction=compareDirectors)
+    catalog["Actors"] = mp.newMap(1000,
+                                    maptype="PROBING"
+                                    loadfactor=0.7,
+                                    comparefunction=compareActors)
+    catalog["Genres"] = mp.newMap(500,
+                                    maptype="PROBING",
+                                    loadfactor=0.7,
+                                    comparefunction=compareGenres)
+    catalog["VoteCounts"] = mp.newMap(1000,
+                                    maptype="PROBING",
+                                    loadfactor=0,4,
+                                    comparefunction=compareVoteCounts)
+    catalog["ProdCountries"] = mp.newMap(1000,
+                                        maptype="PROBING",
+                                        loadfactor=0.4,
+                                        comparefunction=compareCountries)
+    catalog["Dates"] = mp.newMap(1000,
+                                maptype="PROBING",
+                                loadfactor=0.4,
+                                comparefunction=compareDates)
+    
+    return catalog
 # Funciones para agregar informacion al catalogo
 
 

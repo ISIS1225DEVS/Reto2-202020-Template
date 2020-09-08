@@ -53,3 +53,20 @@ operación seleccionada.
 # ___________________________________________________
 #  Menu principal
 # ___________________________________________________
+
+def printMenu():
+    print("Bienvenido")
+    print("1- Inicializar Catalogo")
+    print("2- Cargar información en el catálogo")
+    print("0- Salir")
+
+"""
+Menu Principal
+"""
+while True:
+    printMenu()
+    inputs = input("Seleccione una opción para continuar\n")
+
+    if int(inputs[0]) == 1:
+        print("Inicializando Catálogo...")
+        cont = controller.initCatalog()
