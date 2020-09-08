@@ -38,6 +38,8 @@ operación seleccionada.
 # ___________________________________________________
 #  Ruta a los archivos
 # ___________________________________________________
+casting_file = config.data_dir + 'MoviesCastingRaw-small.csv'
+details_file = config.data_dir + 'MoviesDetailsCleaned-small.csv'
 
 
 # ___________________________________________________
@@ -50,3 +52,33 @@ operación seleccionada.
 # ___________________________________________________
 #  Menu principal
 # ___________________________________________________
+def print_menu():
+    print('\nBienvenido,')
+    print('1- Reinicializar el catálogo de películas.')
+    print('2- Cargar datos de películas de los archivos csv.')
+    print('3- Consultar información primera y última película.')
+    print('0- Salir.')
+
+
+cont = controller.init_catalog()
+while True:
+    print_menu()
+    input_ = input('Seleccione una opción para continuar: ')
+    print('')
+    if int(input_) == 1:
+        print('Reinicializando Catálogo...')
+        cont = controller.init_catalog()  # cont es el controlador que se usará en adelante.
+    elif int(input_) == 2:
+        print('Cargando información de los archivos...')
+        controller.load_data(cont, casting_file, details_file)
+        print('Detalles de películas cargados: ' + str(controller.details_size(cont)))
+        print('Casting de películas cargados: ' + str(controller.casting_size(cont)))
+    elif int(input_) == 3:
+        print('La primera película de la lista es:')
+        controller.show_movie(cont, 1)
+        print('La última película de la lista es:')
+        controller.show_movie(cont, controller.casting_size(cont))
+    elif int(input_) == 0:
+        sys.exit(0)
+    else:
+        print('Opción no válida, intente de nuevo')

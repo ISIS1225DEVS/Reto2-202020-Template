@@ -1,6 +1,6 @@
 # Reto #2
 
-### Listas y ordenamientos
+### Tablas de hash
 
 Realizado por el equipo 4 de la sección 2 del curso 
 Estructuras de Datos y Algoritmos de la Universidad de los Andes.

@@ -32,19 +32,75 @@ es decir contiene los modelos con los datos en memoria
 
 """
 
+
 # -----------------------------------------------------
-# API del TAD Catalogo de Libros
+# API del TAD Catalogo de películas.
 # -----------------------------------------------------
+def new_catalog():
+    """ Inicializa el catálogo de películas
+
+    Crea una lista vacia para guardar todas las películas.
+
+    Se crean indices (Maps) por los siguientes criterios:
+    ID películas
+
+    Retorna el catálogo inicializado.
+    """
+    catalog = {
+        'details': lt.newList('SINGLE_LINKED'),
+        'casting': lt.newList('SINGLE_LINKED'),
+        'movies_ids': mp.newMap(200, maptype='PROBING', loadfactor=0.4, comparefunction=compare_ids)
+    }
+    return catalog
 
 
 # Funciones para agregar informacion al catalogo
+def add_details(catalog, movie):
+    """
+    Esta funcion adiciona detalles a la lista de películas,
+    adicionalmente los guarda en un Map usando como llave su Id.
+    """
+    lt.addLast(catalog['details'], movie)
+    mp.put(catalog['movies_ids'], movie['id'], movie)
+
+
+def add_casting(catalog, movie):
+    """
+    Esta funcion adiciona un elenco a la lista de películas,
+    adicionalmente lo guarda en un Map usando como llave su Id.
+    """
+    lt.addLast(catalog['casting'], movie)
+    mp.put(catalog['movies_ids'], movie['id'], movie)
 
 
 # ==============================
 # Funciones de consulta
 # ==============================
+def details_size(catalog):
+    # Número de detalles en el catálogo.
+    return lt.size(catalog['details'])
+
+
+def casting_size(catalog):
+    # Número de elencos en el catálogo.
+    return lt.size(catalog['casting'])
+
+
+def show_movie_data(catalog, index):
+    el = lt.getElement(catalog['details'], index)
+    return (f'- {el["title"]}:'
+            + f'\n   con un puntaje promedio de {el["vote_average"]} y un total de {el["vote_count"]} votaciones,'
+            + f'\n   fue estrenada en {el["release_date"]} en el idioma "{el["original_language"]}".')
 
 
 # ==============================
 # Funciones de Comparacion
 # ==============================
+def compare_ids(id, tag):
+    entry = me.getKey(tag)
+    if int(id) == int(entry):
+        return 0
+    elif int(id) > int(entry):
+        return 1
+    else:
+        return 0
