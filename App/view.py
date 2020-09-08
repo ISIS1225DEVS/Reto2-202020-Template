@@ -28,6 +28,15 @@ from App import controller
 assert config
 import controller as cont
 
+
+import config as cf
+import sys
+import csv
+
+
+from time import process_time 
+
+
 """
 La vista se encarga de la interacción con el usuario.
 Presenta el menu de opciones y por cada seleccion
@@ -58,10 +67,15 @@ operación seleccionada.
 def main():
     print("""Seleccione opcion:
     1 Cargar archivo""")
-    opcion=input("Ingrese opcion")
+    opcion=int(input("Ingrese opcion"))
     if opcion==1:
         nombre=input("Inserte nombre del archivo a cargar")
-        lista=cont.cargar_archivo(nombre)
+        archivo=cont.cargar_archivo("Data/GoodReads/"+nombre)
+        print("Datos cargados, ",archivo['size']," elementos cargados")
+        if archivo['size']>0:
+            print(lt.firstElement(archivo))
+            print(lt.lastElement(archivo))
+        else:
+            print("Archivo vacío")
 
 main()
-

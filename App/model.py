@@ -26,6 +26,17 @@ from DISClib.DataStructures import mapentry as me
 assert config
 
 
+<<<<<<< HEAD
+import config as cf
+import sys
+import csv
+
+from time import process_time 
+
+
+
+=======
+>>>>>>> master
 """
 En este archivo definimos los TADs que vamos a usar,
 es decir contiene los modelos con los datos en memoria
@@ -56,6 +67,20 @@ def cargar(nombre,compareRecordIds):
     print(lt.lastElement(lst))
     return lst
 
+def loadCSVFile (file, sep=";"):
+    lst = lt.newList("ARRAY_LIST") #Usando implementacion arraylist
+    #lst = lt.newList() #Usando implementacion linkedlist
+    print("Cargando archivo ....")
+    dialect = csv.excel()
+    dialect.delimiter=sep
+    try:
+        with open(file, encoding="utf-8") as csvfile:
+            spamreader = csv.DictReader(csvfile, dialect=dialect)
+            for row in spamreader: 
+                lt.addLast(lst,row)
+    except:
+        print("Hubo un error con la carga del archivo")
+    return lst
 
 # Funciones para agregar informacion al catalogo
 
