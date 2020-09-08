@@ -55,7 +55,7 @@ def initCatalog_movies():
 
 
 
-def loadData(catalog_movies, catalog_casting, movies, casting):
+def loadData(catalog_movies, movies):
     """
     Carga los datos de los archivos del modelo
 
@@ -64,21 +64,15 @@ def loadData(catalog_movies, catalog_casting, movies, casting):
         casting (csv): Archivo que contiene el casting de las películas
     """
     loadMovies(catalog_movies, movies)
-    loadMovies(catalog_casting, casting)
+
 
 def loadMovies(catalog, moviesfile,):
     """
-    Carga cada una de las lineas del archivo de movies.
+    Carga cada una de las lineas del archivo de movies o casting.
     - Se agrega cada película al catalogo de películas
-    - Por cada película se encuentran sus directores y por cada
-      director, se crea una lista con sus películas
+    - Por cada película se encuentran su vote average
     """
-    moviesfilem = cf.data_dir + moviesfile
+    moviesfile = cf.data_dir + moviesfile
     inpunt_file = csv.DictReader(open(moviesfile))
     for movie in inpunt_file:
         model.addmovie(catalog, movie)
-        movies = movie["vote_average"].split(',')
-        for movie in movies:
-            
-
-

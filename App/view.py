@@ -38,8 +38,8 @@ operación seleccionada.
 #  Ruta a los archivos
 # ___________________________________________________
 
-moviesfile = 'Data/Peliculas/SmallMoviesDetailsCleaned.csv'
-castingfile = 'Data/Peliculas/MoviesCastingRaw-Small.csv'
+moviesfile = '.../Data/Peliculas/SmallMoviesDetailsCleaned.csv'
+castingfile = '.../Data/Peliculas/MoviesCastingRaw-Small.csv'
 
 # ___________________________________________________
 #  Funciones para imprimir la inforamación de
@@ -62,14 +62,14 @@ def printmenu():
 """
  Menú principal
 """
-while true:
+while True:
     printmenu()
     inputs = input('Seleccione una opción para continuar: \n')
     
     if int(inputs[0]) == 1:
         print('Inicializando Catálogo....')
         cont = controller.initCatalog_movies()
-        controller.loadData()
+        controller.loadData(cont, moviesfile)
     elif int(inputs[0]) == 0:
         sys.exit(0)
 sys.exit(0)

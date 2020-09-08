@@ -34,8 +34,6 @@ es decir contiene los modelos con los datos en memoria
 # -----------------------------------------------------
 # API del TAD Catalogo de Libros
 # -----------------------------------------------------
-def loadcsvfile():
-
 
 def newCatalog_movies():
     """Inicializa el catálogo de películas
@@ -322,7 +320,7 @@ def addMovie(catalog, movie):
     
     """
     lt.addLast(catalog['movies'], movie)
-    mp.put(catalog['moviesId']), movie['movie_id'], movie)
+    mp.put(catalog['moviesId'], movie['movie_id'], movie)
 
 def addMovieDirector(catalog_movies, catalog_casting, directorname, movie):
     """
@@ -353,8 +351,6 @@ def moviesSize(catalog):
     Número de películas en el catago
     """
     return lt.size(catalog['movies'])
-
-
 
 
 # ==============================
