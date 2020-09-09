@@ -25,6 +25,7 @@ import config
 from DISClib.ADT import list as lt
 from DISClib.DataStructures import listiterator as it
 from App import controller
+
 assert config
 
 """
@@ -38,11 +39,18 @@ operación seleccionada.
 # ___________________________________________________
 #  Ruta a los archivos
 # ___________________________________________________
+
 # Opción 1
 """
 moviesfile = 'Data/Peliculas/SmallMoviesDetailsCleaned.csv'
 castingfile = 'Data/Peliculas/MoviesCastingRaw-Small.csv'
 """
+
+casting_file = config.data_dir + 'MoviesCastingRaw-small.csv'
+details_file = config.data_dir + 'MoviesDetailsCleaned-small.csv'
+
+
+
 # ___________________________________________________
 #  Funciones para imprimir la inforamación de
 #  respuesta.  La vista solo interactua con
@@ -50,10 +58,10 @@ castingfile = 'Data/Peliculas/MoviesCastingRaw-Small.csv'
 # ___________________________________________________
 
 
-
 # ___________________________________________________
 #  Menu principal
 # ___________________________________________________
+
 # Opción 1
 """
 def printmenu():
@@ -85,3 +93,35 @@ while True:
         sys.exit(0)
 sys.exit(0)
 """
+=======
+def print_menu():
+    print('\nBienvenido,')
+    print('1- Reinicializar el catálogo de películas.')
+    print('2- Cargar datos de películas de los archivos csv.')
+    print('3- Consultar información primera y última película.')
+    print('0- Salir.')
+
+
+cont = controller.init_catalog()
+while True:
+    print_menu()
+    input_ = input('Seleccione una opción para continuar: ')
+    print('')
+    if int(input_) == 1:
+        print('Reinicializando Catálogo...')
+        cont = controller.init_catalog()  # cont es el controlador que se usará en adelante.
+    elif int(input_) == 2:
+        print('Cargando información de los archivos...')
+        controller.load_data(cont, casting_file, details_file)
+        print('Detalles de películas cargados: ' + str(controller.details_size(cont)))
+        print('Casting de películas cargados: ' + str(controller.casting_size(cont)))
+    elif int(input_) == 3:
+        print('La primera película de la lista es:')
+        controller.show_movie(cont, 1)
+        print('La última película de la lista es:')
+        controller.show_movie(cont, controller.casting_size(cont))
+    elif int(input_) == 0:
+        sys.exit(0)
+    else:
+        print('Opción no válida, intente de nuevo')
+

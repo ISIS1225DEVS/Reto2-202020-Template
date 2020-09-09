@@ -24,7 +24,6 @@ import config as cf
 from App import model
 import csv
 
-
 """
 El controlador se encarga de mediar entre la vista y el modelo.
 Existen algunas operaciones en las que se necesita invocar
@@ -37,11 +36,12 @@ recae sobre el controlador.
 # ___________________________________________________
 #  Inicializacion del catalogo
 # ___________________________________________________
+
 # Opción 1
 """
 def initCatalog_movies():
-    """
-    Llama la función de inicialización del catalogo de películas del modelo.
+||||"""
+    #Llama la función de inicialización del catalogo de películas del modelo.
     
     """
     # catalog_movies es utilizado para interactuar con el modelo de películas
@@ -49,21 +49,32 @@ def initCatalog_movies():
     # catalog_casting es utilizado para interactural con l modelo de casting
     return catalog_movies
 """
+
+def init_catalog():
+    """
+    Llama la funcion de inicializacion del catalogo del modelo.
+    """
+    # catalog es utilizado para interactuar con el modelo.
+    catalog = model.new_catalog()
+    return catalog
+
+
 # ___________________________________________________
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
 # ___________________________________________________
 
 
+
 # Opción 1
 """
 def loadData(catalog_movies, movies):
     """
-    Carga los datos de los archivos del modelo
+    #Carga los datos de los archivos del modelo
 
-    Args:
-        movies (csv): Archivo  que contiene las películas
-        casting (csv): Archivo que contiene el casting de las películas
+    #Args:
+     #   movies (csv): Archivo  que contiene las películas
+      #  casting (csv): Archivo que contiene el casting de las películas
     """
     loadMovies(catalog_movies, movies)
 """
@@ -71,9 +82,7 @@ def loadData(catalog_movies, movies):
 """
 def loadMovies(catalog, moviesfile):
     """
-    Carga cada una de las lineas del archivo de movies o casting.
-    - Se agrega cada película al catalogo de películas
-    - Por cada película se encuentran su vote average
+    #Carga cada una de las lineas del archivo de movies
     """
     dialect = csv.excel()
     dialect.delimiter =';'
@@ -87,7 +96,7 @@ def loadMovies(catalog, moviesfile):
 
 def movies_size(catalog):
     """
-    Número de películas leídas
+    #Número de películas leídas
     """
     return model.moviesSize(catalog)
 """
@@ -96,8 +105,59 @@ def movies_size(catalog):
 
 def movies_data(catalog, position):
     """
-    Devuelve el vote average de la película
+    #Devuelve el vote average de la película
     """ 
     return model.movie_name(catalog,position),model.movie_relase_date(catalog,position),model.movie_vote_average(catalog,position), model.movie_vote_count(catalog,position),model.movie_language(catalog, position)
 
 """
+
+def load_data(catalog, casting_file, details_file):
+    """
+    Carga los datos de los archivos en el modelo
+    """
+    load_details(catalog, details_file)
+    load_casting(catalog, casting_file)
+
+
+def load_details(catalog, details_file):
+    """
+    Carga cada una de las lineas del archivo de detalles.
+    - Se agrega cada película al catalogo de películas.
+    - Por cada libro se encuentran sus autores y por cada
+      autor, se crea una lista con sus libros
+    """
+    dialect, dialect.delimiter = csv.excel(), ';'
+    with open(details_file, encoding='utf-8-sig') as input_file:
+        file_reader = csv.DictReader(input_file, dialect=dialect)
+        for movie in file_reader:
+            model.add_details(catalog, movie)
+
+
+def load_casting(catalog, casting_file):
+    """
+    Carga en el catalogo el elenco a partir de la información
+    del archivo de casting.
+    """
+    dialect, dialect.delimiter = csv.excel(), ';'
+    with open(casting_file, encoding='utf-8-sig') as input_file:
+        file_reader = csv.DictReader(input_file, dialect=dialect)
+        for movie in file_reader:
+            model.add_casting(catalog, movie)
+
+
+# ___________________________________________________
+#  Funciones para consultas
+# ___________________________________________________
+def details_size(catalog):
+    # Numero de detallesleídos.
+    return model.details_size(catalog)
+
+
+def casting_size(catalog):
+    # Numero de elencos leídos.
+    return model.casting_size(catalog)
+
+
+def show_movie(catalog, index):
+    print(model.show_movie_data(catalog, index))
+

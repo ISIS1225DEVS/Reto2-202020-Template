@@ -20,7 +20,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-
 """
   Este módulo implementa un iterador para recorrer los elementos de una lista
 """

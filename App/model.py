@@ -23,6 +23,7 @@ import config
 from DISClib.ADT import list as lt
 from DISClib.ADT import map as mp
 from DISClib.DataStructures import mapentry as me
+
 assert config
 
 """
@@ -33,9 +34,24 @@ es decir contiene los modelos con los datos en memoria
 
 
 # -----------------------------------------------------
-# API del TAD Catalogo de Libros
+# API del TAD Catalogo de películas.
 # -----------------------------------------------------
+def new_catalog():
+    """ Inicializa el catálogo de películas
 
+    Crea una lista vacia para guardar todas las películas.
+
+    Se crean indices (Maps) por los siguientes criterios:
+    ID películas
+
+    Retorna el catálogo inicializado.
+    """
+    catalog = {
+        'details': lt.newList('SINGLE_LINKED'),
+        'casting': lt.newList('SINGLE_LINKED'),
+        'movies_ids': mp.newMap(200, maptype='PROBING', loadfactor=0.4, comparefunction=compare_ids)
+    }
+    return catalog
 
 # Opción 1 
 """
@@ -321,13 +337,22 @@ def newDirector(name):
 """
 
 # Funciones para agregar informacion al catalogo
+def add_details(catalog, movie):
+    """
+    Esta funcion adiciona detalles a la lista de películas,
+    adicionalmente los guarda en un Map usando como llave su Id.
+    """
+    lt.addLast(catalog['details'], movie)
+    mp.put(catalog['movies_ids'], movie['id'], movie)
+
+
 
 # Opción 1
 """
 def addMovie(catalog, movie):
     """
-    Esta función adiciona una película a la lista de películas,
-    adicionalmente lo guarda en un Map usando com llave su Id.
+    #Esta función adiciona una película a la lista de películas,
+    #adicionalmente lo guarda en un Map usando com llave su Id.
     
     """
     lt.addLast(catalog['movies'], movie)
@@ -339,14 +364,23 @@ def addMovie(catalog, movie):
 """
 def addMovieDirector(catalog_movies, catalog_casting, directorname, movie):
     """
-    Esta función adiciona una película a la lista de películas dirigidas
-    por un director
-    Cuando se adiciona el libro, se actualiza el promedio de dicho autor
+    #Esta función adiciona una película a la lista de películas dirigidas
+    #por un director
+    #Cuando se adiciona el libro, se actualiza el promedio de dicho autor
     """
     directors = catalog_casting['director_name']
     movies = catalog_movies['movies']
     existdirector = mp.contains(directors, directorname)
     existmovie = mp.contains(movies, movie)
+
+def add_casting(catalog, movie):
+    """
+    #Esta funcion adiciona un elenco a la lista de películas,
+    #adicionalmente lo guarda en un Map usando como llave su Id.
+    """
+    lt.addLast(catalog['casting'], movie)
+    mp.put(catalog['movies_ids'], movie['id'], movie)
+
 
     if existdirector:
         entry = mp.get(directors,directorname)
@@ -360,11 +394,12 @@ def addMovieDirector(catalog_movies, catalog_casting, directorname, movie):
 # ==============================
 # Funciones de consulta
 # ==============================
+
 # Opción 1
 """
 def moviesSize(catalog):
     """
-    Número de películas en el catago
+    #Número de películas en el catago
     """
     return lt.size(catalog['movies'])
 """
@@ -372,7 +407,7 @@ def moviesSize(catalog):
 """
 def movie_name(catalog, position):
     """
-    Devuelve el nombre de la película
+    #Devuelve el nombre de la película
     """
     lista = lt.getElement(catalog['movies'], position)
     return lista['title'] 
@@ -381,7 +416,7 @@ def movie_name(catalog, position):
 """
 def movie_vote_average(catalog, position):
     """
-    Devuelve el vote average de la película
+    #Devuelve el vote average de la película
     """    
     lista = lt.getElement(catalog['movies'],position)
     return lista['vote_average'] 
@@ -390,7 +425,7 @@ def movie_vote_average(catalog, position):
 """
 def movie_relase_date(catalog, position):
     """
-    Devuelve la fecha de estreno de la película
+    #Devuelve la fecha de estreno de la película
     """
     lista = lt.getElement(catalog['movies'],position)
     return lista['release_date']
@@ -399,7 +434,7 @@ def movie_relase_date(catalog, position):
 """
 def movie_vote_count(catalog, position):
     """
-    Devuelve el número de votos de la película
+    #Devuelve el número de votos de la película
     """
     lista = lt.getElement(catalog['movies'],position)
     return lista ['vote_count']
@@ -408,7 +443,7 @@ def movie_vote_count(catalog, position):
 """
 def movie_language(catalog, position):
     """
-    Devuelve el lenguaje en el que se habla la película
+    #Devuelve el lenguaje en el que se habla la película
     """
     lista = lt.getElement(catalog['movies'],position)
     return lista ['original_language']
@@ -419,11 +454,11 @@ def movie_language(catalog, position):
 # Opción 1
 """
 def compareMoviesIds(id1, id2):
-    """Compara dos ids de películas 
+    """#Compara dos ids de películas 
 
-    Args:
-        id1 (int): Id Película i
-        id2 (int): Id Película i+1
+    #Args:
+        #id1 (int): Id Película i
+        #id2 (int): Id Película i+1
     """
     if (id1 == id2):
         return 0
@@ -436,8 +471,8 @@ def compareMoviesIds(id1, id2):
 """
 def compareMapMoviesIds(id, entry):
     """
-    Compara dos ids de las películas, id es un identificador
-    y entry una pareja llave-valor
+    #Compara dos ids de las películas, id es un identificador
+    #y entry una pareja llave-valor
     """
     identry = me.getKey(entry)
     if (int(id) == int(identry)):
@@ -451,8 +486,8 @@ def compareMapMoviesIds(id, entry):
 """
 def compareDirectorsByName(keyname, director):
     """
-    Compara dos nombres de directores. El primero es una cadena
-    y el segundo un entry de un map
+    #Compara dos nombres de directores. El primero es una cadena
+    #y el segundo un entry de un map
     """
     authentry = me.getKey(author)
     if (keyname == authentry):
@@ -462,3 +497,33 @@ def compareDirectorsByName(keyname, director):
     else:
         return -1
 """
+
+def details_size(catalog):
+    # Número de detalles en el catálogo.
+    return lt.size(catalog['details'])
+
+
+def casting_size(catalog):
+    # Número de elencos en el catálogo.
+    return lt.size(catalog['casting'])
+
+
+def show_movie_data(catalog, index):
+    el = lt.getElement(catalog['details'], index)
+    return (f'- {el["title"]}:'
+            + f'\n   con un puntaje promedio de {el["vote_average"]} y un total de {el["vote_count"]} votaciones,'
+            + f'\n   fue estrenada en {el["release_date"]} en el idioma "{el["original_language"]}".')
+
+
+# ==============================
+# Funciones de Comparacion
+# ==============================
+def compare_ids(id, tag):
+    entry = me.getKey(tag)
+    if int(id) == int(entry):
+        return 0
+    elif int(id) > int(entry):
+        return 1
+    else:
+        return 0
+
