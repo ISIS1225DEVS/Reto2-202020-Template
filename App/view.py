@@ -76,6 +76,7 @@ while True:
     if int(inputs[0]) == 1:
         print("Inicializando Catálogo ....")
         movies = controller.initCatalog()
+        print("Catalogo inicializado")
     elif int(inputs[0]) == 2:
         print("Cargando información de los archivos ....")
         controller.loadData(movies, listCasting, listMovies)
