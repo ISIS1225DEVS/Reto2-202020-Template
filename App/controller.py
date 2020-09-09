@@ -45,8 +45,7 @@ def initCatalog_movies():
     # catalog_movies es utilizado para interactuar con el modelo de películas
     catalog_movies = model.newCatalog_movies()
     # catalog_casting es utilizado para interactural con l modelo de casting
-    catalog_casting = model.newCatalog_casting()
-    return catalog_movies,catalog_casting
+    return catalog_movies
 
 # ___________________________________________________
 #  Funciones para la carga de datos y almacenamiento
@@ -66,13 +65,29 @@ def loadData(catalog_movies, movies):
     loadMovies(catalog_movies, movies)
 
 
-def loadMovies(catalog, moviesfile,):
+def loadMovies(catalog, moviesfile):
     """
     Carga cada una de las lineas del archivo de movies o casting.
     - Se agrega cada película al catalogo de películas
     - Por cada película se encuentran su vote average
     """
-    moviesfile = cf.data_dir + moviesfile
-    inpunt_file = csv.DictReader(open(moviesfile))
-    for movie in inpunt_file:
-        model.addmovie(catalog, movie)
+    dialect = csv.excel()
+    dialect.delimiter =';'
+    with open(moviesfile,encoding='utf-8-sig') as input_file:
+        file_reader = csv.DictReader(input_file, dialect=dialect)
+        for movie in file_reader:
+            model.addMovie(catalog, movie)    
+    
+
+def movies_size(catalog):
+    """
+    Número de películas leídas
+    """
+    return model.moviesSize(catalog)
+
+def movies_name(catalog):
+    """
+    Nombre películas
+    """
+    return model.movie_name(catalog)
+

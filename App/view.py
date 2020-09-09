@@ -38,8 +38,8 @@ operación seleccionada.
 #  Ruta a los archivos
 # ___________________________________________________
 
-moviesfile = 'Peliculas/SmallMoviesDetailsCleaned.csv'
-castingfile = 'Peliculas/MoviesCastingRaw-Small.csv'
+moviesfile = 'Data/Peliculas/SmallMoviesDetailsCleaned.csv'
+castingfile = 'Data/Peliculas/MoviesCastingRaw-Small.csv'
 
 # ___________________________________________________
 #  Funciones para imprimir la inforamación de
@@ -70,6 +70,10 @@ while True:
         print('Inicializando Catálogo....')
         cont = controller.initCatalog_movies()
         controller.loadData(cont, moviesfile)
+        print('Se cargaron ',controller.movies_size(cont), 'datos')
+        print(controller.movies_name)
+
+        
     elif int(inputs[0]) == 0:
         sys.exit(0)
 sys.exit(0)

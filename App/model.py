@@ -106,7 +106,7 @@ def newCatalog_movies():
                'production_companies_number':None,
                'production_countries_number':None}
             
-    catalog['movies'] = lt.newList('SINGLE_LINKED',compareMoviesIds)
+    catalog['movies'] = lt.newList('SINGLE_LINKED')
     catalog['moviesIds'] = mp.newMap(4000,
                                     maptype = 'PROBING',
                                     loadfactor = 0.5,
@@ -337,7 +337,7 @@ def addMovie(catalog, movie):
     
     """
     lt.addLast(catalog['movies'], movie)
-    mp.put(catalog['moviesId'], movie['movie_id'], movie)
+    mp.put(catalog['moviesIds'], movie['id'], movie)
 
 def addMovieDirector(catalog_movies, catalog_casting, directorname, movie):
     """
@@ -369,6 +369,12 @@ def moviesSize(catalog):
     """
     return lt.size(catalog['movies'])
 
+def movie_name(catalog):
+    """
+    Devuelve el nombre de la película
+
+    """
+    return catalog['title']
 
 # ==============================
 # Funciones de Comparacion
@@ -386,7 +392,7 @@ def compareMoviesIds(id1, id2):
     elif id1 > id2:
         return 1
     else:
-        return .1
+        return -1
 
 def compareMapMoviesIds(id, entry):
     """
