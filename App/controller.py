@@ -60,13 +60,30 @@ def detailsSize(lst):
     size = model.giveSize(lst)
     return size
 
+def getFirstElement(lst):
+    first_element=model.getFirstElement(lst)
+    return first_element
+
+def getLastElement(lst):
+    last_element=model.getLastElement(lst)
+    return last_element
+
 def getTitle(element):
-    return element["original_title"]
+    title=model.getTitle(element)
+    return title
+
 def getDate(element):
-    return element["release_date"]
+    date=model.getDate(element)
+    return date
+
 def getAverage(element):
-    return element["vote_average"]
+    average=getAverage(element)
+    return average
+
 def getVotes(element):
-    return element["vote_count"]
+    votes=model.getVotes
+    return votes
+
 def getLang(element):
-    return element["original_language"]
+    lang=model.getLang(element)
+    return lang

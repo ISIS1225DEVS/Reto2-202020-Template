@@ -50,27 +50,32 @@ Details = "themovies/SmallMoviesDetailsCleaned.csv"
 #  el controlador.
 # ___________________________________________________
 def printinfo(lst):
-    print("Se cargaron "+ str(controller.detailsSize(lista_details)))
-    print("Informacion Primera Pelicula\n ")
-    primer_elemento = lt.firstElement(lst)
-    print("Titulo: " + controller.getTitle(primer_elemento))
+    print("Se cargaron "+ str(controller.detailsSize(lista_details))+" películas")
+    print("\nInformación Primera Película\n ")
+    primer_elemento =controller.getFirstElement(lst)
+    print("Título: " + controller.getTitle(primer_elemento))
     print("Fecha de estreno: " + controller.getDate(primer_elemento))
-    print("Promedio de votacion: " + controller.getAverage(primer_elemento))
+    print("Promedio de votación: " + controller.getAverage(primer_elemento))
     print("Numero de votos: " + controller.getVotes(primer_elemento))
-    print("Idioma de la pelicula: " + controller.getLang(primer_elemento))
-    print("Informacion Ultima Pelicula\n")
-    last = lt.lastElement(lst)
-    print("Titulo: " + controller.getTitle(last))
-    print("Fecha de estreno: " + controller.getDate(last))
-    print("Promedio de votacion: " + controller.getAverage(last))
-    print("Numero de votos: " + controller.getVotes(last))
-    print("Idioma de la pelicula: " + controller.getLang(last))
+    print("Idioma de la película: " + controller.getLang(primer_elemento))
+    print("Información Última Película\n")
+    ultimo_elemento = controller.getLastElement(lst)
+    print("Título: " + controller.getTitle(ultimo_elemento))
+    print("Fecha de estreno: " + controller.getDate(ultimo_elemento))
+    print("Promedio de votación: " + controller.getAverage(ultimo_elemento))
+    print("Número de votos: " + controller.getVotes(ultimo_elemento))
+    print("Idioma de la película: " + controller.getLang(ultimo_elemento))
     
 
 
 def printMenu():
-    print("Opcion 1: Inicializar Catalogo")
-    print("opcion 2: Cargar Archivos")
+    print("Opción 1: Cargar Archivos")
+    print("Opción 2: Requerimiento 1")
+    print("Opción 3: Requerimiento 2")
+    print("Opción 4: Requerimiento 3")
+    print("Opción 5: Requerimiento 4")
+    print("Opción 6: Requerimiento 5")
+    
 
 
 # ___________________________________________________
@@ -83,14 +88,12 @@ while True:
     inputs = input("Selecciones una opción para continuar\n")
 
     if int(inputs[0]) == 1:
-        print("Inicializando Catálogo...")
-        cont = controller.initCatalog()
-        
-    elif int(inputs[0]) == 2:
         print("Cargando Archivos...")
         controller.loadDetails(lista_details, Details)
         printinfo(lista_details)
-    
+        
+    elif int(inputs[0]) == 2:
+        print(0)
     elif int(inputs[0]) == 3:
         print(0)
     elif int(inputs[0]) == 4:

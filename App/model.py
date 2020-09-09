@@ -63,3 +63,26 @@ def addLast(lst, element):
 def giveSize(lst):
     size = lt.size(lst)
     return size
+
+def getFirstElement(lst):
+    first_element=lt.firstElement(lst)
+    return first_element
+
+def getLastElement(lst):
+    last_element=lt.lastElement(lst)
+    return last_element
+
+def getTitle(element):
+    return element["original_title"]
+    
+def getDate(element):
+    return element["release_date"]
+
+def getAverage(element):
+    return element["vote_average"]
+
+def getVotes(element):
+    return element["vote_count"]
+
+def getLang(element):
+    return element["original_language"]
