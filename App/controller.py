@@ -44,3 +44,15 @@ recae sobre el controlador.
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
 # ___________________________________________________
+
+def Mostrar_lista_s(ruta1, ruta2):
+    details= model.loadCSVFile(ruta1, model.compareRecordIds)
+    casting= model.loadCSVFile(ruta2, model.compareRecordIds)
+
+
+def Mostrar_lista_l(ruta1, ruta2):
+    details= model.loadCSVFile(ruta1, model.compareRecordIds)
+    casting= model.loadCSVFile(ruta2, model.compareRecordIds)
+
+    
+

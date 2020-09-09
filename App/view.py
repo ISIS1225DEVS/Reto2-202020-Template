@@ -24,7 +24,7 @@ import sys
 import config
 from DISClib.ADT import list as lt
 from DISClib.DataStructures import listiterator as it
-from App import controller
+from App import controller 
 assert config
 
 """
@@ -38,8 +38,11 @@ operación seleccionada.
 #  Ruta a los archivos
 # ___________________________________________________
 
+MovieDetailsS="Data/themoviesdb/MoviesDetailsCleaned-small.csv"
+MovieCastingS="Data/themoviesdb/MoviesCastingRaw-small.csv"
 
-
+MovieDetailsL="Data/themoviesdb/MoviesDetailsCleaned-large.csv"
+MovieCastingL="Data/themoviesdb/MoviesCastingRaw-large.csv"
 
 
 # ___________________________________________________
@@ -53,3 +56,33 @@ operación seleccionada.
 # ___________________________________________________
 #  Menu principal
 # ___________________________________________________
+
+def menu():
+
+    print("\nBienvenido")
+    print ("Cargar Datos small (1)")
+    print("")
+    print ("Cargar Datos large (2)")
+    print("")
+    print("Salir (0)")
+
+
+def main():
+    
+    while True:
+        menu() 
+        print("")
+        inputs =input('Seleccione una opción para continuar\n') 
+        if len(inputs)>0:
+
+            if int(inputs[0])==1: #opcion 1
+                controller.Mostrar_lista_s(MovieDetailsS, MovieCastingS)
+
+            elif int(inputs[0])==2: #opcion 2
+                controller.Mostrar_lista_l(MovieDetailsL, MovieCastingL)
+
+            elif int(inputs[0])==0: #opcion 0, salir
+                sys.exit(0)
+
+if __name__ == "__main__":
+    main()

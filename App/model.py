@@ -20,6 +20,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  """
 import config
+import csv
 from DISClib.ADT import list as lt
 from DISClib.ADT import map as mp
 from DISClib.DataStructures import mapentry as me
@@ -40,7 +41,6 @@ es decir contiene los modelos con los datos en memoria
 # Funciones para agregar informacion al catalogo
 
 
-
 # ==============================
 # Funciones de consulta
 # ==============================
@@ -51,4 +51,29 @@ es decir contiene los modelos con los datos en memoria
 # Funciones de Comparacion
 # ==============================
 
+def compareRecordIds (recordA, recordB):
+    if int(recordA['id']) == int(recordB['id']):
+        return 0
+    elif int(recordA['id']) > int(recordB['id']):
+        return 1
+    return -1
 
+
+
+def loadCSVFile (file,cmpfunction):
+    sep=";"
+    lst = lt.newList("ARRAY_LIST") #Usando implementacion arraylist
+    #lst = lt.newList("SINGLE_LINKED") #Usando implementacion linkedlist
+    
+
+    dialect = csv.excel()
+    dialect.delimiter=sep
+    try:
+        with open(file, encoding="utf-8") as csvfile:
+            spamreader = csv.DictReader(csvfile, dialect=dialect)
+            for row in spamreader: 
+                lt.addLast(lst,row)
+    except:
+        print("Hubo un error con la carga del archivo")
+    
+    return lst
