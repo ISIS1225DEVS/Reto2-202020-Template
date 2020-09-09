@@ -39,10 +39,16 @@ operación seleccionada.
 # ___________________________________________________
 
 
+# ___________________________________________________
+#  Funciones para imprimir la información de
+#  respuesta.  La vista solo interactua con
+#  el controlador.
+# ___________________________________________________
+
 
 
 # ___________________________________________________
-#  Opciones del Menu 
+#  Menu principal
 # ___________________________________________________
 
 def printMenu():
@@ -59,17 +65,3 @@ def printMenu():
     print("6- Encontrar películas por país")
     print("7- Mostrar datos por director")
     print("0- Salir")
-
-
-# ___________________________________________________
-#  Funciones para imprimir la información de
-#  respuesta.  La vista solo interactua con
-#  el controlador.
-# ___________________________________________________
-
-
-
-# ___________________________________________________
-#  Menu principal
-# ___________________________________________________
-printMenu()
