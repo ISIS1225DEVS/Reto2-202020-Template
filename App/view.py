@@ -38,8 +38,8 @@ operación seleccionada.
 #  Ruta a los archivos
 # ___________________________________________________
 
-moviedb = 'Data/themoviesdb/MoviesCastingRaw-small.csv' 
-actorsdb = 'Data/themoviesdb/MoviesCastingRaw-small.csv'
+moviedb = 'themoviesdb/MoviesCastingRaw-small.csv' 
+actorsdb = 'themoviesdb/MoviesCastingRaw-small.csv'
 
 
 
@@ -72,13 +72,14 @@ while True:
     #se reemplazo la separación entre casting s y casting L. Es redundante caragr ambos metodos
     if int(inputs[0]) == 1:
         resultList= lt.newList()
-        controller.loadData(resultList, moviesFile)
-        print('Se cargaron: ' + str(controller.moviesSize(cont)), ' peliculas')
+        controller.loadData(resultList, moviedb)
+        print('Se cargaron: ', lt.size(resultList), ' peliculas')
 
     elif int(inputs[0]) == 2:
         primera = (lt.getElement(resultList,0))
-        ultima = (lt.getElement(resultList, int(lt.size(resultList))-1))
-        print ("se encontraron :", lt.size(resultList), " peliculas" )           
+        ultima = (lt.getElement(resultList, (int(lt.size(resultList))-1)))
+        print ("se encontraron :", lt.size(resultList), " peliculas" )  
+        print((0, (lt.getElement(resultList,0))['original_title']))         
         print("primera pelicula: ", (primera['original_title']), (primera['original_language']), (primera['release_date']), (primera['vote_count']), (primera['vote_average']) )
         print("ultima pelicula: ", (ultima['original_title']), (ultima['original_language']), (ultima['release_date']), (ultima['vote_count']), (ultima['vote_average']) )
         input ("presione una tecla para volver al menu...")
