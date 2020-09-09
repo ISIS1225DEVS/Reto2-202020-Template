@@ -32,7 +32,8 @@ el modelo varias veces o integrar varias de las respuestas
 del modelo en una sola respuesta. Esta responsabilidad
 recae sobre el controlador.
 """
-
+#Opción 1
+"""
 # ___________________________________________________
 #  Inicializacion del catalogo
 # ___________________________________________________
@@ -92,4 +93,4 @@ def movies_data(catalog, position):
     """ 
     return model.movie_name(catalog,position),model.movie_relase_date(catalog,position),model.movie_vote_average(catalog,position), model.movie_vote_count(catalog,position),model.movie_language(catalog, position)
 
-
+"""

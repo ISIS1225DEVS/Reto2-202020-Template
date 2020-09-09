@@ -33,7 +33,8 @@ Presenta el menu de opciones y por cada seleccion
 hace la solicitud al controlador para ejecutar la
 operación seleccionada.
 """
-
+# Opción 1 
+"""
 # ___________________________________________________
 #  Ruta a los archivos
 # ___________________________________________________
@@ -55,7 +56,7 @@ castingfile = 'Data/Peliculas/MoviesCastingRaw-Small.csv'
 
 def printmenu():
     print('Bienvenido')
-    print('1. Cargas Archivos')
+    print('1. Cargar Archivos')
     print('0. Salir del programa')
 
 
@@ -79,6 +80,6 @@ while True:
     elif int(inputs[0]) == 0:
         sys.exit(0)
 sys.exit(0)
-
+"""
 
 
