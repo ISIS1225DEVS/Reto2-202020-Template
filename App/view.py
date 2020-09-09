@@ -37,7 +37,50 @@ operación seleccionada.
 # ___________________________________________________
 #  Ruta a los archivos
 # ___________________________________________________
+def printMenu():
+    print("Bienvenido")
+    print("1- Inicializar Catálogo")
+    print("2- Cargar información en el catálogo")
+    print("3- Conocer un director")
+    print("4- Conocer un genero")
+    print("0- Salir")
 
+
+"""
+Menu principal
+"""
+
+while True:
+    printMenu()
+    inputs = input('Seleccione una opción para continuar\n')
+
+    if int(inputs[0]) == 1:
+        print("Inicializando Catálogo ....")
+        catalog=controller.iniciarcatalog()
+        print("Se ha inicializado el catalogo...")
+        # cont es el controlador que se usará de acá en adelante
+    elif int(inputs[0])==2:
+        print("Cargando información de los archivos ....")
+        controller.loadDatos(catalog)
+        print ('Peliculas cargados: ' + str(lt.size(catalog['Peliculas'])))
+        print ('Directores cargados: ' + str(lt.size(catalog['Directores'])))
+        print ('Géneros cargados: ' + str(lt.size(catalog['Generos'])) )
+        pelicula1=lt.getElement(catalog["Peliculas"],1)
+        pelicula2=lt.getElement(catalog["Peliculas"],lt.size(catalog["Peliculas"]))
+        print("La primera pelicula es:\n",pelicula1,"\n\n","Titulada:",pelicula1["original_title"],"\n","Estrenada el dia:",pelicula1["release_date"])
+        print(" Su promedio de votacion:",pelicula1["vote_average"],"\n","su numero de votos",pelicula1["vote_count"],"\n","Y su idioma:",pelicula1["original_language"],"\n")
+        print("La ultima pelicula es:\n",pelicula2,"\n\n","Titulada:",pelicula2["original_title"],"\n","Estrenada el dia:",pelicula2["release_date"])
+        print(" Su promedio de votacion:",pelicula2["vote_average"],"\n","su numero de votos",pelicula2["vote_count"],"\n","Y su idioma:",pelicula2["original_language"])
+    elif int(inputs[0])==3:
+        nombre=input("Ingrese el nombre del director:\n")
+        controller.darDirector(catalog,nombre)
+    elif int(inputs[0])==4:
+        nombre_genero=input("Ingrese el nombre del genero que desea conocer:\n")
+        controller.darGenero(catalog,nombre_genero)
+    else:
+        sys.exit(0)
+
+sys.exit(0)
 
 
 
