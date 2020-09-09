@@ -38,7 +38,7 @@ operación seleccionada.
 #  Ruta a los archivos
 # ___________________________________________________
 
-details = "Data/SmallMoviesDetailsCleaned.csv"
+details = "Data/AllMoviesDetailsCleaned.csv"
 
 # ___________________________________________________
 #  Funciones para imprimir la inforamación de
