@@ -24,12 +24,12 @@ import sys
 import config
 from DISClib.ADT import list as lt
 from DISClib.DataStructures import listiterator as it
-from App import controller 
-#import controller
+from App import controller
 assert config
+
 """
 La vista se encarga de la interacción con el usuario.
-Presenta el menu de opciones y por cada seleccion
+Presenta el menu de opciones  y  por cada seleccion
 hace la solicitud al controlador para ejecutar la
 operación seleccionada.
 """
@@ -39,15 +39,9 @@ operación seleccionada.
 # ___________________________________________________
 
 
-
-castingLarge='Data/themoviesdb/MoviesCastingRaw-large.csv'
-castingSmall='Data/themoviesdb/MoviesCastingRaw-small.csv'
-moviesLarge='Data/themoviesdb/MoviesDetailsCleaned-large.csv'
-moviesSmall='Data/themoviesdb/MoviesDetailsCleaned-small.csv'
 booksfile = 'GoodReads/books-small.csv'
 tagsfile = 'GoodReads/tags.csv' 
 booktagsfile = 'GoodReads/book_tags-small.csv'
-
 
 
 # ___________________________________________________
@@ -57,48 +51,80 @@ booktagsfile = 'GoodReads/book_tags-small.csv'
 # ___________________________________________________
 
 
+def printAuthorData(author):
+    """
+    Imprime los libros de un autor determinado
+    """
+    if author:
+        print('Autor encontrado: ' + author['name'])
+        print('Promedio: ' + str(author['average_rating']))
+        print('Total de libros: ' + str(lt.size(author['books'])))
+        iterator = it.newIterator(author['books'])
+        while it.hasNext(iterator):
+            book = it.next(iterator)
+            print('Titulo: ' + book['title'] + '  ISBN: ' + book['isbn'])
+    else:
+        print('No se encontro el autor')
+
+
+def printBooksbyTag(books):
+    """
+    Imprime los libros que han sido clasificados con
+    una etiqueta
+    """
+    print('Se encontraron: ' + str(lt.size(books)) + ' Libros')
+    iterator = it.newIterator(books)
+    while it.hasNext(iterator):
+        book = it.next(iterator)
+        print(book['title'])
+
+
+def printBooksbyYear(books):
+    """
+    Imprime los libros que han sido publicados en un
+    año
+    """
+    print('Se encontraron: ' + str(lt.size(books)) + ' Libros')
+    iterator = it.newIterator(books)
+    while it.hasNext(iterator):
+        book = it.next(iterator)
+        print(book['title'])
+
 
 # ___________________________________________________
 #  Menu principal
 # ___________________________________________________
 
+
 def printMenu():
-    print("\n********************************  Grupo 04  ******************************************")
-    print("\n*********** CONSOLA DEL RETO 2 @@@ EXPLORANDO LA MAGIA DEL CINE RECARGADO @@@  *******")
-    print("\n**************************************************************************************")
-    print(" ")
-    print("(1) Inicializar Catálogo de movies y casting")
-    print("(2) Cargar información en el catálogo de movies y casting")
-    print("(3)   REQ. 1: Consultar los productoras de cine")
-    print("(4)   REQ. 2: Consultar los a un director")
-    print("(5)   REQ. 3: Consultar a un actor")
-    print("(6)   REQ. 4: Entender un genero cinematografico")
-    print("(7)   REQ. 5: Consultar peliculas por pais")
-    print("(0) Salir")
+    print("Bienvenido")
+    print("1- Inicializar Catálogo")
+    print("2- Cargar información en el catálogo")
+    print("3- Consultar los libros de un año")
+    print("4- Consultar los libros de un autor")
+    print("5- Consultar los Libros por etiqueta")
+    print("0- Salir")
+
 
 """
 Menu principal
 """
 while True:
     printMenu()
-    inputs = input('Seleccione una opción para continuar ? ')
+    inputs = input('Seleccione una opción para continuar\n')
 
     if int(inputs[0]) == 1:
-        print("Inicializando Catálogo  Movies y Casting ....")
+        print("Inicializando Catálogo ....")
         # cont es el controlador que se usará de acá en adelante
         cont = controller.initCatalog()
-        
-        print ("")
-        input ("Catalogo de movies y casting fue creado")
-        
 
     elif int(inputs[0]) == 2:
         print("Cargando información de los archivos ....")
         controller.loadData(cont, booksfile, tagsfile, booktagsfile)
         print('Libros cargados: ' + str(controller.booksSize(cont)))
-        #print('Autores cargados: ' + str(controller.authorsSize(cont)))
-        #print('Géneros cargados: ' + str(controller.tagsSize(cont)))
-    
+        print('Autores cargados: ' + str(controller.authorsSize(cont)))
+        print('Géneros cargados: ' + str(controller.tagsSize(cont)))
+
     elif int(inputs[0]) == 3:
         number = input("Buscando libros del año?: ")
         books = controller.getBooksYear(cont, int(number))

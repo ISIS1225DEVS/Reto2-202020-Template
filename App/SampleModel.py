@@ -25,21 +25,23 @@ from DISClib.ADT import map as mp
 from DISClib.DataStructures import mapentry as me
 assert config
 
-
-
 """
 En este archivo definimos los TADs que vamos a usar,
 es decir contiene los modelos con los datos en memoria
 
+Se define la estructura de un catálogo de libros.
+El catálogo tendrá  una lista para los libros.
+
+Los autores, los tags y los años se guardaran en
+tablas de simbolos.
 """
 
 # -----------------------------------------------------
 # API del TAD Catalogo de Libros
 # -----------------------------------------------------
 
-def newCatalog():
-    input ("voy  a crear el catalogo. Dar clic para cotninuar... ")
 
+def newCatalog():
     """ Inicializa el catálogo de libros
 
     Crea una lista vacia para guardar todos los libros
@@ -59,14 +61,11 @@ def newCatalog():
                'tagIds': None,
                'years': None}
 
-    
     catalog['books'] = lt.newList('SINGLE_LINKED', compareBookIds)
-    
     catalog['bookIds'] = mp.newMap(200,
                                    maptype='PROBING',
                                    loadfactor=0.4,
                                    comparefunction=compareMapBookIds)
-    
     catalog['authors'] = mp.newMap(200,
                                    maptype='PROBING',
                                    loadfactor=0.4,
@@ -83,13 +82,10 @@ def newCatalog():
                                  maptype='CHAINING',
                                  loadfactor=0.7,
                                  comparefunction=compareMapYear)
-    
-    #print (catalog['books'])
-    #input ("Catalogo vacio")
-    # print (catalog['bookIds'])
-    #input ("Catalogo booksIds vacio")
-    return catalog 
-    
+
+    return catalog
+
+
 def newAuthor(name):
     """
     Crea una nueva estructura para modelar los libros de un autor
@@ -99,6 +95,7 @@ def newAuthor(name):
     author['name'] = name
     author['books'] = lt.newList('SINGLE_LINKED', compareAuthorsByName)
     return author
+
 
 def newTagBook(name, id):
     """
@@ -119,6 +116,7 @@ def newTagBook(name, id):
 
 # Funciones para agregar informacion al catalogo
 
+
 def addBook(catalog, book):
     """
     Esta funcion adiciona un libro a la lista de libros,
@@ -128,15 +126,9 @@ def addBook(catalog, book):
     """
     lt.addLast(catalog['books'], book)
     mp.put(catalog['bookIds'], book['goodreads_book_id'], book)
-    #print (mp.get(catalog['bookIds'],book['authors']))
-    print (mp.get(catalog['bookIds'],book['goodreads_book_id']))
-    #input ("Ya estoy aqui.. y voy adicionar un book ....Clic para continuar")
-    print ("===============================================================================================================")
-    
     addBookYear(catalog, book)
-    
 
-    
+
 def addBookYear(catalog, book):
     """
     Esta funcion adiciona un libro a la lista de libros que
@@ -225,10 +217,57 @@ def addBookTag(catalog, tag):
 # ==============================
 
 
+def getBooksByAuthor(catalog, authorname):
+    """
+    Retorna un autor con sus libros a partir del nombre del autor
+    """
+    author = mp.get(catalog['authors'], authorname)
+    if author:
+        return me.getValue(author)
+    return None
 
-# ==============================
-# Funciones de Comparacion
-# ==============================
+
+def getBooksByTag(catalog, tagname):
+    """
+    Retornar la lista de libros asociados a un tag
+    """
+    tag = mp.get(catalog['tags'], tagname)
+    books = None
+    if tag:
+        books = me.getValue(tag)['books']
+    return books
+
+
+def booksSize(catalog):
+    """
+    Número de libros en el catago
+    """
+    return lt.size(catalog['books'])
+
+
+def authorsSize(catalog):
+    """
+    Numero de autores en el catalogo
+    """
+    return mp.size(catalog['authors'])
+
+
+def tagsSize(catalog):
+    """
+    Numero de tags en el catalogo
+    """
+    return mp.size(catalog['tags'])
+
+
+def getBooksByYear(catalog, year):
+    """
+    Retorna los libros publicados en un año
+    """
+    year = mp.get(catalog['years'], year)
+    if year:
+        return me.getValue(year)['books']
+    return None
+
 
 # ==============================
 # Funciones de Comparacion
@@ -312,5 +351,3 @@ def compareYears(year1, year2):
         return 1
     else:
         return 0
-
-
