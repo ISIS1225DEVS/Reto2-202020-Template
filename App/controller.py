@@ -77,11 +77,11 @@ def getDate(element):
     return date
 
 def getAverage(element):
-    average=getAverage(element)
+    average=model.getAverage(element)
     return average
 
 def getVotes(element):
-    votes=model.getVotes
+    votes=model.getVotes(element)
     return votes
 
 def getLang(element):

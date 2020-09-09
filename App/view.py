@@ -36,8 +36,8 @@ operación seleccionada.
 
 # ___________________________________________________
 #  Ruta a los archivos
-Casting = "themovies/MoviesCastingRaw-small.csv"
-Details = "themovies/SmallMoviesDetailsCleaned.csv"
+Casting = "themoviesdb/MoviesCastingRaw-small.csv"
+Details = "themoviesdb/SmallMoviesDetailsCleaned.csv"
 # ___________________________________________________
 
 
@@ -58,14 +58,14 @@ def printinfo(lst):
     print("Promedio de votación: " + controller.getAverage(primer_elemento))
     print("Numero de votos: " + controller.getVotes(primer_elemento))
     print("Idioma de la película: " + controller.getLang(primer_elemento))
-    print("Información Última Película\n")
+    print("\nInformación Última Película\n")
     ultimo_elemento = controller.getLastElement(lst)
     print("Título: " + controller.getTitle(ultimo_elemento))
     print("Fecha de estreno: " + controller.getDate(ultimo_elemento))
     print("Promedio de votación: " + controller.getAverage(ultimo_elemento))
     print("Número de votos: " + controller.getVotes(ultimo_elemento))
     print("Idioma de la película: " + controller.getLang(ultimo_elemento))
-    
+    print("\n")
 
 
 def printMenu():
@@ -75,6 +75,7 @@ def printMenu():
     print("Opción 4: Requerimiento 3")
     print("Opción 5: Requerimiento 4")
     print("Opción 6: Requerimiento 5")
+    print("Opción 7: Salir")
     
 
 
@@ -101,8 +102,6 @@ while True:
     elif int(inputs[0]) == 5:
         print(0)
     elif int(inputs[0]) == 6:
-        print(0)
-    elif int(inputs[0]) == 7:
         print(0)
     else:
         sys.exit(0)
