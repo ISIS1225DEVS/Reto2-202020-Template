@@ -39,8 +39,11 @@ recae sobre el controlador.
 
 
 
-
 # ___________________________________________________
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
 # ___________________________________________________
+
+def loadCSVFile (file1, file2):
+    model.newCatalog(file1, file2, cmpfunction)
+    
