@@ -36,7 +36,9 @@ recae sobre el controlador.
 # ___________________________________________________
 #  Inicializacion del catalogo
 # ___________________________________________________
-
+def initCatalog():
+    catalog = model.newCatalog()
+    return catalog
 
 
 

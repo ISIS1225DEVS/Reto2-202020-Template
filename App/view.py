@@ -38,7 +38,8 @@ operación seleccionada.
 #  Ruta a los archivos
 # ___________________________________________________
 
-
+moviedb = 'Data/themoviesdb/MoviesCastingRaw-small.csv' 
+actorsdb = 'Data/themoviesdb/MoviesCastingRaw-small.csv'
 
 
 
@@ -53,3 +54,42 @@ operación seleccionada.
 # ___________________________________________________
 #  Menu principal
 # ___________________________________________________
+def printMenu():
+    print("Bienvenido")
+    print("1- Inicializar catalogo")
+    print("2- imprimir peliculas prueba ")           
+    print("3- PLACEHOLDER  夜空はなんでも知ってるの？")    #placeholder
+    print("4- PLACEHOLDER  秋のあなたの空遠く")              #placeholder
+    print("5- PLACEHOLDER  無敵級＊ビリーバー")          #placeholder
+    print("0- Salir")       
+
+
+while True:
+    printMenu()
+    inputs = input('Seleccione una opción para continuar\n')
+
+    if int(inputs[0]) == 1:
+        print("Inicializando Catálogo ....")
+        # cont es el controlador que se usará de acá en adelante
+        cont = controller.initCatalog()
+
+    elif int(inputs[0]) == 2:
+        print("Cargando información de los archivos ....")
+        #controller.loadData(cont, booksfile, tagsfile, booktagsfile)
+        #print('Libros cargados: ' + str(controller.booksSize(cont)))
+        #print('Autores cargados: ' + str(controller.authorsSize(cont)))
+        #print('Géneros cargados: ' + str(controller.tagsSize(cont)))
+
+    elif int(inputs[0]) == 3:
+        pass    
+
+    elif int(inputs[0]) == 4:
+        pass
+
+    elif int(inputs[0]) == 5:
+        pass
+    else:
+        sys.exit(0)
+sys.exit(0)
+
+
