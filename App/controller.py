@@ -85,9 +85,11 @@ def movies_size(catalog):
     """
     return model.moviesSize(catalog)
 
-def movies_name(catalog):
+
+def movies_data(catalog, position):
     """
-    Nombre películas
-    """
-    return model.movie_name(catalog)
+    Devuelve el vote average de la película
+    """ 
+    return model.movie_name(catalog,position),model.movie_relase_date(catalog,position),model.movie_vote_average(catalog,position), model.movie_vote_count(catalog,position),model.movie_language(catalog, position)
+
 

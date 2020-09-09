@@ -71,8 +71,10 @@ while True:
         cont = controller.initCatalog_movies()
         controller.loadData(cont, moviesfile)
         print('Se cargaron ',controller.movies_size(cont), 'datos')
-        print(controller.movies_name)
-
+        title1, date1, average1, number1, language1 = controller.movies_data(cont,1)
+        title2, date2, average2, number2, language2 = controller.movies_data(cont,controller.movies_size(cont))
+        print('La primera película del catálogo es', title1, 'fue estrenada el ', date1, ', tuvo un promedio de votación de ', average1, ' con un número de votos de', number1, 'y su idioma original fue ', language1)
+        print('La última película del catálogo es', title2, 'fue estrenada el ', date2, ', tuvo un promedio de votación de ', average2, ' con un número de votos de', number2, 'y su idioma original fue ', language2)
         
     elif int(inputs[0]) == 0:
         sys.exit(0)

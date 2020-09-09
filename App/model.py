@@ -339,6 +339,8 @@ def addMovie(catalog, movie):
     lt.addLast(catalog['movies'], movie)
     mp.put(catalog['moviesIds'], movie['id'], movie)
 
+
+
 def addMovieDirector(catalog_movies, catalog_casting, directorname, movie):
     """
     Esta función adiciona una película a la lista de películas dirigidas
@@ -369,12 +371,40 @@ def moviesSize(catalog):
     """
     return lt.size(catalog['movies'])
 
-def movie_name(catalog):
+def movie_name(catalog, position):
     """
     Devuelve el nombre de la película
-
     """
-    return catalog['title']
+    lista = lt.getElement(catalog['movies'], position)
+    return lista['title'] 
+
+def movie_vote_average(catalog, position):
+    """
+    Devuelve el vote average de la película
+    """    
+    lista = lt.getElement(catalog['movies'],position)
+    return lista['vote_average'] 
+
+def movie_relase_date(catalog, position):
+    """
+    Devuelve la fecha de estreno de la película
+    """
+    lista = lt.getElement(catalog['movies'],position)
+    return lista['release_date']
+
+def movie_vote_count(catalog, position):
+    """
+    Devuelve el número de votos de la película
+    """
+    lista = lt.getElement(catalog['movies'],position)
+    return lista ['vote_count']
+
+def movie_language(catalog, position):
+    """
+    Devuelve el lenguaje en el que se habla la película
+    """
+    lista = lt.getElement(catalog['movies'],position)
+    return lista ['original_language']
 
 # ==============================
 # Funciones de Comparacion
