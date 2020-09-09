@@ -38,9 +38,8 @@ operación seleccionada.
 #  Ruta a los archivos
 # ___________________________________________________
 
-
-
-
+listCasting = 'Data/MoviesCastingRaw-small.csv'
+listMovies = 'Data/SmallMoviesDetailsCleaned.csv'
 
 # ___________________________________________________
 #  Funciones para imprimir la inforamación de
@@ -48,8 +47,40 @@ operación seleccionada.
 #  el controlador.
 # ___________________________________________________
 
+def printInfo():
+    print("La primera pelicula cargada es: " + str(controller.get))
+    print("La fecha de estreno fue: ")
+    print("El promedio de votación fue: ")
+    print("El numero de votos fue: ")
+    print("El idioma original es: ")
 
-
+    print("La última pelicula cargada es: ")
+    print("La fecha de estreno fue: ")
+    print("El promedio de votación fue: ")
+    print("El numero de votos fue: ")
+    print("El idioma original es: ")
+    
 # ___________________________________________________
 #  Menu principal
 # ___________________________________________________
+
+def printMenu():
+    print("Bienvenido")
+    print("1- Inicializar catálogo")
+    print("2- Cargar peliculas en el catálogo")
+    print("0- Salir")
+
+while True:
+    printMenu()
+    inputs = input('Seleccione una opción para continuar\n')
+    if int(inputs[0]) == 1:
+        print("Inicializando Catálogo ....")
+        movies = controller.initCatalog()
+    elif int(inputs[0]) == 2:
+        print("Cargando información de los archivos ....")
+        controller.loadData(movies, listCasting, listMovies)
+        print("Peliculas cargadas: " + str(controller.MoviesSize(movies)))
+        printInfo()
+    else:
+        sys.exit(0)
+sys.exit(0)
