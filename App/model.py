@@ -52,3 +52,14 @@ es decir contiene los modelos con los datos en memoria
 # ==============================
 
 
+#===============================
+def newList():
+    a = lt.newList()
+    return a
+
+def addLast(lst, element):
+    lt.addLast(lst, element)
+
+def giveSize(lst):
+    size = lt.size(lst)
+    return size

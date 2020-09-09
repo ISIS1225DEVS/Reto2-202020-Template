@@ -21,7 +21,7 @@
  """
 
 import config as cf
-from App import model
+from App import model as model
 import csv
 
 
@@ -32,7 +32,6 @@ el modelo varias veces o integrar varias de las respuestas
 del modelo en una sola respuesta. Esta responsabilidad
 recae sobre el controlador.
 """
-
 # ___________________________________________________
 #  Inicializacion del catalogo
 # ___________________________________________________
@@ -44,3 +43,30 @@ recae sobre el controlador.
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
 # ___________________________________________________
+
+def newListDetails():
+    a = model.newList()
+    return a
+
+def loadDetails(lst, detailsfile):
+    detailsfile = cf.data_dir + detailsfile
+    dialect = csv.excel()
+    dialect.delimiter = ";"
+    input_file = csv.DictReader(open(detailsfile,encoding="utf-8"),dialect= dialect)
+    for movie in input_file:
+        model.addLast(lst,movie)
+
+def detailsSize(lst):
+    size = model.giveSize(lst)
+    return size
+
+def getTitle(element):
+    return element["original_title"]
+def getDate(element):
+    return element["release_date"]
+def getAverage(element):
+    return element["vote_average"]
+def getVotes(element):
+    return element["vote_count"]
+def getLang(element):
+    return element["original_language"]
