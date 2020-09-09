@@ -64,7 +64,7 @@ def add_details(catalog, movie):
 
 
 def add_casting(catalog, movie):
-    """"
+    """
     Esta función adiciona un elenco a la lista de películas,
     adicionalmente lo guarda en un Map usando como llave su Id.
     """
@@ -73,20 +73,7 @@ def add_casting(catalog, movie):
 
 
 # ==============================
-# Funciones de Comparación.
-# ==============================
-def compare_ids(id, tag):
-    entry = me.getKey(tag)
-    if int(id) == int(entry):
-        return 0
-    elif int(id) > int(entry):
-        return 1
-    else:
-        return
-
-
-# ==============================
-# Funciones adicionales.
+# Funciones de consulta
 # ==============================
 def details_size(catalog):
     # Número de detalles en el catálogo.
@@ -103,6 +90,19 @@ def show_movie_data(catalog, index):
     return (f'- {el["title"]}:'
             + f'\n   con un puntaje promedio de {el["vote_average"]} y un total de {el["vote_count"]} votaciones,'
             + f'\n   fue estrenada en {el["release_date"]} en el idioma "{el["original_language"]}".')
+
+
+# ==============================
+# Funciones de Comparacion
+# ==============================
+def compare_ids(id, tag):
+    entry = me.getKey(tag)
+    if int(id) == int(entry):
+        return 0
+    elif int(id) > int(entry):
+        return 1
+    else:
+        return 0
 
 
 # ==============================
