@@ -34,6 +34,23 @@ es decir contiene los modelos con los datos en memoria
 # -----------------------------------------------------
 # API del TAD Catalogo de Libros
 # -----------------------------------------------------
+"""
+def load_csv_file(casting_file, movie_file, sep = ';' ):
+    
+    Args: 
+        movie_file
+             Archivo de texto del cual se cargan los detalles de las películas
+        casting_file
+            Archivo de texto del cual se cargan los detalles del casting
+        sep 
+            Separadores de código para diferenciar los elementos del archivo
+    
+    casting_file, movie_file = lt.newList('SINGLE_LINKED'),lt.newList('SINGLE_LINKED')
+    print('Cargando Archivos.....')
+
+"""
+
+
 
 def newCatalog_movies():
     """Inicializa el catálogo de películas
@@ -396,4 +413,3 @@ def compareDirectorsByName(keyname, director):
         return 1
     else:
         return -1
-

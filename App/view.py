@@ -38,8 +38,8 @@ operación seleccionada.
 #  Ruta a los archivos
 # ___________________________________________________
 
-moviesfile = '.../Data/Peliculas/SmallMoviesDetailsCleaned.csv'
-castingfile = '.../Data/Peliculas/MoviesCastingRaw-Small.csv'
+moviesfile = 'Peliculas/SmallMoviesDetailsCleaned.csv'
+castingfile = 'Peliculas/MoviesCastingRaw-Small.csv'
 
 # ___________________________________________________
 #  Funciones para imprimir la inforamación de
