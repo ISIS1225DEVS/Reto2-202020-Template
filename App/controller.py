@@ -72,3 +72,11 @@ def loadMovies(movieslst, moviesfile):
 def LoadCasting(catalog, tagsfile):
     pass
 
+
+
+# ___________________________________________________
+#  Funciones para consultas
+# ___________________________________________________
+
+def moviesSize(inputMovies):
+    return model.moviesSize(inputMovies)

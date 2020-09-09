@@ -73,6 +73,7 @@ while True:
     if int(inputs[0]) == 1:
         resultList= lt.newList()
         controller.loadData(resultList, moviesFile)
+        print('Se cargaron: ' + str(controller.moviesSize(cont)), ' peliculas')
 
     elif int(inputs[0]) == 2:
         primera = (lt.getElement(resultList,0))

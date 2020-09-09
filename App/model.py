@@ -73,6 +73,8 @@ def newCatalog():
 # ==============================
 # Funciones de consulta
 # ==============================
+def moviesSize(inputMovies):
+    return lt.size(inputMovies)
 
 
 
@@ -112,7 +114,7 @@ def loadCSVFile (file,cmpfunction):
 def createList():
     lt.newList()
 
-def addMovie(lstmovie, movie);
+def addMovie(lstmovie, movie):
     lt.addLast(lstmovie, movie)
 
 
