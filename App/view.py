@@ -53,3 +53,28 @@ operación seleccionada.
 # ___________________________________________________
 #  Menu principal
 # ___________________________________________________
+
+def printMenu():
+    print('Bienvenid@')
+    print('1- Cargar Películas')
+    print('2- ')
+    print('3- ')
+    print('0- Salir')
+
+while True:
+    printMenu()
+    inputs = input('seleccione una opción para\n')
+
+    if int(inputs[0]) == 1:
+        lstmovies = controller.loadCSVFile("theMoviesdb/AllMoviesDetailsCleaned.csv","theMoviesdb/AllMoviesCastingRaw.csv")
+    
+    elif int(inputs[0]) == 2:
+
+    elif int(inputs[0]) == 3:
+    
+    elif int(inputs[0]) == 0:
+        sys.exit(0)
+
+
+
+

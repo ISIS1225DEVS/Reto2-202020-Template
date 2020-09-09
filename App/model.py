@@ -38,7 +38,50 @@ es decir contiene los modelos con los datos en memoria
 
 
 # Funciones para agregar informacion al catalogo
+def newCatalog (file1, file2, compareRecordIds):
+    lst = lt.newCatalog()
+    dialect = csv.excel()
+    dialect.delimiter=";"
+    try:
+        with open(  cf.data_dir + file1, encoding="utf-8-sig") as csvfile1:
+            row = csv.DictReader(csvfile1, dialect=dialect)
+            for elemento in row:
+                lt.addLast(lst,elemento)
+        with open(cf.data_dir + file2, encoding="utf-8-sig") as csvfile2: #Cambiamos el encoding ya que generaba
+            row = csv.DictReader(csvfile2,dialect=dialect)                
+            i = 1
+            for elemento in row:
+                if elemento["id"] == lt.getElement(lst,i)["id"]:
+                    for column in elemento:
+                        if column != "id":
+                            lt.getElement(lst,i)[column] = elemento[column]
+                i += 1
 
+    except:
+        print("Hubo un error con la carga del archivo")
+
+    print("Datos cargados, " + str(lt.size(lst)) + " elementos cargados")
+    print(lt.firstElement(lst))
+    print(lt.lastElement(lst)))    
+    return lst
+
+def addMovie (movie):
+    pass
+
+def moviesByProductionCompany (companyname):
+    pass
+
+def moviesByCountry (countryname):
+    pass
+
+def moviesByDirector (directorname):
+    pass
+
+def moviesByActor (actorname):
+    pass
+
+def moviesByGenre (genre):
+    pass
 
 
 # ==============================
@@ -51,4 +94,10 @@ es decir contiene los modelos con los datos en memoria
 # Funciones de Comparacion
 # ==============================
 
+def compareRecordIds (recordA, recordB):
+    if int(recordA['id']) == int(recordB['id']):
+        return 0
+    elif int(recordA['id']) > int(recordB['id']):
+        return 1
+    return -1
 
