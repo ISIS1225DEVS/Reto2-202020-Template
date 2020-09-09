@@ -56,10 +56,19 @@ def new_catalog():
 # Funciones para agregar información al catálogo.
 def add_details(catalog, movie):
     """
-    Esta funcion adiciona detalles a la lista de películas,
+    Esta función adiciona detalles a la lista de películas,
     adicionalmente los guarda en un Map usando como llave su Id.
     """
     lt.addLast(catalog['details'], movie)
+    mp.put(catalog['movies_ids'], movie['id'], movie)
+
+
+def add_casting(catalog, movie):
+    """"
+    Esta función adiciona un elenco a la lista de películas,
+    adicionalmente lo guarda en un Map usando como llave su Id.
+    """
+    lt.addLast(catalog['casting'], movie)
     mp.put(catalog['movies_ids'], movie['id'], movie)
 
 
@@ -395,14 +404,6 @@ def addMovieDirector(catalog_movies, catalog_casting, directorname, movie):
     movies = catalog_movies['movies']
     existdirector = mp.contains(directors, directorname)
     existmovie = mp.contains(movies, movie)
-
-def add_casting(catalog, movie):
-    ======
-    # Esta funcion adiciona un elenco a la lista de películas,
-    # adicionalmente lo guarda en un Map usando como llave su Id.
-    =====
-    lt.addLast(catalog['casting'], movie)
-    mp.put(catalog['movies_ids'], movie['id'], movie)
     if existdirector:
         entry = mp.get(directors,directorname)
         value = mp.getValue(entry)
@@ -410,7 +411,6 @@ def add_casting(catalog, movie):
         director = newDirector(directorname)
         mp.put(directors,directors,director)
 """
-
 
 # ==============================
 # Funciones de consulta
@@ -451,7 +451,6 @@ def movie_language(catalog, position):
     lista = lt.getElement(catalog['movies'],position)
     return lista ['original_language']
 """
-
 
 # ==============================
 # Funciones de Comparacion
