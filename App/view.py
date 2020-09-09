@@ -67,18 +67,19 @@ def printMenu():
 while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')
+    
 
+    #se reemplazo la separación entre casting s y casting L. Es redundante caragr ambos metodos
     if int(inputs[0]) == 1:
-        print("Inicializando Catálogo ....")
-        # cont es el controlador que se usará de acá en adelante
-        cont = controller.initCatalog()
+        controller.loadData(resultList, moviesFile, castingFile)
 
     elif int(inputs[0]) == 2:
-        print("Cargando información de los archivos ....")
-        #controller.loadData(cont, booksfile, tagsfile, booktagsfile)
-        #print('Libros cargados: ' + str(controller.booksSize(cont)))
-        #print('Autores cargados: ' + str(controller.authorsSize(cont)))
-        #print('Géneros cargados: ' + str(controller.tagsSize(cont)))
+        primera = (lt.getElement(resultList,0))
+        ultima = (lt.getElement(resultList, int(lt.size(resultList))-1))
+        print ("se encontraron :", lt.size(resultList), " peliculas" )           
+        print("primera pelicula: ", (primera['original_title']), (primera['original_language']), (primera['release_date']), (primera['vote_count']), (primera['vote_average']) )
+        print("ultima pelicula: ", (ultima['original_title']), (ultima['original_language']), (ultima['release_date']), (ultima['vote_count']), (ultima['vote_average']) )
+        input ("presione una tecla para volver al menu...")
 
     elif int(inputs[0]) == 3:
         pass    

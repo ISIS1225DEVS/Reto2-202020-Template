@@ -35,15 +35,10 @@ es decir contiene los modelos con los datos en memoria
 # API del TAD Catalogo de Libros
 # -----------------------------------------------------
 
-def newCatalog():
-    """ Inicializa el catálogo 
-    Se crean indices (Maps) por los siguientes criterios:
-    Directores
-    ID 
-    Idioma
-    Año 
 
-    """
+#este codiggo se va a utilizar posteriormente para implementar el hashmap
+"""
+def newCatalog():
     catalog = {'movies': None,
                 'id': None,
                 'director_name': None,
@@ -69,7 +64,7 @@ def newCatalog():
                                 comparefunction=compareReleaseDate)
 
     return catalog
-
+"""
 
 # Funciones para agregar informacion al catalogo
 
@@ -84,5 +79,40 @@ def newCatalog():
 # ==============================
 # Funciones de Comparacion
 # ==============================
+
+def compareRecordIds (recordA, recordB):
+    if int(recordA['id']) == int(recordB['id']):
+        return 0
+    elif int(recordA['id']) > int(recordB['id']):
+        return 1
+    return -1
+
+
+def loadCSVFile (file,cmpfunction):
+    sep=";"
+    lst = lt.newList("ARRAY_LIST") #Usando implementacion arraylist
+    #lst = lt.newList("SINGLE_LINKED") #Usando implementacion linkedlist
+    
+
+    dialect = csv.excel()
+    dialect.delimiter=sep
+    try:
+        with open(file, encoding="utf-8") as csvfile:
+            spamreader = csv.DictReader(csvfile, dialect=dialect)
+            for row in spamreader: 
+                lt.addLast(lst,row)
+    except:
+        print("Hubo un error con la carga del archivo")
+    
+    return lst
+
+
+
+
+def createList():
+    lt.newList()
+
+def addMovie(lstmovie, movie);
+    lt.addLast(lstmovie, movie)
 
 
