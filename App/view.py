@@ -83,18 +83,18 @@ Menú principal
 """
 while True:
     print_menu()
-    input = ("Seleccione una opción para continuar\n")
+    inputs = input("Seleccione una opción para continuar\n")
 
-    if int(input) == 1:
+    if int(inputs[0]) == 1:
         print("Inicizaliando catálogo...")
         catalogo=controller.initCatalog()
 
-    elif int(input) == 2:
+    elif int(inputs[0]) == 2:
         print("Cargando archivos...")
         controller.loadDetails(catalogo,small_movies_details)
         print("Archivos cargados")
 
-    elif int(input) == 3:
+    elif int(inputs[0]) == 3:
         movies=catalogo['peliculas']
         print_movies_information(movies)
 
