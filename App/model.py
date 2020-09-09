@@ -133,7 +133,7 @@ def darAutor(catalog,nombre_director):
 def darGenero(catalog,nombre_genero):
     existe_genero= lt.isPresent(catalog["Generos"],nombre_genero)
     genero=lt.getElement(catalog["Generos"],existe_genero)
-    print("Se encontraron",lt.size(genero["Peliculas_genero"]),"del genero",nombre_genero)
+    print("Se encontraron",lt.size(genero["Peliculas_genero"]),"del genero",nombre_genero,"\n")
 
 # Funciones para agregar informacion al catalogo
 
