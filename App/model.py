@@ -20,6 +20,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  """
 import config
+import csv
 from DISClib.ADT import list as lt
 from DISClib.ADT import map as mp
 from DISClib.DataStructures import mapentry as me
@@ -35,20 +36,39 @@ es decir contiene los modelos con los datos en memoria
 # API del TAD Catalogo de Libros
 # -----------------------------------------------------
 
-
-
+def iniciarTADLista():
+    lst = lt.newList("ARRAY_LIST", compareRecordIds)
+    return lst
 # Funciones para agregar informacion al catalogo
 
+def loadCSVFile (lst, file, cmpfunction):
+    dialect = csv.excel()
+    dialect.delimiter=";"
+    try:
+        with open( file, encoding="utf-8-sig") as csvfile:
+            row = csv.DictReader(csvfile, dialect=dialect)
+            for elemento in row: 
+                lt.addLast(lst,elemento)
+    except:
+        print("Hubo un error con la carga del archivo")
+    return lst
 
-
+def cargarPeliculas(lst,file):
+    lista = loadCSVFile(lst, file,compareRecordIds)
+    return lista
+    
 # ==============================
 # Funciones de consulta
 # ==============================
-
-
 
 # ==============================
 # Funciones de Comparacion
 # ==============================
 
+def compareRecordIds (recordA, recordB):
+    if int(recordA['id']) == int(recordB['id']):
+        return 0
+    elif int(recordA['id']) > int(recordB['id']):
+        return 1
+    return -1
 

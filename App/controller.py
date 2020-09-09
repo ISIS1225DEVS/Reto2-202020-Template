@@ -22,8 +22,8 @@
 
 import config as cf
 from App import model
+from DISClib.ADT import list as lt
 import csv
-
 
 """
 El controlador se encarga de mediar entre la vista y el modelo.
@@ -37,10 +37,17 @@ recae sobre el controlador.
 #  Inicializacion del catalogo
 # ___________________________________________________
 
-
-
+def iniciarLista():
+    lista = model.iniciarTADLista()
+    return lista
 
 # ___________________________________________________
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
 # ___________________________________________________
+
+def cargarPeliculas(lst, file):
+    lista = model.cargarPeliculas(lst,file)
+    first = lt.getElement(lista,1)
+    last = lt.lastElement(lista)
+    return(lt.size(lista),first,last)

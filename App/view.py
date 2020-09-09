@@ -38,9 +38,7 @@ operación seleccionada.
 #  Ruta a los archivos
 # ___________________________________________________
 
-
-
-
+details = "Data/SmallMoviesDetailsCleaned.csv"
 
 # ___________________________________________________
 #  Funciones para imprimir la inforamación de
@@ -48,8 +46,40 @@ operación seleccionada.
 #  el controlador.
 # ___________________________________________________
 
-
+def printMovieData(element):
+    print(element["title"]+":")
+    print("a. Fecha de estreno: "+element["release_date"])
+    print("b. Promedio de la votación: "+element["vote_average"])
+    print("c. Número de votos: "+element["vote_count"])
+    print("d. Idioma: "+element["original_language"]+"\n")
 
 # ___________________________________________________
 #  Menu principal
 # ___________________________________________________
+
+def printMenu():
+    print("Bienvenido")
+    print("1- Iniciar lista")
+    print("2- Cargar peliculas a la lista lista")
+    print("0- Salir")
+
+"""
+Menu principal
+"""
+while True:
+    printMenu()
+    inputs = input('Seleccione una opción para continuar\n')
+
+    if int(inputs[0]) == 1:
+        print("Iniciando lista ....")
+        lista = controller.iniciarLista()
+        print("Se creo lista con exito")
+    elif int(inputs[0]) == 2:
+        print("Cargando películas ....")
+        size,first,last = controller.cargarPeliculas(lista, details)
+        print("Se cargaron "+str(size)+ " películas"+"\n")
+        printMovieData(first)
+        printMovieData(last)
+    else:
+        sys.exit(0)
+sys.exit(0)
