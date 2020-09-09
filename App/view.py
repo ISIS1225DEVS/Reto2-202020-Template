@@ -71,7 +71,8 @@ while True:
 
     #se reemplazo la separación entre casting s y casting L. Es redundante caragr ambos metodos
     if int(inputs[0]) == 1:
-        controller.loadData(resultList, moviesFile, castingFile)
+        resultList= lt.newList()
+        controller.loadData(resultList, moviesFile)
 
     elif int(inputs[0]) == 2:
         primera = (lt.getElement(resultList,0))

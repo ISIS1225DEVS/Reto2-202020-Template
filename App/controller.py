@@ -53,9 +53,9 @@ def initCatalog():
 # ___________________________________________________
 
 
-def loadData (lstInput, moviesFile, castingFile):
+def loadData (lstInput, moviesFile):
     loadMovies(lstInput, moviesFile)
-    LoadCasting(lstInput, castingFile)
+    #loadCasting(lstInput, castingFile)
 
 
 
