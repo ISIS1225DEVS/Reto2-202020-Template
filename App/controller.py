@@ -36,6 +36,20 @@ recae sobre el controlador.
 # ___________________________________________________
 #  Inicializacion del catalogo
 # ___________________________________________________
+
+# Opción 1
+"""
+def initCatalog_movies():
+||||"""
+    #Llama la función de inicialización del catalogo de películas del modelo.
+    
+    """
+    # catalog_movies es utilizado para interactuar con el modelo de películas
+    catalog_movies = model.newCatalog_movies()
+    # catalog_casting es utilizado para interactural con l modelo de casting
+    return catalog_movies
+"""
+
 def init_catalog():
     """
     Llama la funcion de inicializacion del catalogo del modelo.
@@ -49,6 +63,54 @@ def init_catalog():
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
 # ___________________________________________________
+
+
+
+# Opción 1
+"""
+def loadData(catalog_movies, movies):
+    """
+    #Carga los datos de los archivos del modelo
+
+    #Args:
+     #   movies (csv): Archivo  que contiene las películas
+      #  casting (csv): Archivo que contiene el casting de las películas
+    """
+    loadMovies(catalog_movies, movies)
+"""
+# Opción 1
+"""
+def loadMovies(catalog, moviesfile):
+    """
+    #Carga cada una de las lineas del archivo de movies
+    """
+    dialect = csv.excel()
+    dialect.delimiter =';'
+    with open(moviesfile,encoding='utf-8-sig') as input_file:
+        file_reader = csv.DictReader(input_file, dialect=dialect)
+        for movie in file_reader:
+            model.addMovie(catalog, movie)    
+"""
+# Opción 1
+"""    
+
+def movies_size(catalog):
+    """
+    #Número de películas leídas
+    """
+    return model.moviesSize(catalog)
+"""
+# Opción 1
+"""
+
+def movies_data(catalog, position):
+    """
+    #Devuelve el vote average de la película
+    """ 
+    return model.movie_name(catalog,position),model.movie_relase_date(catalog,position),model.movie_vote_average(catalog,position), model.movie_vote_count(catalog,position),model.movie_language(catalog, position)
+
+"""
+
 def load_data(catalog, casting_file, details_file):
     """
     Carga los datos de los archivos en el modelo
@@ -98,3 +160,4 @@ def casting_size(catalog):
 
 def show_movie(catalog, index):
     print(model.show_movie_data(catalog, index))
+

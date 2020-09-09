@@ -35,11 +35,20 @@ hace la solicitud al controlador para ejecutar la
 operación seleccionada.
 """
 
+
 # ___________________________________________________
 #  Ruta a los archivos
 # ___________________________________________________
+
+# Opción 1
+"""
+moviesfile = 'Data/Peliculas/SmallMoviesDetailsCleaned.csv'
+castingfile = 'Data/Peliculas/MoviesCastingRaw-Small.csv'
+"""
+
 casting_file = config.data_dir + 'MoviesCastingRaw-small.csv'
 details_file = config.data_dir + 'MoviesDetailsCleaned-small.csv'
+
 
 
 # ___________________________________________________
@@ -52,6 +61,39 @@ details_file = config.data_dir + 'MoviesDetailsCleaned-small.csv'
 # ___________________________________________________
 #  Menu principal
 # ___________________________________________________
+
+# Opción 1
+"""
+def printmenu():
+    print('Bienvenido')
+    print('1. Cargar Archivos')
+    print('0. Salir del programa')
+"""
+
+"""
+ Menú principal
+"""
+# Opción 1
+"""
+while True:
+    printmenu()
+    inputs = input('Seleccione una opción para continuar: \n')
+    
+    if int(inputs[0]) == 1:
+        print('Inicializando Catálogo....')
+        cont = controller.initCatalog_movies()
+        controller.loadData(cont, moviesfile)
+        print('Se cargaron ',controller.movies_size(cont), 'datos')
+        title1, date1, average1, number1, language1 = controller.movies_data(cont,1)
+        title2, date2, average2, number2, language2 = controller.movies_data(cont,controller.movies_size(cont))
+        print('La primera película del catálogo es', title1, 'fue estrenada el ', date1, ', tuvo un promedio de votación de ', average1, ' con un número de votos de', number1, 'y su idioma original fue ', language1)
+        print('La última película del catálogo es', title2, 'fue estrenada el ', date2, ', tuvo un promedio de votación de ', average2, ' con un número de votos de', number2, 'y su idioma original fue ', language2)
+        
+    elif int(inputs[0]) == 0:
+        sys.exit(0)
+sys.exit(0)
+"""
+=======
 def print_menu():
     print('\nBienvenido,')
     print('1- Reinicializar el catálogo de películas.')
@@ -82,3 +124,4 @@ while True:
         sys.exit(0)
     else:
         print('Opción no válida, intente de nuevo')
+
