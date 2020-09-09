@@ -40,10 +40,10 @@ operación seleccionada.
 
 
 
-castingLarge='Data/themoviesdb/MoviesCastingRaw-large.csv'
-castingSmall='Data/themoviesdb/MoviesCastingRaw-small.csv'
-moviesLarge='Data/themoviesdb/MoviesDetailsCleaned-large.csv'
-moviesSmall='Data/themoviesdb/MoviesDetailsCleaned-small.csv'
+castingLarge='themoviesdb/MoviesCastingRaw-large.csv'
+castingSmall='themoviesdb/MoviesCastingRaw-small.csv'
+moviesLarge='themoviesdb/MoviesDetailsCleaned-large.csv'
+moviesSmall='themoviesdb/MoviesDetailsCleaned-small.csv'
 booksfile = 'GoodReads/books-small.csv'
 tagsfile = 'GoodReads/tags.csv' 
 booktagsfile = 'GoodReads/book_tags-small.csv'
@@ -87,14 +87,14 @@ while True:
         print("Inicializando Catálogo  Movies y Casting ....")
         # cont es el controlador que se usará de acá en adelante
         cont = controller.initCatalog()
-        
-        print ("")
+        print (cont)
         input ("Catalogo de movies y casting fue creado")
         
 
     elif int(inputs[0]) == 2:
         print("Cargando información de los archivos ....")
-        controller.loadData(cont, booksfile, tagsfile, booktagsfile)
+        #controller.loadData(cont, booksfile, tagsfile, booktagsfile)
+        controller.loadData(cont, moviesSmall,castingSmall)
         print('Libros cargados: ' + str(controller.booksSize(cont)))
         #print('Autores cargados: ' + str(controller.authorsSize(cont)))
         #print('Géneros cargados: ' + str(controller.tagsSize(cont)))

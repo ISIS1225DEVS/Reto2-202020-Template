@@ -54,23 +54,49 @@ def initCatalog():
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
 # ___________________________________________________
-def loadData(catalog, booksfile, tagsfile, booktagsfile):
+
+def loadData(catalog, moviesfile, castfile):
     """
     Carga los datos de los archivos en el modelo
     """
+    loadMovies(catalog, moviesfile)
+    
+
+"""def loadData(catalog, booksfile, tagsfile, booktagsfile):
+    Carga los datos de los archivos en el modelo
     loadBooks(catalog, booksfile)
+
+"""    
     
    # loadTags(catalog, tagsfile)
    # loadBooksTags(catalog, booktagsfile)
-
-
-def loadBooks(catalog, booksfile):
+   
+def loadMovies(catalog, moviesfile):
     """
     Carga cada una de las lineas del archivo de libros.
     - Se agrega cada libro al catalogo de libros
     - Por cada libro se encuentran sus autores y por cada
       autor, se crea una lista con sus libros
     """
+    moviesfile = cf.data_dir + moviesfile
+    print ("")
+    print (moviesfile)
+    input ("Clic para cargar archivo......")
+    input_file = csv.DictReader(open(moviesfile))
+    for i in input_file:
+        model.addMovie(catalog, i)
+        companies = movies['production_companies'].split(";")  # Se obtienen las productors
+        for j in companies:
+            model.addProductionCompany(catalog, i.strip(), movies)
+
+"""def loadBooks(catalog, booksfile):
+    
+    - Carga cada una de las lineas del archivo de libros.
+    - Se agrega cada libro al catalogo de libros
+    - Por cada libro se encuentran sus autores y por cada
+      autor, se crea una lista con sus libros
+    
+
     booksfile = cf.data_dir + booksfile
     print ("")
     print (booksfile)
@@ -81,7 +107,7 @@ def loadBooks(catalog, booksfile):
         authors = book['authors'].split(",")  # Se obtienen los autores
         for author in authors:
             model.addBookAuthor(catalog, author.strip(), book)
-
+"""
 
 def loadTags(catalog, tagsfile):
     """

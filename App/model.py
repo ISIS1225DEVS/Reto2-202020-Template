@@ -52,7 +52,7 @@ def newCatalog():
 
     Retorna el catalogo inicializado.
     """
-    catalog = {'books': None,
+    """ catalog = {'books': None,
                'bookIds': None,
                'authors': None,
                'tags': None,
@@ -87,7 +87,18 @@ def newCatalog():
     #print (catalog['books'])
     #input ("Catalogo vacio")
     # print (catalog['bookIds'])
-    #input ("Catalogo booksIds vacio")
+    #input ("Catalogo booksIds vacio")"""
+
+    catalog = {'movies': None,
+               'id': None,
+               'production_companies': None,
+               'original_title': None,
+               'vote_average': None,
+               'vote_count': None}
+
+    
+    catalog['movies'] = lt.newList('SINGLE_LINKED', compareMovieIds)
+
     return catalog 
     
 def newAuthor(name):
@@ -119,23 +130,40 @@ def newTagBook(name, id):
 
 # Funciones para agregar informacion al catalogo
 
-def addBook(catalog, book):
+
+def addMovie(catalog, movies):
     """
     Esta funcion adiciona un libro a la lista de libros,
     adicionalmente lo guarda en un Map usando como llave su Id.
     Finalmente crea una entrada en el Map de años, para indicar que este
     libro fue publicaco en ese año.
     """
+    lt.addLast(catalog['movies'], movies)
+    #mp.put(catalog['id'], movies['id'], movies)
+    #print (mp.get(catalog['bookIds'],book['authors']))
+    #print (mp.get(catalog['id'],movies['id']))
+    print (lt.getElement(catalog,1))
+    # input ("Ya estoy aqui.. y voy adicionar un book ....Clic para continuar")
+    print ("===============================================================================================================")
+    
+""" 
+def addBook(catalog, book):
+    
+    Esta funcion adiciona un libro a la lista de libros,
+    adicionalmente lo guarda en un Map usando como llave su Id.
+    Finalmente crea una entrada en el Map de años, para indicar que este
+    libro fue publicaco en ese año.
+    
     lt.addLast(catalog['books'], book)
     mp.put(catalog['bookIds'], book['goodreads_book_id'], book)
     #print (mp.get(catalog['bookIds'],book['authors']))
     print (mp.get(catalog['bookIds'],book['goodreads_book_id']))
     #input ("Ya estoy aqui.. y voy adicionar un book ....Clic para continuar")
     print ("===============================================================================================================")
-    
+
     addBookYear(catalog, book)
     
-
+"""
     
 def addBookYear(catalog, book):
     """
@@ -229,10 +257,22 @@ def addBookTag(catalog, tag):
 # ==============================
 # Funciones de Comparacion
 # ==============================
+def compareMovieIds(id1, id2):
+    """
+    Compara dos ids de libros
+    """
+    if (id1 == id2):
+        return 0
+    elif id1 > id2:
+        return 1
+    else:
+        return -1
+        
 
 # ==============================
 # Funciones de Comparacion
 # ==============================
+
 
 
 def compareBookIds(id1, id2):
