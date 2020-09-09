@@ -33,15 +33,16 @@ Presenta el menu de opciones y por cada seleccion
 hace la solicitud al controlador para ejecutar la
 operación seleccionada.
 """
-# Opción 1 
-"""
+
+
 # ___________________________________________________
 #  Ruta a los archivos
 # ___________________________________________________
-
+# Opción 1
+"""
 moviesfile = 'Data/Peliculas/SmallMoviesDetailsCleaned.csv'
 castingfile = 'Data/Peliculas/MoviesCastingRaw-Small.csv'
-
+"""
 # ___________________________________________________
 #  Funciones para imprimir la inforamación de
 #  respuesta.  La vista solo interactua con
@@ -53,15 +54,18 @@ castingfile = 'Data/Peliculas/MoviesCastingRaw-Small.csv'
 # ___________________________________________________
 #  Menu principal
 # ___________________________________________________
-
+# Opción 1
+"""
 def printmenu():
     print('Bienvenido')
     print('1. Cargar Archivos')
     print('0. Salir del programa')
-
+"""
 
 """
  Menú principal
+"""
+# Opción 1
 """
 while True:
     printmenu()
@@ -81,5 +85,3 @@ while True:
         sys.exit(0)
 sys.exit(0)
 """
-
-

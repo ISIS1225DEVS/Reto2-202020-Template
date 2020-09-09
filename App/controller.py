@@ -32,12 +32,13 @@ el modelo varias veces o integrar varias de las respuestas
 del modelo en una sola respuesta. Esta responsabilidad
 recae sobre el controlador.
 """
-#Opción 1
-"""
+
+
 # ___________________________________________________
 #  Inicializacion del catalogo
 # ___________________________________________________
-
+# Opción 1
+"""
 def initCatalog_movies():
     """
     Llama la función de inicialización del catalogo de películas del modelo.
@@ -47,14 +48,15 @@ def initCatalog_movies():
     catalog_movies = model.newCatalog_movies()
     # catalog_casting es utilizado para interactural con l modelo de casting
     return catalog_movies
-
+"""
 # ___________________________________________________
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
 # ___________________________________________________
 
 
-
+# Opción 1
+"""
 def loadData(catalog_movies, movies):
     """
     Carga los datos de los archivos del modelo
@@ -64,8 +66,9 @@ def loadData(catalog_movies, movies):
         casting (csv): Archivo que contiene el casting de las películas
     """
     loadMovies(catalog_movies, movies)
-
-
+"""
+# Opción 1
+"""
 def loadMovies(catalog, moviesfile):
     """
     Carga cada una de las lineas del archivo de movies o casting.
@@ -78,14 +81,18 @@ def loadMovies(catalog, moviesfile):
         file_reader = csv.DictReader(input_file, dialect=dialect)
         for movie in file_reader:
             model.addMovie(catalog, movie)    
-    
+"""
+# Opción 1
+"""    
 
 def movies_size(catalog):
     """
     Número de películas leídas
     """
     return model.moviesSize(catalog)
-
+"""
+# Opción 1
+"""
 
 def movies_data(catalog, position):
     """

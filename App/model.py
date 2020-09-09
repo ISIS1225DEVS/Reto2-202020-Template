@@ -30,14 +30,15 @@ En este archivo definimos los TADs que vamos a usar,
 es decir contiene los modelos con los datos en memoria
 
 """
-# Opción 1
-"""
+
+
 # -----------------------------------------------------
 # API del TAD Catalogo de Libros
 # -----------------------------------------------------
 
 
-
+# Opción 1 
+"""
 def newCatalog_movies():
     """Inicializa el catálogo de películas
 
@@ -174,7 +175,10 @@ def newCatalog_movies():
                             loadfactor = 0.5,
                             comparefunction = None)
     return catalog
+"""
 
+# Opción 1
+"""
 def newCatalog_casting():
     """Inicializa el catálogo del casting
 
@@ -302,7 +306,9 @@ def newCatalog_casting():
                                        loadfactor=0.5,
                                        comparefunction=None)      
     return catalog
-
+"""
+# Opción 1
+"""
 def newDirector(name):
     """
     Crea una estructura para modelar las peliculas de un director y su
@@ -312,10 +318,12 @@ def newDirector(name):
     director['name'] = name
     director['movies'] = lt.newList('SINGLE_LINKERD',compareDirectorsByName)
     return director
-
+"""
 
 # Funciones para agregar informacion al catalogo
 
+# Opción 1
+"""
 def addMovie(catalog, movie):
     """
     Esta función adiciona una película a la lista de películas,
@@ -324,9 +332,11 @@ def addMovie(catalog, movie):
     """
     lt.addLast(catalog['movies'], movie)
     mp.put(catalog['moviesIds'], movie['id'], movie)
+"""
 
+# Opción 1
 
-
+"""
 def addMovieDirector(catalog_movies, catalog_casting, directorname, movie):
     """
     Esta función adiciona una película a la lista de películas dirigidas
@@ -345,57 +355,69 @@ def addMovieDirector(catalog_movies, catalog_casting, directorname, movie):
         director = newDirector(directorname)
         mp.put(directors,directors,director)
 
-
+"""
     
 # ==============================
 # Funciones de consulta
 # ==============================
-
+# Opción 1
+"""
 def moviesSize(catalog):
     """
     Número de películas en el catago
     """
     return lt.size(catalog['movies'])
-
+"""
+# Opción 1
+"""
 def movie_name(catalog, position):
     """
     Devuelve el nombre de la película
     """
     lista = lt.getElement(catalog['movies'], position)
     return lista['title'] 
-
+"""
+# Opción 1
+"""
 def movie_vote_average(catalog, position):
     """
     Devuelve el vote average de la película
     """    
     lista = lt.getElement(catalog['movies'],position)
     return lista['vote_average'] 
-
+"""
+# Opción 1
+"""
 def movie_relase_date(catalog, position):
     """
     Devuelve la fecha de estreno de la película
     """
     lista = lt.getElement(catalog['movies'],position)
     return lista['release_date']
-
+"""
+# Opción 1
+"""
 def movie_vote_count(catalog, position):
     """
     Devuelve el número de votos de la película
     """
     lista = lt.getElement(catalog['movies'],position)
     return lista ['vote_count']
-
+"""
+# Opción 1
+"""
 def movie_language(catalog, position):
     """
     Devuelve el lenguaje en el que se habla la película
     """
     lista = lt.getElement(catalog['movies'],position)
     return lista ['original_language']
-
+"""
 # ==============================
 # Funciones de Comparacion
 # ==============================
-
+# Opción 1
+"""
 def compareMoviesIds(id1, id2):
     """Compara dos ids de películas 
 
@@ -409,7 +431,9 @@ def compareMoviesIds(id1, id2):
         return 1
     else:
         return -1
-
+"""
+# Opción 1
+"""
 def compareMapMoviesIds(id, entry):
     """
     Compara dos ids de las películas, id es un identificador
@@ -422,7 +446,9 @@ def compareMapMoviesIds(id, entry):
         return 1
     else:
         return -1
-
+"""
+# Opción 1
+"""
 def compareDirectorsByName(keyname, director):
     """
     Compara dos nombres de directores. El primero es una cadena
