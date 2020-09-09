@@ -1,4 +1,4 @@
-# Reto #2
+# Laboratorio #4
 
 ### Tablas de hash
 
