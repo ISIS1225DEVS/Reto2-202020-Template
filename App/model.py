@@ -59,7 +59,7 @@ def newCatalog():
     catalog["Directors"] = mp.newMap(1000,
                                 maptype="PROBING",
                                 loadfactor=0.4,
-                                comparefunction=compareDirectors)
+                                comparefunction=compareDirectors)∏
     catalog["Actors"] = mp.newMap(1000,
                                     maptype="PROBING"
                                     loadfactor=0.4,
