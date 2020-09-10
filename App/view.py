@@ -24,7 +24,7 @@ import sys
 import config
 from DISClib.ADT import list as lt
 from DISClib.DataStructures import listiterator as it
-from App import controller 
+from App import controller
 assert config
 
 """
@@ -38,11 +38,15 @@ operación seleccionada.
 #  Ruta a los archivos
 # ___________________________________________________
 
-MovieDetailsS="Data/themoviesdb/MoviesDetailsCleaned-small.csv"
-MovieCastingS="Data/themoviesdb/MoviesCastingRaw-small.csv"
+moviedb = 'Data/themoviesdb/MoviesDetailsCleaned-small.csv' 
+actorsdb = 'themoviesdb/MoviesCastingRaw-small.csv'
 
-MovieDetailsL="Data/themoviesdb/MoviesDetailsCleaned-large.csv"
-MovieCastingL="Data/themoviesdb/MoviesCastingRaw-large.csv"
+def compareRecordIds (recordA, recordB):
+    if int(recordA['id']) == int(recordB['id']):
+        return 0
+    elif int(recordA['id']) > int(recordB['id']):
+        return 1
+    return -1
 
 
 # ___________________________________________________
@@ -56,33 +60,52 @@ MovieCastingL="Data/themoviesdb/MoviesCastingRaw-large.csv"
 # ___________________________________________________
 #  Menu principal
 # ___________________________________________________
+def printMenu():
+    print("Bienvenido")
+    print("1- Inicializar catalogo")
+    print("2- imprimir peliculas prueba ")           
+    print("3- PLACEHOLDER  夜空はなんでも知ってるの？")    #placeholder
+    print("4- PLACEHOLDER  秋のあなたの空遠く")              #placeholder
+    print("5- PLACEHOLDER  無敵級＊ビリーバー")          #placeholder
+    print("0- Salir")       
 
-def menu():
 
-    print("\nBienvenido")
-    print ("Cargar Datos small (1)")
-    print("")
-    print ("Cargar Datos large (2)")
-    print("")
-    print("Salir (0)")
-
-
-def main():
+while True:
+    printMenu()
+    inputs = input('Seleccione una opción para continuar\n')
     
-    while True:
-        menu() 
-        print("")
-        inputs =input('Seleccione una opción para continuar\n') 
-        if len(inputs)>0:
 
-            if int(inputs[0])==1: #opcion 1
-                controller.Mostrar_lista_s(MovieDetailsS, MovieCastingS)
+    #se reemplazo la separación entre casting s y casting L. Es redundante caragr ambos metodos
+    if int(inputs[0]) == 1:
+        """
+        resultList= lt.newList()
+        controller.loadData(resultList, moviedb)
+        """
 
-            elif int(inputs[0])==2: #opcion 2
-                controller.Mostrar_lista_l(MovieDetailsL, MovieCastingL)
+        resultList= controller.loadMovies2(moviedb, compareRecordIds)
+        
+        print('Se cargaron: ', lt.size(resultList), ' peliculas')
 
-            elif int(inputs[0])==0: #opcion 0, salir
-                sys.exit(0)
+    elif int(inputs[0]) == 2:
+        primera = (lt.getElement(resultList,1))
+        ultima = (lt.getElement(resultList, (int(lt.size(resultList))-1)))
+        
+        print ("se encontraron :", lt.size(resultList), " peliculas" )  
+        print((0, (lt.getElement(resultList,0))['original_title']))         
+        print("primera pelicula: ", (primera['original_title']), (primera['original_language']), (primera['release_date']), (primera['vote_count']), (primera['vote_average']) )
+        print("ultima pelicula: ", (ultima['original_title']), (ultima['original_language']), (ultima['release_date']), (ultima['vote_count']), (ultima['vote_average']) )
+        input ("presione una tecla para volver al menu...")
+        
 
-if __name__ == "__main__":
-    main()
+        
+    elif int(inputs[0]) == 3:
+        pass    
+
+    elif int(inputs[0]) == 4:
+        pass
+
+    elif int(inputs[0]) == 5:
+        pass
+    else:
+        sys.exit(0)
+sys.exit(0)
