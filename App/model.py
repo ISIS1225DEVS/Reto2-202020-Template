@@ -46,11 +46,6 @@ def newCatalog():
                 "VoteCounts": None,
                 "ProdCountries": None,
                 "Dates": None}
-                
-                "authors": None,
-                "tags": None,
-                "tagIds": None,
-                "years": None}
     
     catalog["Movies"] = lt.newList("SINGLE_LINKED", compareBookIds)
     catalog["ProdCompanies"] = mp.newMap(1000,
@@ -63,15 +58,15 @@ def newCatalog():
                                     comparefunction=compareAvgVotes)
     catalog["Directors"] = mp.newMap(1000,
                                 maptype="PROBING",
-                                loadfactor=0.7,
+                                loadfactor=0.4,
                                 comparefunction=compareDirectors)
     catalog["Actors"] = mp.newMap(1000,
                                     maptype="PROBING"
-                                    loadfactor=0.7,
+                                    loadfactor=0.4,
                                     comparefunction=compareActors)
-    catalog["Genres"] = mp.newMap(500,
+    catalog["Genres"] = mp.newMap(1000,
                                     maptype="PROBING",
-                                    loadfactor=0.7,
+                                    loadfactor=0.4,
                                     comparefunction=compareGenres)
     catalog["VoteCounts"] = mp.newMap(1000,
                                     maptype="PROBING",
