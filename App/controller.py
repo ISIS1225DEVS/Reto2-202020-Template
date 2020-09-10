@@ -42,6 +42,8 @@ def initCatalog():
     catalog = model.newCatalog()
     return catalog
 
+    sdcdcpcpl
+
 
 
 # ___________________________________________________
