@@ -24,9 +24,9 @@ import sys
 import config
 from DISClib.ADT import list as lt
 from DISClib.DataStructures import listiterator as it
-from App import controller 
-#import controller
+from App import controller
 assert config
+
 """
 La vista se encarga de la interacción con el usuario.
 Presenta el menu de opciones y por cada seleccion
@@ -38,16 +38,15 @@ operación seleccionada.
 #  Ruta a los archivos
 # ___________________________________________________
 
+moviedb = 'Data/themoviesdb/MoviesDetailsCleaned-small.csv' 
+actorsdb = 'themoviesdb/MoviesCastingRaw-small.csv'
 
-
-castingLarge='themoviesdb/MoviesCastingRaw-large.csv'
-castingSmall='themoviesdb/MoviesCastingRaw-small.csv'
-moviesLarge='themoviesdb/MoviesDetailsCleaned-large.csv'
-moviesSmall='themoviesdb/MoviesDetailsCleaned-small.csv'
-booksfile = 'GoodReads/books-small.csv'
-tagsfile = 'GoodReads/tags.csv' 
-booktagsfile = 'GoodReads/book_tags-small.csv'
-
+def compareRecordIds (recordA, recordB):
+    if int(recordA['id']) == int(recordB['id']):
+        return 0
+    elif int(recordA['id']) > int(recordB['id']):
+        return 1
+    return -1
 
 
 # ___________________________________________________
@@ -61,14 +60,13 @@ booktagsfile = 'GoodReads/book_tags-small.csv'
 # ___________________________________________________
 #  Menu principal
 # ___________________________________________________
-
 def printMenu():
     print("\n********************************  Grupo 04  ******************************************")
     print("\n*********** CONSOLA DEL RETO 2 @@@ EXPLORANDO LA MAGIA DEL CINE RECARGADO @@@  *******")
     print("\n**************************************************************************************")
     print(" ")
-    print("(1) Inicializar Catálogo de movies y casting")
-    print("(2) Cargar información en el catálogo de movies y casting")
+    print("(1) Inicializar y cargar catálogo de movies")
+    print("(2) Imprimir  primera y última pelicua del catálogo de movies")
     print("(3)   REQ. 1: Consultar los productoras de cine")
     print("(4)   REQ. 2: Consultar los a un director")
     print("(5)   REQ. 3: Consultar a un actor")
@@ -76,43 +74,55 @@ def printMenu():
     print("(7)   REQ. 5: Consultar peliculas por pais")
     print("(0) Salir")
 
-"""
-Menu principal
-"""
+
 while True:
     printMenu()
-    inputs = input('Seleccione una opción para continuar ? ')
+    inputs = input('Seleccione una opción: ')
+    
 
+    #se reemplazo la separación entre casting s y casting L. Es redundante caragr ambos metodos
     if int(inputs[0]) == 1:
-        print("Inicializando Catálogo  Movies y Casting ....")
-        # cont es el controlador que se usará de acá en adelante
-        cont = controller.initCatalog()
-        print (cont)
-        input ("Catalogo de movies y casting fue creado")
-        
+        """
+        resultList= lt.newList()
+        controller.loadData(resultList, moviedb)
+        """
+
+        resultList= controller.loadMovies2(moviedb, compareRecordIds)
+        print('')
+        print('Se cargaron: ', lt.size(resultList), ' peliculas')
+        input ('Dar clic para continuar....')
 
     elif int(inputs[0]) == 2:
-        print("Cargando información de los archivos ....")
-        #controller.loadData(cont, booksfile, tagsfile, booktagsfile)
-        controller.loadData(cont, moviesSmall,castingSmall)
-        print('Libros cargados: ' + str(controller.booksSize(cont)))
-        #print('Autores cargados: ' + str(controller.authorsSize(cont)))
-        #print('Géneros cargados: ' + str(controller.tagsSize(cont)))
-    
+        primera = (lt.getElement(resultList,1))
+        ultima = (lt.getElement(resultList, (int(lt.size(resultList))-1)))
+        print('')
+        print ("Se encontraron: ", lt.size(resultList), " películas" )  
+        print((0, (lt.getElement(resultList,0))['original_title']))         
+        print("Primera película: ", (primera['original_title']), (primera['original_language']), (primera['release_date']), (primera['vote_count']), (primera['vote_average']) )
+        print("Última película: ", (ultima['original_title']), (ultima['original_language']), (ultima['release_date']), (ultima['vote_count']), (ultima['vote_average']) )
+        input ("presione una tecla para volver al menu...")
+        
+        
     elif int(inputs[0]) == 3:
-        number = input("Buscando libros del año?: ")
-        books = controller.getBooksYear(cont, int(number))
-        printBooksbyYear(books)
-
+        print("")
+        input ("Opción en construcción. Clic para continuar")
+        pass    
     elif int(inputs[0]) == 4:
-        authorname = input("Nombre del autor a buscar: ")
-        authorinfo = controller.getBooksByAuthor(cont, authorname)
-        printAuthorData(authorinfo)
-
+        input ("Opción en construcción. Clic para continuar")
+        print("")
+        pass
     elif int(inputs[0]) == 5:
-        label = input("Etiqueta a buscar: ")
-        books = controller.getBooksByTag(cont, label)
-        printBooksbyTag(books)
+        input ("Opción en construcción. Clic para continuar")
+        print("")
+        pass
+    elif int(inputs[0]) == 6:
+        input ("Opción en construcción. Clic para continuar")
+        print("")
+        pass
+    elif int(inputs[0]) == 7:
+        input ("Opción en construcción. Clic para continuar")
+        print("")
+        pass
     else:
         sys.exit(0)
 sys.exit(0)
