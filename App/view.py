@@ -36,13 +36,10 @@ operación seleccionada.
 
 # ___________________________________________________
 #  Ruta a los archivos
-Casting = "themoviesdb/MoviesCastingRaw-small.csv"
-Details = "themoviesdb/SmallMoviesDetailsCleaned.csv"
 # ___________________________________________________
 
-
-
-
+Casting = "themoviesdb/MoviesCastingRaw-small.csv"
+Details = "themoviesdb/SmallMoviesDetailsCleaned.csv"
 
 # ___________________________________________________
 #  Funciones para imprimir la inforamación de
