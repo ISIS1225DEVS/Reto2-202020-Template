@@ -42,9 +42,6 @@ def initCatalog():
     catalog = model.newCatalog()
     return catalog
 
-    sdcdcpcpl
-
-
 
 # ___________________________________________________
 #  Funciones para la carga de datos y almacenamiento
