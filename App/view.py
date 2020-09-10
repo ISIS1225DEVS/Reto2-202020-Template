@@ -38,10 +38,10 @@ operación seleccionada.
 # ___________________________________________________
 #  Ruta a los archivos
 # ___________________________________________________
-allmovies = 'Movies/AllMoviesCastingRaw.csv'
-detailmovies = 'Movies/AllMoviesDetailsCleaned.csv'
-castingmovies = 'Movies/MoviesCastingRaw-small.csv'
-smallmovies = 'Movies/SmallMoviesDetailsCleaned.csv'
+allCasting = 'Movies/AllMoviesCastingRaw.csv'
+allMovies = 'Movies/AllMoviesDetailsCleaned.csv'
+smallCastingMovies = 'Movies/MoviesCastingRaw-small.csv'
+smallMovies = 'Movies/SmallMoviesDetailsCleaned.csv'
 # ___________________________________________________ 
 #  Funciones para imprimir la inforamación de
 #  respuesta.  La vista solo interactua con
@@ -65,13 +65,14 @@ def printMenu():
 
 
 while True:
-    print_menu()
+    printMenu()
     inputs = input('Seleccione una opción para continuar')
     if int(inputs[0]) == 1:
+        cont = controller.initCatalog()
         print("Cargando información de los archivos...")
-        controller.loadData(cont, allmovies, detailmovies, castingmovies, smallmovies)
-        print('Peliculas cargadas: ' + str(controller.detailmovies(cont)))
-        print('Actores cargados: ' + str(controller.castingmovies(cont)))
+        controller.loadData(cont, allCasting, allMovies, smallCastingMovies, smallMovies)
+        print('Peliculas cargadas: ' + str(controller.allMovies(cont)))
+        print('Actores cargados: ' + str(controller.allCasting(cont)))
     elif int(inputs[0]) == 2:
         None
     elif int(inputs[0]) == 3:
