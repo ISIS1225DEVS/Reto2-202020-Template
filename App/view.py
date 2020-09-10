@@ -38,7 +38,7 @@ operación seleccionada.
 #  Ruta a los archivos
 # ___________________________________________________
 
-moviedb = 'Data/themoviesdb/MoviesDetailsCleaned-small.csv' 
+moviedb = 'Data/themoviesdb/MoviesDetailsCleaned-large.csv' 
 actorsdb = 'themoviesdb/MoviesCastingRaw-small.csv'
 
 def compareRecordIds (recordA, recordB):
@@ -89,10 +89,10 @@ while True:
 
     elif int(inputs[0]) == 2:
         primera = (lt.getElement(resultList,1))
-        ultima = (lt.getElement(resultList, (int(lt.size(resultList))-1)))
+        ultima = (lt.getElement(resultList, (int(lt.size(resultList)))))
         
         print ("se encontraron :", lt.size(resultList), " peliculas" )  
-        print((0, (lt.getElement(resultList,0))['original_title']))         
+        print((0, (lt.getElement(resultList,1))['original_title']))         
         print("primera pelicula: ", (primera['original_title']), (primera['original_language']), (primera['release_date']), (primera['vote_count']), (primera['vote_average']) )
         print("ultima pelicula: ", (ultima['original_title']), (ultima['original_language']), (ultima['release_date']), (ultima['vote_count']), (ultima['vote_average']) )
         input ("presione una tecla para volver al menu...")
