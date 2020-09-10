@@ -35,16 +35,44 @@ es decir contiene los modelos con los datos en memoria
 # -----------------------------------------------------
 # API del TAD Catalogo de Libros
 # -----------------------------------------------------
-
+def new_catalog():
+      catalog = {
+        'movies': lt.newList('SINGLE_LINKED'),
+        'casting': lt.newList('SINGLE_LINKED'),
+        'movie_id': mp.newMap(200, maptype='PROBING', loadfactor=0.4, comparefunction=compare_ids)
+    }
+    return catalog
 
 # Funciones para agregar informacion al catalogo
+def add_movies(catalog, movie):
+    lt.addLast(catalog['movies'], movie)
+    mp.put(catalog['movie_id'], movie['id'], movie)
 
+def add_casting(catalog, movie):
+    lt.addLast(catalog['casting'], movie)
+    mp.put(catalog['movie_id'], movie['id'], movie)
 
 # ==============================
 # Funciones de consulta
 # ==============================
 
+def movies_size(catalog):
+    return lt.size(catalog['movies'])
+
+
+def casting_size(catalog):
+    return lt.size(catalog['casting'])
+
 
 # ==============================
 # Funciones de Comparacion
 # ==============================
+
+def comp_id(id,movies)
+    first = lt.getElement(catalog['movies'['id']])
+    if id == first:
+        return 0
+    elif id > first:
+        return 1
+    else:
+        -1
