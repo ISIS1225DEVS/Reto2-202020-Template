@@ -47,36 +47,40 @@ def newCatalog():
                 "ProdCountries": None,
                 "Dates": None}
     
-    catalog["Movies"] = lt.newList("SINGLE_LINKED", compareBookIds)
-    catalog["ProdCompanies"] = mp.newMap(1000,
+    catalog["Movies"] = lt.newList("ARRAY_LIST", compareMovieIds)
+    catalog["MovieIds"] = mp.newMap(100000,
+                                    maptype="PROBING",
+                                    loadfactor=0.4,
+                                    comparefunction=compareMapMovieIds)
+    catalog["ProdCompanies"] = mp.newMap(100000,
                                     maptype="PROBING",
                                     loadfactor=0.4,
                                     comparefunction=compareProdCompanies)
-    catalog["AvgVote"] = mp.newMap(1000,
+    catalog["AvgVote"] = mp.newMap(100000,
                                     maptype="PROBING",
                                     loadfactor=0.4,
                                     comparefunction=compareAvgVotes)
-    catalog["Directors"] = mp.newMap(1000,
+    catalog["Directors"] = mp.newMap(100000,
                                 maptype="PROBING",
                                 loadfactor=0.4,
-                                comparefunction=compareDirectors)∏
-    catalog["Actors"] = mp.newMap(1000,
+                                comparefunction=compareDirectors)
+    catalog["Actors"] = mp.newMap(100000,
                                     maptype="PROBING"
                                     loadfactor=0.4,
                                     comparefunction=compareActors)
-    catalog["Genres"] = mp.newMap(1000,
+    catalog["Genres"] = mp.newMap(100000,
                                     maptype="PROBING",
                                     loadfactor=0.4,
                                     comparefunction=compareGenres)
-    catalog["VoteCounts"] = mp.newMap(1000,
+    catalog["VoteCounts"] = mp.newMap(100000,
                                     maptype="PROBING",
                                     loadfactor=0,4,
                                     comparefunction=compareVoteCounts)
-    catalog["ProdCountries"] = mp.newMap(1000,
+    catalog["ProdCountries"] = mp.newMap(100000,
                                         maptype="PROBING",
                                         loadfactor=0.4,
                                         comparefunction=compareCountries)
-    catalog["Dates"] = mp.newMap(1000,
+    catalog["Dates"] = mp.newMap(100000,
                                 maptype="PROBING",
                                 loadfactor=0.4,
                                 comparefunction=compareDates)
@@ -84,16 +88,109 @@ def newCatalog():
     return catalog
 # Funciones para agregar informacion al catalogo
 
+def newDirector(name):
+
+    director = {"name":"", "movies": None, "average_vote": 0}
+    director["name"] = name
+    director["movies"] = lt.newList("SINGLE_LINKED", compareDirectorsByName)
+
+def addMovie(catalog, movie):
+
+    lt.addLast(catalog["Movies"], movie)
+    mp.put(catalog["MovieIds"], movie["movie_details_id"], movie)
+    addMovieDate(catalog, movie)
+
+def addMovieDate(catalog, movie):
+
+    dates = catalog["Dates"]
+    release_date = movie["release_date"]
+    existdate = mp.contains(date, release_date)
+    if existdate:
+        entry = mp.get(dates, release_date)
+        date = me.getValue(entry)
+    else:
+        date = newDate(release_date)
+        mp.put(dates, release_date, date)
+    lt.addLast(date["Movies"], movie)
+
+def newDate(release_date):
+    
+    entry = {"Date", "", "Movies": None}
+    entry["Date"] = release_date
+    entry["Movies"] = lt.newList("SINGLE_LINKED", compareDates)
+    return entry
 
 
 # ==============================
 # Funciones de consulta
 # ==============================
 
+def getMoviesByDirector(catalog,directorName):
 
+    director = mp.get(catalog["Directors"], directorName)
+    if director:
+        return me.getValue(director)
+    return None
+
+def getMoviesByDate(catalog, date):
+
+    date = mp.get(catalog["Dates"], date)
+    if date:
+        return me.getValue(date)["Movies"]
+    return None
+
+def moviesSize(catalog):
+
+    return lt.size(catalog["Movies"])
+
+def directorsSize(catalog):
+
+    return lt.size(catalog["Directors"])
 
 # ==============================
 # Funciones de Comparacion
 # ==============================
+
+def compareMovieIds(id1, id2):
+
+    if (id1 == id2):
+        return 0
+    elif id1 > id2:
+        return 1
+    else:
+        return -1
+
+def compareMapMovieIds(id, entry):
+
+    idEntry = me.getKey(entry)
+    if (int(id) == int(idEntry)):
+        return 0
+    elif (int(id) > int(idEntry)):
+        return 1
+    elif:
+        return -1
+
+
+def compareDirectors(keyname, director):
+
+    directEntry = me.getKey(director)
+    if (keyname == directEntry):
+        return 0
+    elif (keyname > directEntry):
+        return 1
+    elif:
+        return -1
+
+def compareDates(date1, date2):
+
+    if (int(date1) == int(date2)):
+        return 0
+    elif (int(date1 > int(date2)):
+        return 1
+    elif:
+        return 0
+
+
+
 
 
