@@ -70,6 +70,10 @@ while True:
         print("Cargando información de los archivos ....")
         controller.loadData(cont, castingfile, detailsfile)
         print('Peliculas cargadas: ' + str(controller.moviesSize(cont)))
+        print("")
+        print("Primera película: "+str(lt.firstElement(cont)))
+        print("")
+        print("Última película: "+str(lt.lastElement(cont)))
     else:
         sys.exit(0)
 sys.exit(0)

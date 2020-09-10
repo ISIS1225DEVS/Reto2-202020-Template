@@ -36,18 +36,6 @@ es decir contiene los modelos con los datos en memoria
 # -----------------------------------------------------
 
 def newCatalog():
-    """ Inicializa el catálogo de libros
-
-    Crea una lista vacia para guardar todos los libros
-
-    Se crean indices (Maps) por los siguientes criterios:
-    Autores
-    ID libros
-    Tags
-    Año de publicacion
-
-    Retorna el catalogo inicializado.
-    """
     catalog = lt.newList('SINGLE_LINKED', compareMoviesIds)
     return catalog
 
