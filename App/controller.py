@@ -49,3 +49,5 @@ def initCatalog():
 # ___________________________________________________
 
 def loadmovies()
+
+def prueba(cepcp)
