@@ -43,6 +43,7 @@ def initCatalog():
     return catalog
 
 
+
 # ___________________________________________________
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
@@ -72,3 +73,25 @@ def moviesSize(catalog):
 
 def catalogSize(catalog):
     return model.castingSize(catalog)
+        
+        
+   
+
+
+def addLast(lst, element):
+    """ Agrega un elemento en la última posición de la lista.
+
+    Se adiciona un elemento en la última posición de la lista y se actualiza
+    el apuntador a la útima posición. Se incrementa el tamaño de la lista en 1
+
+    Args:
+        lst: La lista en la que se inserta el elemento
+        element: El elemento a insertar
+
+    Raises:
+        Exception
+    """
+    try:
+        lt.addLast(lst, element)
+    except Exception as exp:
+        error.reraise(exp, 'TADList->addLast: ')    
