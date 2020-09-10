@@ -20,10 +20,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-
 from DISClib.DataStructures import arraylistiterator as ait
 from DISClib.DataStructures import linkedlistiterator as lit
-
 
 """
   Este módulo implementa un iterador para recorrer los elementos

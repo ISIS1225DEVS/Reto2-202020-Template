@@ -22,6 +22,7 @@
 
 import config
 from DISClib.DataStructures import mapstructure as ht
+
 assert config
 
 """
