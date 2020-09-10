@@ -48,5 +48,27 @@ def initCatalog():
 #  de datos en los modelos
 # ___________________________________________________
 
-def loadmovies()
+def loadDataMovies(catalog,moviesDetails,moviesCasting):
+    loadMovies(catalog, moviesDetails)
+    loadCatsting(catalog, moviesCasting)
 
+def loadMovieDetails(catalog, moviesDetails):
+    moviesDetails=cf.data_dir + moviesDetails
+    input_file = csv.directReader(open(moviesDetails))
+    for details in input_file:
+        model.addmovie(catalog, details)
+
+def loadMoviesCasting(catalog, moviesCasting):
+    moviesCasting=cf.data_dir + moviesCasting
+    input_file = csv.directReader(open(moviesCasting))
+    for casting in input_file:
+        model.addmovie(catalog, casting)
+
+
+
+
+def moviesSize(catalog):
+    return model.moviesSize(catalog)
+
+def catalogSize(catalog):
+    return model.castingSize(catalog)
