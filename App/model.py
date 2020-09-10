@@ -20,6 +20,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  """
 import config
+import csv
 from DISClib.ADT import list as lt
 from DISClib.ADT import map as mp
 from DISClib.DataStructures import mapentry as me
@@ -28,7 +29,6 @@ assert config
 """
 En este archivo definimos los TADs que vamos a usar,
 es decir contiene los modelos con los datos en memoria
-
 """
 
 # -----------------------------------------------------
@@ -44,7 +44,6 @@ def newCatalog():
                 'director_name': None,
                 'original_language': None,
                 'release_date': None}
-
     catalog['books'] = lt.newList('SINGLE_LINKED', compareBookIds)
     catalog['id'] = mp.newMap(200,
                                     maptype='PROBING',
@@ -62,7 +61,6 @@ def newCatalog():
                                 maptype='CHAINING',
                                 loadfactor=0.7,
                                 comparefunction=compareReleaseDate)
-
     return catalog
 """
 
@@ -109,12 +107,8 @@ def loadCSVFile (file,cmpfunction):
     return lst
 
 
-
-
 def createList():
     lt.newList()
 
 def addMovie(lstmovie, movie):
     lt.addLast(lstmovie, movie)
-
-

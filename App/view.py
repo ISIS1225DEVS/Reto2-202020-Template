@@ -38,9 +38,15 @@ operación seleccionada.
 #  Ruta a los archivos
 # ___________________________________________________
 
-moviedb = 'themoviesdb/MoviesCastingRaw-small.csv' 
+moviedb = 'Data/themoviesdb/MoviesDetailsCleaned-large.csv' 
 actorsdb = 'themoviesdb/MoviesCastingRaw-small.csv'
 
+def compareRecordIds (recordA, recordB):
+    if int(recordA['id']) == int(recordB['id']):
+        return 0
+    elif int(recordA['id']) > int(recordB['id']):
+        return 1
+    return -1
 
 
 # ___________________________________________________
@@ -55,13 +61,18 @@ actorsdb = 'themoviesdb/MoviesCastingRaw-small.csv'
 #  Menu principal
 # ___________________________________________________
 def printMenu():
-    print("Bienvenido")
-    print("1- Inicializar catalogo")
-    print("2- imprimir peliculas prueba ")           
-    print("3- PLACEHOLDER  夜空はなんでも知ってるの？")    #placeholder
-    print("4- PLACEHOLDER  秋のあなたの空遠く")              #placeholder
-    print("5- PLACEHOLDER  無敵級＊ビリーバー")          #placeholder
-    print("0- Salir")       
+    print("\n********************************  Grupo 04  ******************************************")
+    print("\n*********** CONSOLA DEL RETO 2 @@@ EXPLORANDO LA MAGIA DEL CINE RECARGADO @@@  *******")
+    print("\n**************************************************************************************")
+    print(" ")
+    print("(1) Inicializar y cargar catálogo de movies")
+    print("(2) Imprimir  primera y última pelicua del catálogo de movies")
+    print("(3)   placeholder - REQ. 1: Consultar los productoras de cine")
+    print("(4)   placeholder - REQ. 2: Consultar los a un director")
+    print("(5)   placeholder - REQ. 3: Consultar a un actor")
+    print("(6)   placeholder - REQ. 4: Entender un genero cinematografico")
+    print("(7)   placeholder - REQ. 5: Consultar peliculas por pais")
+    print("(0) Salir")
 
 
 while True:
@@ -71,19 +82,23 @@ while True:
 
     #se reemplazo la separación entre casting s y casting L. Es redundante caragr ambos metodos
     if int(inputs[0]) == 1:
-        resultList= lt.newList()
-        controller.loadData(resultList, moviedb)
+
+        resultList= controller.loadMovies(moviedb, compareRecordIds)
+        
         print('Se cargaron: ', lt.size(resultList), ' peliculas')
 
     elif int(inputs[0]) == 2:
-        primera = (lt.getElement(resultList,0))
-        ultima = (lt.getElement(resultList, (int(lt.size(resultList))-1)))
+        primera = (lt.getElement(resultList,1))
+        ultima = (lt.getElement(resultList, (int(lt.size(resultList)))))
+        
         print ("se encontraron :", lt.size(resultList), " peliculas" )  
-        print((0, (lt.getElement(resultList,0))['original_title']))         
+        print((0, (lt.getElement(resultList,1))['original_title']))         
         print("primera pelicula: ", (primera['original_title']), (primera['original_language']), (primera['release_date']), (primera['vote_count']), (primera['vote_average']) )
         print("ultima pelicula: ", (ultima['original_title']), (ultima['original_language']), (ultima['release_date']), (ultima['vote_count']), (ultima['vote_average']) )
         input ("presione una tecla para volver al menu...")
+        
 
+        
     elif int(inputs[0]) == 3:
         pass    
 
@@ -95,5 +110,3 @@ while True:
     else:
         sys.exit(0)
 sys.exit(0)
-
-

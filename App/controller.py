@@ -21,7 +21,7 @@
  """
 
 import config as cf
-from App import model
+from App import model 
 import csv
 
 
@@ -46,33 +46,16 @@ def initCatalog():
 
 
 
-
 # ___________________________________________________
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
 # ___________________________________________________
 
 
-def loadData (lstInput, moviesFile):
-    loadMovies(lstInput, moviesFile)
-    #loadCasting(lstInput, castingFile)
 
-
-
-#-------------------------------------------
-#ESTOS METODOS NO USAN lt.whatever NO ESTA IMPORTADO AQUÍ, SE LLAMAN LAS FUNCIONES DE  model.py
-#--------------------------------------------
-def loadMovies(movieslst, moviesfile):
-    moviesfile = cf.data_dir + moviesfile   #revisar esta linea probablemento no necesitamos el cf.datadir
-    input_file = csv.DictReader(open(moviesfile, encoding='utf-8-sig'))
-    for movie in input_file:
-        model.addMovie(movieslst, movie)
-
-
-def LoadCasting(catalog, tagsfile):
-    pass
-
-
+def loadMovies(moviesfile, cmpfunction):
+    lista= model.loadCSVFile(moviesfile, cmpfunction)
+    return lista
 
 # ___________________________________________________
 #  Funciones para consultas
