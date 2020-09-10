@@ -56,15 +56,21 @@ def print_movies_information(movies):
     """
     imprime la información de las películas
     """
-    print("Se cargaron " + str(movies["size"]) + " peliculas")
-    pelicula = it.newIterator(movies)
-    while it.hasNext(pelicula):
-        print(pelicula["\noriginal_title"])
-        print(pelicula["release_date"])
-        print(pelicula["vote_average"])
-        print(pelicula["vote_count"])
-        print(pelicula["original_language"])
-    print("\nSe cargaron "+ str(movies["size"]) + " peliculas")
+    print("Se cargaron " + str(lt.size(movies)) + " películas")
+    primera=lt.firstElement(movies)
+    print("\n")
+    print(primera["original_title"])
+    print(primera["release_date"])
+    print(primera["vote_average"])
+    print(primera["vote_count"])
+    print(primera["original_language"])
+    ultima=lt.lastElement(movies)
+    print("\n")
+    print(ultima["original_title"])
+    print(ultima["release_date"])
+    print(ultima["vote_average"])
+    print(ultima["vote_count"])
+    print(ultima["original_language"])
 
 
 # ___________________________________________________
@@ -74,8 +80,7 @@ def print_movies_information(movies):
 def print_menu():
     print("Bienvenido")
     print("1. Inicializar catálogo de películas")
-    print("2. Cargar detalles de películas")
-    print("3. Imprimir en pantalla la información de las películas")
+    print("2. Cargar e imprimir detalles de películas")
     print("0. Salir")
 
 """
@@ -88,16 +93,15 @@ while True:
     if int(inputs[0]) == 1:
         print("Inicizaliando catálogo...")
         catalogo=controller.initCatalog()
+        print("Completado")
 
     elif int(inputs[0]) == 2:
         print("Cargando archivos...")
-        controller.loadDetails(catalogo,small_movies_details)
-        print("Archivos cargados")
-
-    elif int(inputs[0]) == 3:
+        controller.loadMovies(catalogo,small_movies_details)
         movies=catalogo['peliculas']
+        print("Archivos cargados")
         print_movies_information(movies)
-
+    
     else:
         sys.exit(0)
 sys.exit(0)
