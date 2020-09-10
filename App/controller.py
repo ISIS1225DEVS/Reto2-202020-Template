@@ -43,10 +43,10 @@ def initCatalog():
     return catalog
 
 
-
 # ___________________________________________________
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
 # ___________________________________________________
 
 def loadmovies()
+
