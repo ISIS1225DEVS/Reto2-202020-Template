@@ -20,337 +20,95 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  """
 import config
+import csv
 from DISClib.ADT import list as lt
 from DISClib.ADT import map as mp
 from DISClib.DataStructures import mapentry as me
 assert config
 
-
-
 """
 En este archivo definimos los TADs que vamos a usar,
 es decir contiene los modelos con los datos en memoria
-
 """
 
 # -----------------------------------------------------
 # API del TAD Catalogo de Libros
 # -----------------------------------------------------
 
+
+#este codiggo se va a utilizar posteriormente para implementar el hashmap
+"""
 def newCatalog():
-    input ("voy  a crear el catalogo. Dar clic para cotninuar... ")
-
-    """ Inicializa el catálogo de libros
-
-    Crea una lista vacia para guardar todos los libros
-
-    Se crean indices (Maps) por los siguientes criterios:
-    Autores
-    ID libros
-    Tags
-    Año de publicacion
-
-    Retorna el catalogo inicializado.
-    """
-    """ catalog = {'books': None,
-               'bookIds': None,
-               'authors': None,
-               'tags': None,
-               'tagIds': None,
-               'years': None}
-
-    
+    catalog = {'movies': None,
+                'id': None,
+                'director_name': None,
+                'original_language': None,
+                'release_date': None}
     catalog['books'] = lt.newList('SINGLE_LINKED', compareBookIds)
-    
-    catalog['bookIds'] = mp.newMap(200,
-                                   maptype='PROBING',
-                                   loadfactor=0.4,
-                                   comparefunction=compareMapBookIds)
-    
-    catalog['authors'] = mp.newMap(200,
-                                   maptype='PROBING',
-                                   loadfactor=0.4,
-                                   comparefunction=compareAuthorsByName)
-    catalog['tags'] = mp.newMap(1000,
+    catalog['id'] = mp.newMap(200,
+                                    maptype='PROBING',
+                                    loadfactor=0.4,
+                                    comparefunction=compareMapId)
+    catalog['director_name'] = mp.newMap(200,
+                                    maptype='PROBING',
+                                    loadfactor=0.4,
+                                    comparefunction=compareDirectors)
+    catalog['original_language'] = mp.newMap(1000,
                                 maptype='CHAINING',
                                 loadfactor=0.7,
-                                comparefunction=compareTagNames)
-    catalog['tagIds'] = mp.newMap(1000,
-                                  maptype='CHAINING',
-                                  loadfactor=0.7,
-                                  comparefunction=compareTagIds)
-    catalog['years'] = mp.newMap(500,
-                                 maptype='CHAINING',
-                                 loadfactor=0.7,
-                                 comparefunction=compareMapYear)
-    
-    #print (catalog['books'])
-    #input ("Catalogo vacio")
-    # print (catalog['bookIds'])
-    #input ("Catalogo booksIds vacio")"""
-
-    catalog = {'movies': None,
-               'id': None,
-               'production_companies': None,
-               'original_title': None,
-               'vote_average': None,
-               'vote_count': None}
-
-    
-    catalog['movies'] = lt.newList('SINGLE_LINKED', compareMovieIds)
-
-    return catalog 
-    
-def newAuthor(name):
-    """
-    Crea una nueva estructura para modelar los libros de un autor
-    y su promedio de ratings
-    """
-    author = {'name': "", "books": None,  "average_rating": 0}
-    author['name'] = name
-    author['books'] = lt.newList('SINGLE_LINKED', compareAuthorsByName)
-    return author
-
-def newTagBook(name, id):
-    """
-    Esta estructura crea una relación entre un tag y los libros que han sido
-    marcados con dicho tag.  Se guarga el total de libros y una lista con
-    dichos libros.
-    """
-    tag = {'name': '',
-           'tag_id': '',
-           'total_books': 0,
-           'books': None,
-           'count': 0.0}
-    tag['name'] = name
-    tag['tag_id'] = id
-    tag['books'] = lt.newList()
-    return tag
-
+                                comparefunction=compareLanguage)
+    catalog['release_date'] = mp.newMap(500,
+                                maptype='CHAINING',
+                                loadfactor=0.7,
+                                comparefunction=compareReleaseDate)
+    return catalog
+"""
 
 # Funciones para agregar informacion al catalogo
 
-
-def addMovie(catalog, movies):
-    """
-    Esta funcion adiciona un libro a la lista de libros,
-    adicionalmente lo guarda en un Map usando como llave su Id.
-    Finalmente crea una entrada en el Map de años, para indicar que este
-    libro fue publicaco en ese año.
-    """
-    lt.addLast(catalog['movies'], movies)
-    #mp.put(catalog['id'], movies['id'], movies)
-    #print (mp.get(catalog['bookIds'],book['authors']))
-    #print (mp.get(catalog['id'],movies['id']))
-    print (lt.getElement(catalog,1))
-    # input ("Ya estoy aqui.. y voy adicionar un book ....Clic para continuar")
-    print ("===============================================================================================================")
-    
-""" 
-def addBook(catalog, book):
-    
-    Esta funcion adiciona un libro a la lista de libros,
-    adicionalmente lo guarda en un Map usando como llave su Id.
-    Finalmente crea una entrada en el Map de años, para indicar que este
-    libro fue publicaco en ese año.
-    
-    lt.addLast(catalog['books'], book)
-    mp.put(catalog['bookIds'], book['goodreads_book_id'], book)
-    #print (mp.get(catalog['bookIds'],book['authors']))
-    print (mp.get(catalog['bookIds'],book['goodreads_book_id']))
-    #input ("Ya estoy aqui.. y voy adicionar un book ....Clic para continuar")
-    print ("===============================================================================================================")
-
-    addBookYear(catalog, book)
-    
-"""
-    
-def addBookYear(catalog, book):
-    """
-    Esta funcion adiciona un libro a la lista de libros que
-    fueron publicados en un año especifico.
-    Los años se guardan en un Map, donde la llave es el año
-    y el valor la lista de libros de ese año.
-    """
-    years = catalog['years']
-    pubyear = book['original_publication_year']
-    pubyear = int(float(pubyear))
-    existyear = mp.contains(years, pubyear)
-    if existyear:
-        entry = mp.get(years, pubyear)
-        year = me.getValue(entry)
-    else:
-        year = newYear(pubyear)
-        mp.put(years, pubyear, year)
-    lt.addLast(year['books'], book)
-
-
-def newYear(pubyear):
-    """
-    Esta funcion crea la estructura de libros asociados
-    a un año.
-    """
-    entry = {'year': "", "books": None}
-    entry['year'] = pubyear
-    entry['books'] = lt.newList('SINGLE_LINKED', compareYears)
-    return entry
-
-
-def addBookAuthor(catalog, authorname, book):
-    """
-    Esta función adiciona un libro a la lista de libros publicados
-    por un autor.
-    Cuando se adiciona el libro se actualiza el promedio de dicho autor
-    """
-    authors = catalog['authors']
-    existauthor = mp.contains(authors, authorname)
-    if existauthor:
-        entry = mp.get(authors, authorname)
-        author = me.getValue(entry)
-    else:
-        author = newAuthor(authorname)
-        mp.put(authors, authorname, author)
-    lt.addLast(author['books'], book)
-
-    authavg = author['average_rating']
-    bookavg = book['average_rating']
-    if (authavg == 0.0):
-        author['average_rating'] = float(bookavg)
-    else:
-        author['average_rating'] = (authavg + float(bookavg)) / 2
-
-
-def addTag(catalog, tag):
-    """
-    Adiciona un tag a la tabla de tags dentro del catalogo
-    """
-    newtag = newTagBook(tag['tag_name'], tag['tag_id'])
-    mp.put(catalog['tags'], tag['tag_name'], newtag)
-    mp.put(catalog['tagIds'], tag['tag_id'], newtag)
-
-
-def addBookTag(catalog, tag):
-    """
-    Agrega una relación entre un libro y un tag.
-    Para ello se adiciona el libro a la lista de libros
-    del tag.
-    """
-    bookid = tag['goodreads_book_id']
-    tagid = tag['tag_id']
-    entry = mp.get(catalog['tagIds'], tagid)
-
-    if entry:
-        tagbook = mp.get(catalog['tags'], me.getValue(entry)['name'])
-        tagbook['value']['total_books'] += 1
-        tagbook['value']['count'] += int(tag['count'])
-        book = mp.get(catalog['bookIds'], bookid)
-        if book:
-            lt.addLast(tagbook['value']['books'], book['value'])
 
 
 # ==============================
 # Funciones de consulta
 # ==============================
+def moviesSize(inputMovies):
+    return lt.size(inputMovies)
 
 
 
 # ==============================
 # Funciones de Comparacion
 # ==============================
-def compareMovieIds(id1, id2):
-    """
-    Compara dos ids de libros
-    """
-    if (id1 == id2):
+
+def compareRecordIds (recordA, recordB):
+    if int(recordA['id']) == int(recordB['id']):
         return 0
-    elif id1 > id2:
+    elif int(recordA['id']) > int(recordB['id']):
         return 1
-    else:
-        return -1
-        
-
-# ==============================
-# Funciones de Comparacion
-# ==============================
+    return -1
 
 
+def loadCSVFile (file,cmpfunction):
+    sep=";"
+    lst = lt.newList("ARRAY_LIST") #Usando implementacion arraylist
+    #lst = lt.newList("SINGLE_LINKED") #Usando implementacion linkedlist
+    
 
-def compareBookIds(id1, id2):
-    """
-    Compara dos ids de libros
-    """
-    if (id1 == id2):
-        return 0
-    elif id1 > id2:
-        return 1
-    else:
-        return -1
-
-
-def compareMapBookIds(id, entry):
-    """
-    Compara dos ids de libros, id es un identificador
-    y entry una pareja llave-valor
-    """
-    identry = me.getKey(entry)
-    if (int(id) == int(identry)):
-        return 0
-    elif (int(id) > int(identry)):
-        return 1
-    else:
-        return -1
+    dialect = csv.excel()
+    dialect.delimiter=sep
+    try:
+        with open(file, encoding="utf-8") as csvfile:
+            spamreader = csv.DictReader(csvfile, dialect=dialect)
+            for row in spamreader: 
+                lt.addLast(lst,row)
+    except:
+        print("Hubo un error con la carga del archivo")
+    
+    return lst
 
 
-def compareAuthorsByName(keyname, author):
-    """
-    Compara dos nombres de autor. El primero es una cadena
-    y el segundo un entry de un map
-    """
-    authentry = me.getKey(author)
-    if (keyname == authentry):
-        return 0
-    elif (keyname > authentry):
-        return 1
-    else:
-        return -1
+def createList():
+    lt.newList()
 
-
-def compareTagNames(name, tag):
-    tagentry = me.getKey(tag)
-    if (name == tagentry):
-        return 0
-    elif (name > tagentry):
-        return 1
-    else:
-        return -1
-
-
-def compareTagIds(id, tag):
-    tagentry = me.getKey(tag)
-    if (int(id) == int(tagentry)):
-        return 0
-    elif (int(id) > int(tagentry)):
-        return 1
-    else:
-        return 0
-
-
-def compareMapYear(id, tag):
-    tagentry = me.getKey(tag)
-    if (id == tagentry):
-        return 0
-    elif (id > tagentry):
-        return 1
-    else:
-        return 0
-
-
-def compareYears(year1, year2):
-    if (int(year1) == int(year2)):
-        return 0
-    elif (int(year1) > int(year2)):
-        return 1
-    else:
-        return 0
-
-
+def addMovie(lstmovie, movie):
+    lt.addLast(lstmovie, movie)

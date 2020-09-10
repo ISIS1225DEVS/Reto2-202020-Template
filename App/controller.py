@@ -1,29 +1,28 @@
 """
-* Copyright 2020, Departamento de sistemas y Computación
-* Universidad de Los Andes
-*
-*
-* Desarrolado para el curso ISIS1225 - Estructuras de Datos y Algoritmos
-*
-*
-* This program is free software: you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with this program.  If not, see <http://www.gnu.org/licenses/>.
-"""
+ * Copyright 2020, Departamento de sistemas y Computación
+ * Universidad de Los Andes
+ *
+ *
+ * Desarrolado para el curso ISIS1225 - Estructuras de Datos y Algoritmos
+ *
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ """
 
 import config as cf
-from App import model
+from App import model 
 import csv
-
 
 
 """
@@ -38,15 +37,12 @@ recae sobre el controlador.
 #  Inicializacion del catalogo
 # ___________________________________________________
 
+"""
 def initCatalog():
-    """
-    Llama la funcion de inicializacion del catalogo del modelo.
-    """
-    # catalog es utilizado para interactuar con el modelo
-    print ("Voy a crear el catalogo")
-    input ("Estoy aqui...")
     catalog = model.newCatalog()
     return catalog
+"""
+
 
 
 
@@ -55,79 +51,31 @@ def initCatalog():
 #  de datos en los modelos
 # ___________________________________________________
 
-def loadData(catalog, moviesfile, castfile):
-    """
-    Carga los datos de los archivos en el modelo
-    """
-    loadMovies(catalog, moviesfile)
-    
 
-"""def loadData(catalog, booksfile, tagsfile, booktagsfile):
-    Carga los datos de los archivos en el modelo
-    loadBooks(catalog, booksfile)
-
-"""    
-    
-   # loadTags(catalog, tagsfile)
-   # loadBooksTags(catalog, booktagsfile)
-   
-def loadMovies(catalog, moviesfile):
-    """
-    Carga cada una de las lineas del archivo de libros.
-    - Se agrega cada libro al catalogo de libros
-    - Por cada libro se encuentran sus autores y por cada
-      autor, se crea una lista con sus libros
-    """
-    moviesfile = cf.data_dir + moviesfile
-    print ("")
-    print (moviesfile)
-    input ("Clic para cargar archivo......")
-    input_file = csv.DictReader(open(moviesfile))
-    for i in input_file:
-        model.addMovie(catalog, i)
-        companies = movies['production_companies'].split(";")  # Se obtienen las productors
-        for j in companies:
-            model.addProductionCompany(catalog, i.strip(), movies)
-
-"""def loadBooks(catalog, booksfile):
-    
-    - Carga cada una de las lineas del archivo de libros.
-    - Se agrega cada libro al catalogo de libros
-    - Por cada libro se encuentran sus autores y por cada
-      autor, se crea una lista con sus libros
-    
-
-    booksfile = cf.data_dir + booksfile
-    print ("")
-    print (booksfile)
-    input ("Clic para cargar archivo......")
-    input_file = csv.DictReader(open(booksfile))
-    for book in input_file:
-        model.addBook(catalog, book)
-        authors = book['authors'].split(",")  # Se obtienen los autores
-        for author in authors:
-            model.addBookAuthor(catalog, author.strip(), book)
-"""
-
-def loadTags(catalog, tagsfile):
-    """
-    Carga en el catalogo los tags a partir de la informacion
-    del archivo de etiquetas
-    """
-    tagsfile = cf.data_dir + tagsfile
-    input_file = csv.DictReader(open(tagsfile))
-    for tag in input_file:
-        model.addTag(catalog, tag)
+def loadData (lstInput, moviesFile):
+    loadMovies(lstInput, moviesFile)
+    #loadCasting(lstInput, castingFile)
 
 
-def loadBooksTags(catalog, booktagsfile):
-    """
-    Carga la información que asocia tags con libros.
-    Primero se localiza el tag y se le agrega la información leida.
-    Adicionalmente se le agrega una referencia al libro procesado.
-    """
-    booktagsfile = cf.data_dir + booktagsfile
-    input_file = csv.DictReader(open(booktagsfile))
-    for tag in input_file:
-        model.addBookTag(catalog, tag)
+#-------------------------------------------
+#ESTOS METODOS NO USAN lt.whatever NO ESTA IMPORTADO AQUÍ, SE LLAMAN LAS FUNCIONES DE  model.py
+#--------------------------------------------
+def loadMovies(movieslst, moviesfile):
+    moviesfile = cf.data_dir + moviesfile   #revisar esta linea probablemento no necesitamos el cf.datadir
+    input_file = csv.DictReader(open(moviesfile, encoding='utf-8-sig'))
+    for movie in input_file:
+        model.addMovie(movieslst, movie)
 
+
+
+
+def loadMovies2(moviesfile, cmpfunction):
+    lista= model.loadCSVFile(moviesfile, cmpfunction)
+    return lista
+
+# ___________________________________________________
+#  Funciones para consultas
+# ___________________________________________________
+
+def moviesSize(inputMovies):
+    return model.moviesSize(inputMovies)
