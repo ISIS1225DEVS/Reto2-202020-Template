@@ -52,24 +52,8 @@ def initCatalog():
 # ___________________________________________________
 
 
-def loadData (lstInput, moviesFile):
-    loadMovies(lstInput, moviesFile)
-    #loadCasting(lstInput, castingFile)
 
-
-#-------------------------------------------
-#ESTOS METODOS NO USAN lt.whatever NO ESTA IMPORTADO AQUÍ, SE LLAMAN LAS FUNCIONES DE  model.py
-#--------------------------------------------
-def loadMovies(movieslst, moviesfile):
-    moviesfile = cf.data_dir + moviesfile   #revisar esta linea probablemento no necesitamos el cf.datadir
-    input_file = csv.DictReader(open(moviesfile, encoding='utf-8-sig'))
-    for movie in input_file:
-        model.addMovie(movieslst, movie)
-
-
-
-
-def loadMovies2(moviesfile, cmpfunction):
+def loadMovies(moviesfile, cmpfunction):
     lista= model.loadCSVFile(moviesfile, cmpfunction)
     return lista
 

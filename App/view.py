@@ -61,13 +61,18 @@ def compareRecordIds (recordA, recordB):
 #  Menu principal
 # ___________________________________________________
 def printMenu():
-    print("Bienvenido")
-    print("1- Inicializar catalogo")
-    print("2- imprimir peliculas prueba ")           
-    print("3- PLACEHOLDER  夜空はなんでも知ってるの？")    #placeholder
-    print("4- PLACEHOLDER  秋のあなたの空遠く")              #placeholder
-    print("5- PLACEHOLDER  無敵級＊ビリーバー")          #placeholder
-    print("0- Salir")       
+    print("\n********************************  Grupo 04  ******************************************")
+    print("\n*********** CONSOLA DEL RETO 2 @@@ EXPLORANDO LA MAGIA DEL CINE RECARGADO @@@  *******")
+    print("\n**************************************************************************************")
+    print(" ")
+    print("(1) Inicializar y cargar catálogo de movies")
+    print("(2) Imprimir  primera y última pelicua del catálogo de movies")
+    print("(3)   REQ. 1: Consultar los productoras de cine")
+    print("(4)   REQ. 2: Consultar los a un director")
+    print("(5)   REQ. 3: Consultar a un actor")
+    print("(6)   REQ. 4: Entender un genero cinematografico")
+    print("(7)   REQ. 5: Consultar peliculas por pais")
+    print("(0) Salir")
 
 
 while True:
@@ -77,12 +82,8 @@ while True:
 
     #se reemplazo la separación entre casting s y casting L. Es redundante caragr ambos metodos
     if int(inputs[0]) == 1:
-        """
-        resultList= lt.newList()
-        controller.loadData(resultList, moviedb)
-        """
 
-        resultList= controller.loadMovies2(moviedb, compareRecordIds)
+        resultList= controller.loadMovies(moviedb, compareRecordIds)
         
         print('Se cargaron: ', lt.size(resultList), ' peliculas')
 
