@@ -41,6 +41,10 @@ operación seleccionada.
 archivo_casting = "Data\MoviesCastingRaw-small.csv"
 archivo_details = "Data\SmallMoviesDetailsCleaned.csv"
 
+"Por favor inserte el relative path de su archivo"
+#archivo_casting = 
+#archivo_details = 
+
 # ___________________________________________________
 #  Funciones para imprimir la inforamación de
 #  respuesta.  La vista solo interactua con
@@ -81,10 +85,12 @@ def main():
         if len(inputs)>0:
 
             if int(inputs[0]) ==1: #opcion 1
-                posicion = int(input("inserte posición de interes (0 o 2000): "))
                 casting = controller.loadMovieCast()
                 details = controller.loadMovies()
-                pelicula_info = controller.encontrar_elemento(archivo_details,posicion)
+                ultima_pelicula = controller.encontrar_elemento(archivo_details,0)
+                primera_pelicula = controller.encontrar_elemento(archivo_details,2000)
+                print("\nUltima pelicula: \n"+ ultima_pelicula+ "\n")
+                print("Primera_pelicula: \n"+ primera_pelicula)
             elif int(inputs[0]) ==2: #opcion 2
                 pass
             elif int(inputs[0])==3: #opcion 3

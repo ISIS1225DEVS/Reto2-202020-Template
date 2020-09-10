@@ -81,8 +81,5 @@ def loadMovieCast ():
 def encontrar_elemento(camino,posicion):
     lista_details = model.crear_lista(camino)
     primero = lt.getElement(lista_details,posicion)
-    print("El título de la película: " + primero["title"])
-    print("La fecha de estreno: " + primero["release_date"])
-    print("El promedio de la votación: " + primero["vote_average"])
-    print("Número de votos: " + primero["vote_count"])
-    print("Idioma de la película: " + primero["original_language"])
+    respuesta = "El título de la película: " + primero["title"] + ", " + "La fecha de estreno: " + primero["release_date"] + ", " + "El promedio de la votación: " + primero["vote_average"]+ ", " +"Número de votos: " + primero["vote_count"]+ ", " + "Idioma de la película: " + primero["original_language"]
+    return respuesta
