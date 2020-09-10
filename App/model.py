@@ -47,7 +47,7 @@ def newCatalog():
                 "ProdCountries": None,
                 "Dates": None}
     
-    catalog["Movies"] = lt.newList("ARRAY_LIST", compareMovieIds)
+    catalog["Movies"] = lt.newList("SINGLED_LINKED", compareMovieIds)
     catalog["MovieIds"] = mp.newMap(100000,
                                     maptype="PROBING",
                                     loadfactor=0.4,
@@ -183,9 +183,9 @@ def compareDirectors(keyname, director):
 
 def compareDates(date1, date2):
 
-    if (int(date1) == int(date2)):
+    if (date1) == (date2):
         return 0
-    elif (int(date1 > int(date2)):
+    elif (date1) > (date2):
         return 1
     elif:
         return 0
