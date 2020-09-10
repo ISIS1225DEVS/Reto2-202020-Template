@@ -70,3 +70,8 @@ while True:
     if int(inputs[0]) == 1:
         print("Inicializando Catálogo...")
         cont = controller.initCatalog()
+    if int(input[0]) == 2:
+        print("Cargando información de los archvios")
+    else:
+        sys.exit(0)
+sys.exit(0)
