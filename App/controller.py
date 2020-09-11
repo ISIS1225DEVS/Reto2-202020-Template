@@ -67,10 +67,12 @@ def loadmovies(catalog,lista):
                 element=it.next(iterador)
                 model.addPeliculaActor(catalog,element,pelicula)
             model.addGenero(catalog,pelicula,pelicula)
+            model.addProductora(catalog,pelicula)
             
                    
                 
             
+ 
 
 def loadDatos(catalog):
     lista=loadDirectores()
@@ -82,7 +84,8 @@ def darDirector(catalog,nombre_director):
 def darGenero(catalog,nombre_genero):
     model.darGenero(catalog,nombre_genero)
 
-
+def darProductora(catalog,nombre_productora):
+    model.darproductora(catalog,nombre_productora)
 # ___________________________________________________
 #  Inicializacion del catalogo
 # ___________________________________________________
