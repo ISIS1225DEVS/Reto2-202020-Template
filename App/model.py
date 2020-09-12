@@ -65,7 +65,7 @@ def newCatalog():
                                 loadfactor=0.4,
                                 comparefunction=compareDirectors)
     catalog["Actors"] = mp.newMap(100000,
-                                    maptype="PROBING"
+                                    maptype="PROBING",
                                     loadfactor=0.4,
                                     comparefunction=compareActors)
     catalog["Genres"] = mp.newMap(100000,
@@ -74,7 +74,7 @@ def newCatalog():
                                     comparefunction=compareGenres)
     catalog["VoteCounts"] = mp.newMap(100000,
                                     maptype="PROBING",
-                                    loadfactor=0,4,
+                                    loadfactor=0.4,
                                     comparefunction=compareVoteCounts)
     catalog["ProdCountries"] = mp.newMap(100000,
                                         maptype="PROBING",
@@ -115,7 +115,7 @@ def addMovieDate(catalog, movie):
 
 def newDate(release_date):
     
-    entry = {"Date", "", "Movies": None}
+    entry = {"Date": "", "Movies": None}
     entry["Date"] = release_date
     entry["Movies"] = lt.newList("SINGLE_LINKED", compareDates)
     return entry
@@ -167,9 +167,8 @@ def compareMapMovieIds(id, entry):
         return 0
     elif (int(id) > int(idEntry)):
         return 1
-    elif:
+    else:
         return -1
-
 
 def compareDirectors(keyname, director):
 
@@ -178,7 +177,7 @@ def compareDirectors(keyname, director):
         return 0
     elif (keyname > directEntry):
         return 1
-    elif:
+    else:
         return -1
 
 def compareDates(date1, date2):
@@ -187,7 +186,7 @@ def compareDates(date1, date2):
         return 0
     elif (date1) > (date2):
         return 1
-    elif:
+    else:
         return 0
 
 
