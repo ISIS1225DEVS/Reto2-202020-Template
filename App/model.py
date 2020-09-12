@@ -180,12 +180,60 @@ def compareProdCompanies(keyname, entry):
     else:
         return -1
 
-def compareDirectors(keyname, director):
+def compareAvgVotes(vote1, vote2):
+
+    if float(vote1) == float(vote2):
+        return 0
+    elif float(vote1) > float(vote2):
+        return 1
+    else:
+        return -1
+
+def compareDirectors(keyname, entry):
 
     directEntry = me.getKey(director)
     if (keyname == directEntry):
         return 0
     elif (keyname > directEntry):
+        return 1
+    else:
+        return -1
+
+def compareActors(keyname, entry):
+
+    actorEntry = me.getKey(entry)
+    if (keyname == actorEntry):
+        return 0
+    elif (keyname > actorEntry):
+        return 1
+    else:
+        return -1
+
+def compareGenres(keyname, entry):
+
+    genreEntry = me.getKey(entry)
+    if (keyname == genreEntry):
+        return 0
+    elif (keyname > genreEntry):
+        return 1
+    else:
+        return -1
+
+def compareVoteCounts(voteCo1, voteCo2):
+
+    if float(voteCo1) == float(voteCo2):
+        return 0
+    elif float(voteCo1) > float(voteCo2):
+        return 1
+    else:
+        return -1
+
+def compareCountries(keyname, entry):
+
+    countEntry = me.getKey(entry)
+    if keyname == countEntry:
+        return 0
+    elif keyname > countEntry:
         return 1
     else:
         return -1
@@ -197,7 +245,7 @@ def compareDates(date1, date2):
     elif (date1) > (date2):
         return 1
     else:
-        return 0
+        return -1
 
 
 
