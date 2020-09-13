@@ -30,3 +30,12 @@ Este directorio contiene todo el código de base que se entrega para el funciona
 -Test
 Este directorio contiene las pruebas realizadas a los TADs, Estructuras de Datos y Algoritmos.
 
+
+Información de los desarrolladores:
+
+    Juan Sebastian Ibañez Capacho, 202014444 - j.ibanezc@uniandes.edu.co
+    
+    Sebastian Gaona Castellanos, 202012158 - s.gaona@uniandes.edu.co
+    
+    Boris N. Reyes R., 202014743 – b.reyesr@unaindes.edu.co
+
