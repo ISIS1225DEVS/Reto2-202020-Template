@@ -94,17 +94,23 @@ def newDirector(name):
     director["name"] = name
     director["movies"] = lt.newList("SINGLE_LINKED", compareDirectorsByName)
 
+def newActor(name):
+
+    actor = {"name":"", "movies": None, "average_vote": 0}
+    actor["name"] = name
+    actor["movies"] = lt.newList("SINGLE_LINKED", compareActors)
+
 def addMovie(catalog, movie):
 
     lt.addLast(catalog["Movies"], movie)
-    mp.put(catalog["MovieIds"], movie["movie_details_id"], movie)
+    mp.put(catalog["MovieIds"], movie["id"], movie)
     addMovieDate(catalog, movie)
 
 def addMovieDate(catalog, movie):
 
     dates = catalog["Dates"]
     release_date = movie["release_date"]
-    existdate = mp.contains(date, release_date)
+    existdate = mp.contains(dates, release_date)
     if existdate:
         entry = mp.get(dates, release_date)
         date = me.getValue(entry)
@@ -112,6 +118,24 @@ def addMovieDate(catalog, movie):
         date = newDate(release_date)
         mp.put(dates, release_date, date)
     lt.addLast(date["Movies"], movie)
+
+def addCastings(catalog, casting):
+
+    director = casting["director_name"]
+    actor1 = casting["actor1_name"]
+    actor2 = casting["actor2_name"]
+    actor3 = casting["actor3_name"]
+    actor4 = casting["actor4_name"]
+    actor5 = casting["actor5_name"]
+    movieId = casting["id"]
+    entry = mp.get(catalog["Movies"], movieId)
+
+    if entry:
+        movieCastings = mp.get(catalog["movies"], me.getValue(entry)["name"])
+        
+
+
+
 
 def newDate(release_date):
     
@@ -146,6 +170,10 @@ def moviesSize(catalog):
 def directorsSize(catalog):
 
     return lt.size(catalog["Directors"])
+
+def actorsSize(catalog):
+    
+    return lt.size(catalog["Actors"])
 
 # ==============================
 # Funciones de Comparacion

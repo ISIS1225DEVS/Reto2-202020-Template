@@ -38,8 +38,8 @@ operación seleccionada.
 #  Ruta a los archivos
 # ___________________________________________________
 
-moviesDetails="SmallMoviesDetailsClean.csv"
-moviesCasting= "MoviesCastingRaw-Small.csv"
+moviesDetails="SmallMoviesDetailsCleaned.csv"
+moviesCasting= "MoviesCastingRaw-small.csv"
 
 
 
@@ -71,11 +71,12 @@ while True:
     if int(inputs[0]) == 1:
         print("Inicializando Catálogo...")
         cont = controller.initCatalog()
-    if int(input[0]) == 2:
+    elif int(inputs[0]) == 2:
         print("Cargando información de los archvios")
         controller.loadDataMovies(cont, moviesDetails, moviesCasting)
-        print("peliculas cargadas: ")+str(controller.moviesSize(cont))
-        print("casting cargados: ")+ str(controller.castingSize(cont))
+        print("Peliculas cargadas: "+str(controller.moviesSize(cont)))
+        print("Casting cargados: "+ str(controller.castingsSize(cont)))
+        print("Actores cargados: "+ str(controller.actorsSize(cont)))
     else:
         sys.exit(0)
 sys.exit(0)

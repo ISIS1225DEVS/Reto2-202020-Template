@@ -50,20 +50,20 @@ def initCatalog():
 # ___________________________________________________
 
 def loadDataMovies(catalog,moviesDetails,moviesCasting):
-    loadMovies(catalog, moviesDetails)
-    loadCatsting(catalog, moviesCasting)
+    loadMovieDetails(catalog, moviesDetails)
+    loadMoviesCasting(catalog, moviesCasting)
 
 def loadMovieDetails(catalog, moviesDetails):
     moviesDetails=cf.data_dir + moviesDetails
-    input_file = csv.directReader(open(moviesDetails))
-    for details in input_file:
-        model.addmovie(catalog, details)
+    input_file = csv.DictReader(open(moviesDetails))
+    for movie in input_file:
+        model.addMovie(catalog, movie)
 
 def loadMoviesCasting(catalog, moviesCasting):
     moviesCasting=cf.data_dir + moviesCasting
-    input_file = csv.directReader(open(moviesCasting))
-    for casting in input_file:
-        model.addmovie(catalog, casting)
+    input_file = csv.DictReader(open(moviesCasting))
+    for director in input_file:
+        model.addMovie(catalog, director)
 
 
 
@@ -71,7 +71,11 @@ def loadMoviesCasting(catalog, moviesCasting):
 def moviesSize(catalog):
     return model.moviesSize(catalog)
 
-def catalogSize(catalog):
-    return model.castingSize(catalog)
+def directorsSize(catalog):
+    return model.directorsSize(catalog)
+
+def actorsSize(catalog):
+    return model.actorsSize(catalog)
+
         
         
