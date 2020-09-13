@@ -50,37 +50,13 @@ Details = "themovies/SmallMoviesDetailsCleaned.csv"
 #  el controlador.
 # ___________________________________________________
 
-def printMenu()
+def printMenu():
+    return None
 
 
 # ___________________________________________________
 #  Menu principal
 # ___________________________________________________
-while True:
-    printMenu()
-    inputs = input("Selecciones una opción para continuar\n")
-
-    if int(inputs[0]) == 1:
-        
-    elif int(inputs[0]) == 2:
-    
-    elif int(inputs[0]) == 3:
-    
-    elif int(inputs[0]) == 4:
-
-    elif int(inputs[0]) == 5:
-
-    elif int(inputs[0]) == 6:
-
-    elif int(inputs[0]) == 7:
-
-    else:
-        sys.exit(0)
-sys.exit()
-
-
-
-
 
 while True:
     printMenu()
@@ -93,10 +69,8 @@ while True:
 
     elif int(inputs[0]) == 2:
         print("Cargando información de los archivos ....")
-        controller.loadData(cont, booksfile, tagsfile, booktagsfile)
-        print('Libros cargados: ' + str(controller.booksSize(cont)))
-        print('Autores cargados: ' + str(controller.authorsSize(cont)))
-        print('Géneros cargados: ' + str(controller.tagsSize(cont)))
+        controller.loadData(cont, Details, Casting)
+        print("Peliculas cargadas: " + str(controller.movieSize(cont)))
 
     elif int(inputs[0]) == 3:
         number = input("Buscando libros del año?: ")
