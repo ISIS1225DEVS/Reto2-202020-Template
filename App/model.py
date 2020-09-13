@@ -94,17 +94,23 @@ def newDirector(name):
     director["name"] = name
     director["movies"] = lt.newList("SINGLE_LINKED", compareDirectorsByName)
 
+def newActor(name):
+
+    actor = {"name":"", "movies": None, "average_vote": 0}
+    actor["name"] = name
+    actor["movies"] = lt.newList("SINGLE_LINKED", compareActors)
+
 def addMovie(catalog, movie):
 
     lt.addLast(catalog["Movies"], movie)
-    mp.put(catalog["MovieIds"], movie["movie_details_id"], movie)
+    mp.put(catalog["MovieIds"], movie["id"], movie)
     addMovieDate(catalog, movie)
 
 def addMovieDate(catalog, movie):
 
     dates = catalog["Dates"]
     release_date = movie["release_date"]
-    existdate = mp.contains(date, release_date)
+    existdate = mp.contains(dates, release_date)
     if existdate:
         entry = mp.get(dates, release_date)
         date = me.getValue(entry)
@@ -112,6 +118,24 @@ def addMovieDate(catalog, movie):
         date = newDate(release_date)
         mp.put(dates, release_date, date)
     lt.addLast(date["Movies"], movie)
+
+def addCastings(catalog, casting):
+
+    director = casting["director_name"]
+    actor1 = casting["actor1_name"]
+    actor2 = casting["actor2_name"]
+    actor3 = casting["actor3_name"]
+    actor4 = casting["actor4_name"]
+    actor5 = casting["actor5_name"]
+    movieId = casting["id"]
+    entry = mp.get(catalog["Movies"], movieId)
+
+    if entry:
+        movieCastings = mp.get(catalog["movies"], me.getValue(entry)["name"])
+        
+
+
+
 
 def newDate(release_date):
     
@@ -147,6 +171,10 @@ def directorsSize(catalog):
 
     return lt.size(catalog["Directors"])
 
+def actorsSize(catalog):
+    
+    return lt.size(catalog["Actors"])
+
 # ==============================
 # Funciones de Comparacion
 # ==============================
@@ -180,12 +208,60 @@ def compareProdCompanies(keyname, entry):
     else:
         return -1
 
-def compareDirectors(keyname, director):
+def compareAvgVotes(vote1, vote2):
+
+    if float(vote1) == float(vote2):
+        return 0
+    elif float(vote1) > float(vote2):
+        return 1
+    else:
+        return -1
+
+def compareDirectors(keyname, entry):
 
     directEntry = me.getKey(director)
     if (keyname == directEntry):
         return 0
     elif (keyname > directEntry):
+        return 1
+    else:
+        return -1
+
+def compareActors(keyname, entry):
+
+    actorEntry = me.getKey(entry)
+    if (keyname == actorEntry):
+        return 0
+    elif (keyname > actorEntry):
+        return 1
+    else:
+        return -1
+
+def compareGenres(keyname, entry):
+
+    genreEntry = me.getKey(entry)
+    if (keyname == genreEntry):
+        return 0
+    elif (keyname > genreEntry):
+        return 1
+    else:
+        return -1
+
+def compareVoteCounts(voteCo1, voteCo2):
+
+    if float(voteCo1) == float(voteCo2):
+        return 0
+    elif float(voteCo1) > float(voteCo2):
+        return 1
+    else:
+        return -1
+
+def compareCountries(keyname, entry):
+
+    countEntry = me.getKey(entry)
+    if keyname == countEntry:
+        return 0
+    elif keyname > countEntry:
         return 1
     else:
         return -1
@@ -197,7 +273,7 @@ def compareDates(date1, date2):
     elif (date1) > (date2):
         return 1
     else:
-        return 0
+        return -1
 
 
 
