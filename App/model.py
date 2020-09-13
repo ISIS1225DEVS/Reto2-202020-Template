@@ -23,6 +23,7 @@ import config
 from DISClib.ADT import list as lt
 from DISClib.ADT import map as mp
 from DISClib.DataStructures import mapentry as me
+from DISClib.DataStructures import listiterator as it
 assert config
 
 """
@@ -146,7 +147,7 @@ def addMovieCompany(catalog, movie):
 def newCompany(company):
     entry = {"company": "", "movies": None}
     entry["company"] = company
-    entry["movies"] = lt.newList("SINGLE_LINKED", compareCompanies)
+    entry["movies"] = lt.newList("ARRAY_LIST", compareCompanies)
     return entry
 
 def addMovieCountry(catalog, movie):
@@ -235,6 +236,36 @@ def addMovieActorByDirector(catalog,casting):
 
 def moviesSize(catalog):
     return lt.size(catalog['Movies'])
+
+def listSize(lst):
+    return lt.size(lst)
+
+def getFifteenElements(lst):
+    lst = lt.subList(lst,1,15)
+    iterator = it.newIterator(lst)
+    movies = []
+    while it.hasNext(iterator):
+        movie = it.next(iterator)
+        movies.append(movie)
+    return movies
+
+def getMoviesByCompany(catalog,company):
+    mapa = catalog["production_companies"]
+    entry = mp.get(mapa,company)
+    movies = (me.getValue(entry))["movies"]
+    iterator = it.newIterator(movies)
+    movieList = lt.newList("ARRAY_LIST")
+    averageCount = 0
+    while it.hasNext(iterator):
+        movie = it.next(iterator)
+        lt.addLast(movieList,movie["original_title"])
+        averageCount += float(movie["vote_average"])
+    return (movieList,averageCount)
+        
+        
+
+        
+
 
 
 # ==============================

@@ -78,3 +78,11 @@ def loadData(catalog, detailsfile, castingfile):
 def movieSize(catalog):
     size = model.moviesSize(catalog)
     return size
+
+def moviesByCompany(catalog, company):
+    info = model.getMoviesByCompany(catalog,company)
+    movies = info[0]
+    count = model.listSize(movies)
+    moviesReduced = model.getFifteenElements(movies)
+    prom = info[1]/count
+    return (moviesReduced, count, prom)

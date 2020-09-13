@@ -73,9 +73,9 @@ while True:
         print("Peliculas cargadas: " + str(controller.movieSize(cont)))
 
     elif int(inputs[0]) == 3:
-        number = input("Buscando libros del año?: ")
-        books = controller.getBooksYear(cont, int(number))
-        printBooksbyYear(books)
+        company = input("Ingrese el nombre de la compañia que desea consultar")
+        info = controller.moviesByCompany(cont,company)
+        print("La compañia " + company + " tiene un total de "+ str(info[1]) + " peliculas, con un promedio de " + str(info[2]) + " algunas de sus peliculas son estas: \n" + str(info[0]))
 
     elif int(inputs[0]) == 4:
         authorname = input("Nombre del autor a buscar: ")
