@@ -50,8 +50,11 @@ def compareDirectores(keyname, director):
     Directorentry = me.getKey(director)
     if (keyname == Directorentry):
         return 0
-    else:
+    elif (keyname > Directorentry):
         return 1
+    else:
+        return -1
+            
 def compareProductoras(keyname, Productora):
     """
     Compara dos nombres de autor. El primero es una cadena
@@ -75,16 +78,17 @@ def newCatalog():
    
     catalog = {'Peliculas': None,
                'Directores': None,
-               'Generos': None}
+               'Generos': None,
+               "Productoras":None}
 
     catalog['Peliculas'] = lt.newList('ARRAY_LIST', cmpfunction=comparePeliculas)
-    catalog['Directores'] =  mp.newMap(1000,
-                                   maptype='CHAINING',
-                                   loadfactor=0.5,
+    catalog['Directores'] =  mp.newMap(4000,
+                                   maptype='PROBING',
+                                   loadfactor=2,
                                    comparefunction=compareDirectores)
-    catalog['Productoras'] =  mp.newMap(2000,
-                                   maptype='CHAINING',
-                                   loadfactor=0.5,
+    catalog['Productoras'] =  mp.newMap(4000,
+                                   maptype='PROBING',
+                                   loadfactor=2,
                                    comparefunction=compareProductoras)
 
     catalog['Generos'] = lt.newList("ARRAY_LIST", cmpfunction=compareGeners)
@@ -180,7 +184,8 @@ def addGenero(catalog,lista_genero,pelicula):
 
 
 def darAutor(catalog,nombre_director):
-    entry= mp.get(catalog["Directores"],nombre_director)
+    directores=catalog["Directores"]
+    entry= mp.get(directores,nombre_director)
     if entry:
         return me.getValue(entry)
     else:
@@ -189,14 +194,12 @@ def darAutor(catalog,nombre_director):
 def darGenero(catalog,nombre_genero):
     existe_genero= lt.isPresent(catalog["Generos"],nombre_genero)
     genero=lt.getElement(catalog["Generos"],existe_genero)
-    print("Se encontraron",lt.size(genero["Peliculas_genero"]),"del genero",nombre_genero,"\n")
 
 def darproductora(catalog,nombre_productora):
-    existe_productora= mp.contains(catalog["Productoras"],nombre_productora)
-    if existe_productora:
-        entry= mp.get(catalog["Productoras"],nombre_productora)
+    entry= mp.get(catalog["Productoras"],nombre_productora)
+    productora=None
+    if entry:
         productora= me.getValue(entry)
-    
     return productora
    
 

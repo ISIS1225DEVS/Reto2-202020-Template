@@ -79,13 +79,15 @@ def loadDatos(catalog):
     loadmovies(catalog,lista)
     
 def darDirector(catalog,nombre_director):
-    model.darAutor(catalog,nombre_director)
+    director=model.darAutor(catalog,nombre_director)
+    return director
 
 def darGenero(catalog,nombre_genero):
     model.darGenero(catalog,nombre_genero)
 
 def darProductora(catalog,nombre_productora):
-    model.darproductora(catalog,nombre_productora)
+    productora=model.darproductora(catalog,nombre_productora)
+    return productora
 # ___________________________________________________
 #  Inicializacion del catalogo
 # ___________________________________________________

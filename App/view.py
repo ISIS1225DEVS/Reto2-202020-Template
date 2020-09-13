@@ -42,7 +42,7 @@ def printMenu():
     print("1- Inicializar Catálogo")
     print("2- Cargar información en el catálogo")
     print("3- Conocer una productora")
-    print("4- Conocer un genero")
+    print("4- Conocer un director")
     print("0- Salir")
 
 
@@ -69,27 +69,32 @@ while True:
 
         pelicula1=lt.getElement(catalog["Peliculas"],1)
         pelicula2=lt.getElement(catalog["Peliculas"],lt.size(catalog["Peliculas"]))
-        print("La primera pelicula es:\n",pelicula1,"\n\n","Titulada:",pelicula1["original_title"],"\n","Estrenada el dia:",pelicula1["release_date"])
+        print("La primera pelicula es:","\n\n","Titulada:",pelicula1["original_title"],"\n","Estrenada el dia:",pelicula1["release_date"])
         print(" Su promedio de votacion:",pelicula1["vote_average"],"\n","su numero de votos",pelicula1["vote_count"],"\n","Y su idioma:",pelicula1["original_language"],"\n")
-        print("La ultima pelicula es:\n",pelicula2,"\n\n","Titulada:",pelicula2["original_title"],"\n","Estrenada el dia:",pelicula2["release_date"])
+        print("La ultima pelicula es:","\n\n","Titulada:",pelicula2["original_title"],"\n","Estrenada el dia:",pelicula2["release_date"])
         print(" Su promedio de votacion:",pelicula2["vote_average"],"\n","su numero de votos",pelicula2["vote_count"],"\n","Y su idioma:",pelicula2["original_language"],"\n")
     
     elif int(inputs[0])==3:
         nombre=input("Ingrese el nombre de la productora:\n")
         productora= controller.darProductora(catalog,nombre)
-        print(productora)
         print("La productora",nombre,"tiene",lt.size(productora["Peliculas"]),"peliculas las cuales son:\n")     
         iterador= it.newIterator(productora["Peliculas"])
         while it.hasNext(iterador):
             element=it.next(iterador)
-            print(element,"\n")
-            print("----------------------"*7,"\n")
-            print("Con un promedio de votos de",productora["Vote_average"])
+            nombre=element["original_title"]
+            print(nombre)
+        print("Con un promedio de votos de",productora["Vote_average"])
     
     elif int(inputs[0])==4:
         nombre=input("Ingrese el nombre del director:\n")
         director=controller.darDirector(catalog,nombre)
-        print(director)
+        print("El director",nombre,"tiene",lt.size(director["Peliculas"]),"peliculas las cuales son:")
+        iterador= it.newIterator(director["Peliculas"])
+        while it.hasNext(iterador):
+            element=it.next(iterador)
+            nombre=element["original_title"]
+            print(nombre)
+        print("Con un promedio de votos de",director["Vote_average"])
 
     else:
         sys.exit(0)
