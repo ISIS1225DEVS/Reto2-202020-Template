@@ -24,14 +24,8 @@ import config as cf
 from App import model
 import csv
 from DISClib.ADT import list as lt
-from time import process_time 
-"""
-El controlador se encarga de mediar entre la vista y el modelo.
-Existen algunas operaciones en las que se necesita invocar
-el modelo varias veces o integrar varias de las respuestas
-del modelo en una sola respuesta. Esta responsabilidad
-recae sobre el controlador.
-"""
+from time import process_time
+
 
 # ___________________________________________________
 #  Inicializacion del catalogo
@@ -39,9 +33,7 @@ recae sobre el controlador.
 
 
 def initCatalog():
-    """
-    Llama la funcion de inicializacion del catalogo del modelo.
-    """
+
     # catalog es utilizado para interactuar con el modelo
     catalog = model.newCatalog()
     return catalog
@@ -54,7 +46,6 @@ def initCatalog():
 # ___________________________________________________
 
 def loadData(catalog, Moviesfile):
-
     loadDetails(catalog, Moviesfile)
 
 def loadDetails(catalog, Moviesfile):

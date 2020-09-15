@@ -104,7 +104,7 @@ def main():
                 cont = controller.initCatalog()
                 controller.loadData(cont, (archivo_details))
                 print('Cantidad de peliculas cargadas: ' + str(controller.detailSize(cont)))
-                print(controller.encontrarElemento(cont,1))
+                print(controller.encontrarElemento(cont,0))
                 print(controller.encontrarElemento(cont,2000))
 
             elif int(inputs[0]) ==2: #opcion 2
