@@ -27,6 +27,7 @@ from DISClib.DataStructures import listiterator as it
 from App import controller
 assert config
 import controller as cont
+import model as mod
 
 
 import config as cf
@@ -70,12 +71,7 @@ def main():
     opcion=int(input("Ingrese opcion"))
     if opcion==1:
         nombre=input("Inserte nombre del archivo a cargar")
-        archivo=cont.cargar_archivo("Data/GoodReads/"+nombre)
-        print("Datos cargados, ",archivo['size']," elementos cargados")
-        if archivo['size']>0:
-            print(lt.firstElement(archivo))
-            print(lt.lastElement(archivo))
-        else:
-            print("Archivo vacío")
-
+        catalogo=cont.initpeliculas()
+        lista=cont.cargar_datos(catalogo,nombre)
+        print(lista)
 main()

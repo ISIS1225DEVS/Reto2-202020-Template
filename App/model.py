@@ -32,6 +32,7 @@ import csv
 
 from time import process_time 
 
+#csv.DictReader(open(booksfile, coding="utf-8"), separator=";")
 
 
 """
@@ -39,34 +40,22 @@ En este archivo definimos los TADs que vamos a usar,
 es decir contiene los modelos con los datos en memoria
 
 """
+
 def compareRecordIds (recordA, recordB):
     if int(recordA['id']) == int(recordB['id']):
         return 0
     elif int(recordA['id']) > int(recordB['id']):
         return 1
     return -1
+
 # -----------------------------------------------------
 # API del TAD Catalogo de Libros
 # -----------------------------------------------------
 
-def cargar(nombre,compareRecordIds):
-    lst=lt.newList("ARRAY_LIST")
-    dialect = csv.excel()
-    dialect.delimiter=";"
-    try:
-        with open(  cf.data_dir + file, encoding="utf-8") as csvfile:
-            row = csv.DictReader(csvfile, dialect=dialect)
-            for elemento in row: 
-                lt.addLast(lst,elemento)
-    except:
-        print("Hubo un error con la carga del archivo")
-    print(lt.firstElement(lst))
-    print(lt.lastElement(lst))
-    return lst
 
 def loadCSVFile (file, sep=";"):
-    lst = lt.newList("ARRAY_LIST") #Usando implementacion arraylist
-    #lst = lt.newList() #Usando implementacion linkedlist
+    #lst = lt.newList("ARRAY_LIST") #Usando implementacion arraylist
+    lst = lt.newList() #Usando implementacion linkedlist
     print("Cargando archivo ....")
     dialect = csv.excel()
     dialect.delimiter=sep
@@ -78,6 +67,25 @@ def loadCSVFile (file, sep=";"):
     except:
         print("Hubo un error con la carga del archivo")
     return lst
+
+
+def nuevos_mapas():
+    peliculas={"id":None,"budget":None,"genres":None,"imdb_id":None,"original_language":None,"original_title":None,
+    "overview":None,"popularity":None,"production_companies":None,"production_countries":None,"release_date":None
+"runtime":None,"spoken_languages":None,"status":None,"tagline":None,"title":None,"vote_average":None,"vote_count":None,
+    "production_companies_number":None,"production_countries_number":None,"spoken_languages_number":None}
+
+    peliculas["production_companies"]=mp.newMap(2003,2011,maptype='CHAINING',loadfactor=0.9,comparefunction=None)
+    return peliculas
+
+def cargar_compañias(catalogo,compañia,valor):
+    nuevo_catalogo=mp.put(catalogo["production_companies"],compañia,valor)
+    return nuevo_catalogo
+
+#def requerimiento1(archivo,nombre):
+    #map_return=mp.get(archivo,nombre)
+    #longitud=len(map_return["Peliculas"])
+
 
 # Funciones para agregar informacion al catalogo
 
