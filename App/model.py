@@ -29,31 +29,87 @@ assert config
 """
 En este archivo definimos los TADs que vamos a usar,
 es decir contiene los modelos con los datos en memoria
-
 """
 
 # -----------------------------------------------------
 # API del TAD Catalogo de Libros
 # -----------------------------------------------------
 
+def newCatalog():
+    catalog = {'details': None, 'compañias': None,}
+
+    catalog['details'] = lt.newList('SINGLE_LINKED', compareMovieIds)
+    catalog['compañias'] = mp.newMap(1000,loadfactor=0.4,comparefunction=compareMapName)
+
+    return catalog
+
+
+def newCompany(name):
+    company = {'name': "", "movies": None,  "average_rating": 0}
+    company['name'] = name
+    company['movies'] = lt.newList('SINGLE_LINKED', compareMovieIds)
+    return company
+
 # Funciones para agregar informacion al catalogo
 
 
+def addDetails(catalog, movie):
+   
+    lt.addLast(catalog['details'], movie)
+
+def addProductoraMovie(catalog, authorname, movie):
+    authors = catalog['compañias']
+    existauthor = mp.contains(authors, authorname)
+    if existauthor:
+        entry = mp.get(authors, authorname)
+        author = me.getValue(entry)
+    else:
+        author = newCompany(authorname)
+        mp.put(authors, authorname, author)
+    lt.addLast(author['movies'], movie)
 
 # ==============================
 # Funciones de consulta
 # ==============================
 
-def crear_lista(camino):
-    
-    lista = lt.newList('SINGLE_LINKED', None)
-    with open(camino, encoding="utf-8-sig") as csvfile:
-        reader = csv.DictReader(csvfile, delimiter=';')
-        for row in reader:
-            lt.addFirst(lista, row)
-    return lista
+
+def companySize(catalog):
+    return mp.size(catalog['compañias'])
+
+def moviesByProductionCompany(catalog, producername):
+    producer = mp.get(catalog['compañias'], producername)
+    if producer:
+        return me.getValue(producer)
+    return None
+
+def detailSize(catalog):
+    resultado = lt.size(catalog['details'])
+    return resultado
+
+def encontrarElemento(catalog, posicion):
+    primero = lt.getElement(catalog['details'],posicion)
+    respuesta = "El título de la película: " + primero["original_title"] + ", " + "La fecha de estreno: " + primero["release_date"] + ", " + "El promedio de la votación: " + primero["vote_average"]+ ", " +"Número de votos: " + primero["vote_count"]+ ", " + "Idioma de la película: " + primero["original_language"]
+    return respuesta
+
 
 # ==============================
 # Funciones de Comparacion
 # ==============================
 
+
+def compareMovieIds(id1, id2):
+    if (id1 == id2):
+        return 0
+    elif id1 > id2:
+        return 1
+    else:
+        return -1
+
+def compareMapName(keyname, name):
+    nameentry = me.getKey(name)
+    if (keyname == nameentry):
+        return 0
+    elif (keyname > nameentry):
+        return 1
+    else:
+        return -1

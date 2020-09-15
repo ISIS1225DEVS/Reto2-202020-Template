@@ -41,10 +41,6 @@ operación seleccionada.
 archivo_casting = "Data\MoviesCastingRaw-small.csv"
 archivo_details = "Data\SmallMoviesDetailsCleaned.csv"
 
-"Por favor inserte el relative path de su archivo"
-#archivo_casting = 
-#archivo_details = 
-
 # ___________________________________________________
 #  Funciones para imprimir la inforamación de
 #  respuesta.  La vista solo interactua con
@@ -53,10 +49,29 @@ archivo_details = "Data\SmallMoviesDetailsCleaned.csv"
 
 
 
+def printProductoraData(productor):
+
+    if productor:
+        print('Total de peliculas: ' + str(lt.size(productor['movies'])))
+        iterator = it.newIterator(productor['movies'])
+        promedio=0
+        while it.hasNext(iterator):
+            movie = it.next(iterator)
+            print('Titulo: ' + movie['original_title'] + '  Promedio: ' + movie['vote_average'])
+            promedio+= float(movie['vote_average'])
+        tamaño = lt.size(productor['movies'])
+        resultado = promedio / tamaño
+        print("promedio de la calificación de la compañia de producción: " + str(round(resultado,2)))
+    else:
+        print('No se encontro el autor')
+
+
 
 # ___________________________________________________
 #  Menu principal
 # ___________________________________________________
+
+
 def printMenu():
     """
     Imprime el menu de opciones
@@ -85,14 +100,19 @@ def main():
         if len(inputs)>0:
 
             if int(inputs[0]) ==1: #opcion 1
-                casting = controller.loadMovieCast()
-                details = controller.loadMovies()
-                ultima_pelicula = controller.encontrar_elemento(archivo_details,0)
-                primera_pelicula = controller.encontrar_elemento(archivo_details,2000)
-                print("\nUltima pelicula: \n"+ ultima_pelicula+ "\n")
-                print("Primera_pelicula: \n"+ primera_pelicula)
+
+                cont = controller.initCatalog()
+                controller.loadData(cont, (archivo_details))
+                print('Cantidad de peliculas cargadas: ' + str(controller.detailSize(cont)))
+                print(controller.encontrarElemento(cont,1))
+                print(controller.encontrarElemento(cont,2000))
+
             elif int(inputs[0]) ==2: #opcion 2
-                pass
+
+                productorname = input("Inserte el nombre de la compañia de producción: ")
+                productorinfo = controller.moviesByProductionCompany(cont, productorname)
+                printProductoraData(productorinfo)
+
             elif int(inputs[0])==3: #opcion 3
                 pass
             elif int(inputs[0])==4: #opcion 4
@@ -102,5 +122,5 @@ def main():
             elif int(inputs[0])==0:
                 sys.exit(0)
                 
-
-main()
+if __name__ == "__main__":
+    main()
