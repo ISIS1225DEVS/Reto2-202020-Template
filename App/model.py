@@ -25,6 +25,8 @@ from DISClib.ADT import map as mp
 from DISClib.DataStructures import mapentry as me
 from DISClib.DataStructures import listiterator as it
 assert config
+from time import process_time 
+
 
 """
 En este archivo definimos los TADs que vamos a usar,
@@ -82,11 +84,11 @@ def newCatalog():
                "Productoras":None}
 
     catalog['Peliculas'] = lt.newList('ARRAY_LIST', cmpfunction=comparePeliculas)
-    catalog['Directores'] =  mp.newMap(1000,
+    catalog['Directores'] =  mp.newMap(164527,
                                    maptype='CHAINING',
                                    loadfactor=2,
                                    comparefunction=compareDirectores)
-    catalog['Productoras'] =  mp.newMap(4000,
+    catalog['Productoras'] =  mp.newMap(164527,
                                    maptype='CHAINING',
                                    loadfactor=2,
                                    comparefunction=compareProductoras)
@@ -118,10 +120,10 @@ def nuevo_genero(nombre_genero):
     return genero 
 
 def addPeliculaActor(catalog, director_lista, pelicula ):
-    
+    ya=False
     nombre_director=director_lista["director_name"]
     id1=director_lista["id"]
-    id2=pelicula["id"]
+    id2=pelicula["\ufeffid"]
     if id1==id2:
         Directores = catalog['Directores']
         existe_director = mp.contains(Directores,nombre_director)
@@ -140,6 +142,8 @@ def addPeliculaActor(catalog, director_lista, pelicula ):
             director['Vote_average'] = float(pelicualav)
         else:
             director['Vote_average'] = (directorav + float(pelicualav)) / 2
+        ya=True 
+    return ya 
 
 def addProductora(catalog, pelicula ):
     
@@ -184,23 +188,30 @@ def addGenero(catalog,lista_genero,pelicula):
 
 
 def darAutor(catalog,nombre_director):
+    t1=process_time()
     directores=catalog["Directores"]
     entry= mp.get(directores,nombre_director)
     if entry:
         return me.getValue(entry)
     else:
         return 1
+    t2=process_time()
+    print(t2-t1,"El tiempo para dar un autor fue:")
 
 def darGenero(catalog,nombre_genero):
     existe_genero= lt.isPresent(catalog["Generos"],nombre_genero)
     genero=lt.getElement(catalog["Generos"],existe_genero)
 
 def darproductora(catalog,nombre_productora):
+    t1=process_time()
     entry= mp.get(catalog["Productoras"],nombre_productora)
     productora=None
     if entry:
         productora= me.getValue(entry)
+        t2=process_time()
+    print(t2-t1,"El tiempo para dar un autor fue:")
     return productora
+    
    
 
 # Funciones para agregar informacion al catalogo

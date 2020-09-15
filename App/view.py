@@ -25,6 +25,7 @@ import config
 from DISClib.ADT import list as lt
 from DISClib.DataStructures import listiterator as it
 from App import controller
+from DISClib.ADT import map as mp
 assert config
 
 """
@@ -63,9 +64,9 @@ while True:
         print("Cargando información de los archivos ....")
         controller.loadDatos(catalog)
         print ('Peliculas cargados: ' + str(lt.size(catalog['Peliculas'])))
-        print ('Directores cargados: ' + str(lt.size(catalog['Directores'])))
+        print ('Directores cargados: ' + str(mp.size(catalog['Directores'])))
         print ('Géneros cargados: ' + str(lt.size(catalog['Generos'])))
-        print("Productoras cargadas"+ str(lt.size(catalog["Productoras"]) ),"\n")
+        print("Productoras cargadas: "+ str(mp.size(catalog['Productoras'])),"\n")
 
         pelicula1=lt.getElement(catalog["Peliculas"],1)
         pelicula2=lt.getElement(catalog["Peliculas"],lt.size(catalog["Peliculas"]))
