@@ -66,7 +66,6 @@ def loadmovies(catalog,lista):
             while it.hasNext(iterador) :
                 element=it.next(iterador)
                 model.addPeliculaActor(catalog,element,pelicula)
-            model.addGenero(catalog,pelicula,pelicula)
             model.addProductora(catalog,pelicula)
             
                    
