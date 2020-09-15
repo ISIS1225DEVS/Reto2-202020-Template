@@ -83,7 +83,7 @@ while True:
             element=it.next(iterador)
             nombre=element["original_title"]
             print(nombre)
-        print("Con un promedio de votos de",productora["Vote_average"])
+        print("\nCon un promedio de votos de",productora["Vote_average"])
     
     elif int(inputs[0])==4:
         nombre=input("Ingrese el nombre del director:\n")

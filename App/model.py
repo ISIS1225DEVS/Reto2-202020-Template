@@ -82,12 +82,12 @@ def newCatalog():
                "Productoras":None}
 
     catalog['Peliculas'] = lt.newList('ARRAY_LIST', cmpfunction=comparePeliculas)
-    catalog['Directores'] =  mp.newMap(4000,
-                                   maptype='PROBING',
+    catalog['Directores'] =  mp.newMap(1000,
+                                   maptype='CHAINING',
                                    loadfactor=2,
                                    comparefunction=compareDirectores)
     catalog['Productoras'] =  mp.newMap(4000,
-                                   maptype='PROBING',
+                                   maptype='CHAINING',
                                    loadfactor=2,
                                    comparefunction=compareProductoras)
 
