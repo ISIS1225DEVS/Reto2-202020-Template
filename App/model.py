@@ -384,3 +384,13 @@ def compareMapActorsDirectors(id,tag):
     else:
         return -1
 
+#===============================
+def newList():
+    a = lt.newList()
+    return a
+
+def addLast(lst, element):
+    lt.addLast(lst, element)
+
+
+

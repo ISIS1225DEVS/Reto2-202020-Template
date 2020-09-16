@@ -21,7 +21,7 @@
  """
 
 import config as cf
-from App import model
+from App import model as model
 import csv
 
 
@@ -32,7 +32,6 @@ el modelo varias veces o integrar varias de las respuestas
 del modelo en una sola respuesta. Esta responsabilidad
 recae sobre el controlador.
 """
-
 # ___________________________________________________
 #  Inicializacion del catalogo
 # ___________________________________________________

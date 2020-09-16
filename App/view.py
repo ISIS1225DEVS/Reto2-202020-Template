@@ -24,7 +24,7 @@ import sys
 import config
 from DISClib.ADT import list as lt
 from DISClib.DataStructures import listiterator as it
-from App import controller
+from App import controller as controller
 assert config
 
 """
@@ -36,13 +36,10 @@ operación seleccionada.
 
 # ___________________________________________________
 #  Ruta a los archivos
-Casting = "themovies/MoviesCastingRaw-small.csv"
-Details = "themovies/SmallMoviesDetailsCleaned.csv"
 # ___________________________________________________
 
-
-
-
+Casting = "themoviesdb/MoviesCastingRaw-small.csv"
+Details = "themoviesdb/SmallMoviesDetailsCleaned.csv"
 
 # ___________________________________________________
 #  Funciones para imprimir la inforamación de
@@ -59,7 +56,6 @@ def printMenu():
     print("6- Entender un género cinematográfico")
     print("7- Encontrar películas por país")
     print("8- Salir")
-
 
 # ___________________________________________________
 #  Menu principal
