@@ -24,52 +24,18 @@ from DISClib.ADT import list as lt
 from DISClib.ADT import map as mp
 from DISClib.DataStructures import mapentry as me
 assert config
-
-
-<<<<<<< HEAD
-import config as cf
-import sys
 import csv
 
-from time import process_time 
 
-
-
-=======
->>>>>>> master
 """
 En este archivo definimos los TADs que vamos a usar,
 es decir contiene los modelos con los datos en memoria
 
 """
-def compareRecordIds (recordA, recordB):
-    if int(recordA['id']) == int(recordB['id']):
-        return 0
-    elif int(recordA['id']) > int(recordB['id']):
-        return 1
-    return -1
-# -----------------------------------------------------
-# API del TAD Catalogo de Libros
-# -----------------------------------------------------
 
-def cargar(nombre,compareRecordIds):
-    lst=lt.newList("ARRAY_LIST")
-    dialect = csv.excel()
-    dialect.delimiter=";"
-    try:
-        with open(  cf.data_dir + file, encoding="utf-8") as csvfile:
-            row = csv.DictReader(csvfile, dialect=dialect)
-            for elemento in row: 
-                lt.addLast(lst,elemento)
-    except:
-        print("Hubo un error con la carga del archivo")
-    print(lt.firstElement(lst))
-    print(lt.lastElement(lst))
-    return lst
-
-def loadCSVFile (file, sep=";"):
-    lst = lt.newList("ARRAY_LIST") #Usando implementacion arraylist
-    #lst = lt.newList() #Usando implementacion linkedlist
+def loadCSVFile2 (file, sep=";"):
+    #lst = lt.newList("ARRAY_LIST") #Usando implementacion arraylist
+    lst = lt.newList() #Usando implementacion linkedlist
     print("Cargando archivo ....")
     dialect = csv.excel()
     dialect.delimiter=sep
@@ -81,6 +47,19 @@ def loadCSVFile (file, sep=";"):
     except:
         print("Hubo un error con la carga del archivo")
     return lst
+
+def nuevos_mapas():
+    peliculas={"id":None,"budget":None,"genres":None,"imdb_id":None,"original_language":None,"original_title":None,
+    "overview":None,"popularity":None,"production_companies":None,"production_countries":None,"release_date":None,"spoken_languages":None,"status":None,"tagline":None,"title":None,"vote_average":None,"vote_count":None,
+    "production_companies_number":None,"production_countries_number":None,"spoken_languages_number":None}
+
+    peliculas["production_companies"]=mp.newMap(2003,2011,maptype='CHAINING',loadfactor=0.9,comparefunction=None)
+    return peliculas
+
+def cargar_compañias(catalogo,compañia,valor):
+    nuevo_catalogo=mp.put(catalogo,compañia,valor)
+    return nuevo_catalogo
+
 
 # Funciones para agregar informacion al catalogo
 

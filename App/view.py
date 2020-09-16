@@ -69,13 +69,9 @@ def main():
     1 Cargar archivo""")
     opcion=int(input("Ingrese opcion"))
     if opcion==1:
-        nombre=input("Inserte nombre del archivo a cargar")
-        archivo=cont.cargar_archivo("Data/GoodReads/"+nombre)
-        print("Datos cargados, ",archivo['size']," elementos cargados")
-        if archivo['size']>0:
-            print(lt.firstElement(archivo))
-            print(lt.lastElement(archivo))
-        else:
-            print("Archivo vacío")
+        archivo1=cont.loadMovies()
+        catalogo=cont.initpeliculas()
+        mapa=cont.cargar_datos(catalogo,archivo1)
+        return mapa
 
 main()

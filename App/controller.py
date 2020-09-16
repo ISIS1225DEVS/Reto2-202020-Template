@@ -24,15 +24,11 @@ import config as cf
 from App import model
 import csv
 import model as mdl
-<<<<<<< HEAD
-
-=======
->>>>>>> master
 
 import config as cf
 import sys
 import csv
-
+from DISClib.ADT import list as lt
 
 from time import process_time 
 
@@ -55,12 +51,29 @@ recae sobre el controlador.
 # ___________________________________________________
 
 
-def cargar_archivo(archivo):
-<<<<<<< HEAD
-    lista=mdl.loadCSVFile(archivo)
-    return lista
-=======
-    direccion = mdl.cargar(archivo)
-    return direccion
->>>>>>> master
+def compareRecordIds (recordA, recordB):
+    if int(recordA['id']) == int(recordB['id']):
+        return 0
+    elif int(recordA['id']) > int(recordB['id']):
+        return 1
+    return -1
 
+def loadMovies ():
+    lst = mdl.loadCSVFile2("Data/SmallMoviesDetailsCleaned.csv") 
+    print("Datos cargados, " + str(lt.size(lst)) + " elementos cargados")
+    return lst
+
+def loadMovies2 ():
+    lst = mdl.loadCSVFile2("Data/MoviesCastingRaw-small.csv") 
+    print("Datos cargados, " + str(lt.size(lst)) + " elementos cargados")
+    return lst
+
+def initpeliculas():
+    catalogo=mdl.nuevos_mapas
+    return catalogo
+
+def cargar_datos(datos,archivo):
+    for elemento in range(1,lt.size(archivo)):
+        actual=lt.getElement(archivo,elemento)
+        mdl.cargar_compañias(datos,actual["production_companies"],(actual["production_companies"],actual["title"]))
+    return datos
