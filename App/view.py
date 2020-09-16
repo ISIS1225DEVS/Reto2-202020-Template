@@ -25,6 +25,7 @@ import config
 from DISClib.ADT import list as lt
 from DISClib.DataStructures import listiterator as it
 from App import controller
+from time import process_time
 assert config
 
 """
@@ -39,6 +40,7 @@ operación seleccionada.
 # ___________________________________________________
 # file1 = "MoviesCastingRaw-small.csv"
 # file2 = "SmallMoviesDetailsCleaned.csv"
+
 file1 = "AllMoviesCastingRaw.csv"
 file2 = "AllMoviesDetailsCleaned.csv"
 
@@ -67,27 +69,36 @@ while True:
     imprimirMenu()
     listaMovies = controller.iniciarCatalogo('ARRAY_LIST')
     seleccion = input("Seleccione una opción\n")
-    try:
-        if int(seleccion[0]) == 1:
-            print("Cargando archivos...")
-            listaMovies = controller.cargarArchivos(file1,file2)
-            print("Se cargaron",listaMovies["size"],"películas\n")
-            el_in = lt.getElement(listaMovies,1)
-            el_fin = lt.getElement(listaMovies,0)
-            print("{:<21}{:<21}{:<21}{:<21}{:<21}".format("Título","Fecha de estreno","Votación promedio","Cantidad de votos","Idioma"))
-            print("{:<21}{:<21}{:<21}{:<21}{:<21}".format(el_in["title"],el_in["release_date"],el_in["vote_average"],el_in["vote_count"],el_in["spoken_languages"]))
-            print("{:<21}{:<21}{:<21}{:<21}{:<21}".format(el_fin["title"],el_fin["release_date"],el_fin["vote_average"],el_fin["vote_count"],el_fin["spoken_languages"]))
-        elif int(seleccion[0]) == 2:
-            pass
-        elif int(seleccion[0]) == 3:
-            pass
-        elif int(seleccion[0]) == 4:
-            pass
-        elif int(seleccion[0]) == 5:
-            pass
-        elif int(seleccion[0]) == 6:
-            pass
-        else:
-            sys.exit()
-    except:
-        sys.exit()    
+    # try:
+    if int(seleccion[0]) == 1:
+        moviesCatalog = {}
+        print("Cargando archivos...")
+        t1 = process_time()
+        moviesCatalog = controller.cargarByCriteria(moviesCatalog,"production_companies",file2,file1,)
+        t2 = process_time()
+        print("Tiempo de carga:",t2-t1,"Segundos")
+
+    elif int(seleccion[0]) == 2:
+        productora = input("Por favor ingrese el nombre de la productora que consulta:\n")
+        
+        result = controller.limpiarProductora(moviesCatalog["production_companies"],productora)
+        print("\nPelículas de:",productora)
+        iterator = it.newIterator(result[0])
+        while it.hasNext(iterator):
+            pelicula = it.next(iterator)
+            print("{:<50}{:<50}".format(pelicula[0],pelicula[1]))
+        print("\nLa cantidad de películas de la productora es:",result[1])
+        print("El promedio de las películas de la productora es:",round(result[2],2))
+        
+    elif int(seleccion[0]) == 3:
+        pass
+    elif int(seleccion[0]) == 4:
+        pass
+    elif int(seleccion[0]) == 5:
+        pass
+    elif int(seleccion[0]) == 6:
+        pass
+    else:
+        sys.exit()
+    # except:
+        # print("hubo un error")

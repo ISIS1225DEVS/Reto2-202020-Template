@@ -30,17 +30,35 @@ En este archivo definimos los TADs que vamos a usar,
 es decir contiene los modelos con los datos en memoria
 
 """
+# ==============================
+# Funciones de Comparacion
+# ==============================
+def getKeyFunction(el1,el2):
+    if el1 > el2['key']:
+        return 1
+    elif el1 < el2['key']:
+        return -1
+    return 0
 
 # -----------------------------------------------------
 # API del TAD Catalogo de Libros
 # -----------------------------------------------------
-def crearCatalogo(tipo,cmpfunction=None):
+def crearCatalogo(tipo='ARRAY_LIST',cmpfunction=None):
     return lt.newList(tipo,cmpfunction)
 
+def newMap(numelements=17,prime=109345121,maptype='CHAINING',loadfactor=0.5,comparefunction=getKeyFunction):
+    return mp.newMap(numelements,prime,maptype,loadfactor,comparefunction)
+
+def crearParejaCatalogo(key,value):
+    return me.newMapEntry(key,value)
 
 # Funciones para agregar informacion al catalogo
 def agregarFinal(lst,element):
     lt.addLast(lst,element)
+
+def agregarAlMap(mapa,key,value):
+    mp.put(mapa,key,value)
+
 
 
 # ==============================
@@ -49,8 +67,20 @@ def agregarFinal(lst,element):
 def buscarPeliculas(lst,pos):
     return lt.getElement(lst,pos)
 
-# ==============================
-# Funciones de Comparacion
-# ==============================
+def tamanio(lst):
+    return lt.size(lst)
 
+def buscarKeyMap(mapa,key):
+    return mp.get(mapa,key)
 
+def setKey(entry,key):
+    return me.setKey(entry,key)
+
+def setValue(entry,value):
+    return me.setValue(entry,value)
+
+def setKey(entry):
+    return me.getKey(entry)
+
+def setValue(entry):
+    return me.getValue(entry)
