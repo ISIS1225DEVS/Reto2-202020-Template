@@ -196,7 +196,6 @@ def darAutor(catalog,nombre_director):
     else:
         return 1
     t2=process_time()
-    print(t2-t1,"El tiempo para dar un autor fue:")
 
 def darGenero(catalog,nombre_genero):
     existe_genero= lt.isPresent(catalog["Generos"],nombre_genero)
@@ -209,7 +208,6 @@ def darproductora(catalog,nombre_productora):
     if entry:
         productora= me.getValue(entry)
         t2=process_time()
-    print(t2-t1,"El tiempo para dar un autor fue:")
     return productora
     
    

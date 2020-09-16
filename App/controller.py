@@ -43,16 +43,7 @@ def iniciarcatalog():
     catalogo=model.newCatalog()
     return catalogo
 
-def loadDirectores():
-    lst=lt.newList("ARRAY_LIST")
-    dialect = csv.excel()
-    dialect.delimiter=";"
-    with open(  cf.data_dir + "AllMoviesCastingRaw.csv", encoding="utf-8") as csvfile:
-            row = csv.DictReader(csvfile, dialect=dialect)
-            for elemento in row: 
-                lst.addLast(lst,elemento)
-    
-    return lst
+
 def loadDirectores1():
     lst=[]
     dialect = csv.excel()
@@ -74,24 +65,9 @@ def loadmovies(catalog):
             
             model.addProductora(catalog,pelicula)
     t2=process_time()
-    print(t2-t1,"Este es el tiempo de carga.")
+    
                    
-def load_Directores_peliculas(catalog,lista):
-    t1= process_time()
-    dialect = csv.excel()
-    dialect.delimiter=";"
-    with open(  cf.data_dir + "AllMoviesDetailsCleaned.csv", encoding="utf-8") as csvfile:
-        row = csv.DictReader(csvfile, dialect=dialect)
-        for pelicula in row: 
-            lt.addLast(catalog["Peliculas"],pelicula)
-            iterador=it.newIterator(lista)
-            ya=False
-            while it.hasNext(iterador) and not ya:
-                element=it.next(iterador)
-                ya=model.addPeliculaActor(catalog,element,pelicula)
-                
-    t2=process_time()
-    print(t2-t1,"Este es el tiempo de carga.")
+    
 
 def load_Directores_peliculas1(catalog,lista):
     t1= process_time()
@@ -110,7 +86,7 @@ def load_Directores_peliculas1(catalog,lista):
             j+=1
             i=j
     t2=process_time()
-    print(t2-t1,"Este es el tiempo de carga.")   
+      
 
 
 def loadDatos(catalog):
