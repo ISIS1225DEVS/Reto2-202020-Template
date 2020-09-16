@@ -67,22 +67,3 @@ def getMoviesByProdComp(catalog, comp_name):
     avarage = company["vote_average"]
     return (movies,size,avarage)
 
-#_________________________________________________________________________________
-# ___________________________________________________
-#  Inicializacion del catalogo
-# ___________________________________________________
-
-def iniciarLista():
-    lista = model.iniciarTADLista()
-    return lista
-
-# ___________________________________________________
-#  Funciones para la carga de datos y almacenamiento
-#  de datos en los modelos
-# ___________________________________________________
-
-def cargar(lst, casting, details):
-    lista = model.loadCSVFile(lst,casting, details)
-    first = lt.getElement(lista,1)
-    last = lt.lastElement(lista)
-    return(lt.size(lista),first,last)

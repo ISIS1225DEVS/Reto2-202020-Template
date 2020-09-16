@@ -45,9 +45,9 @@ def newCatalog():
                'genre': None,}
 
     catalog['movies'] = lt.newList('SINGLE_LINKED', compareRecordIds)
-    catalog['productionCompany'] = mp.newMap(825000,
+    catalog['productionCompany'] = mp.newMap(825000,  #471428,  825000
                                    maptype='CHAINING', 
-                                   loadfactor=0.7, #CHAINING 0.7 , PROBING 0.4
+                                   loadfactor=10, #CHAINING 10 , PROBING 0.4
                                    comparefunction=compareProductionCompany)
 
     return catalog
@@ -87,9 +87,7 @@ def loadMovies(catalog, fileCasting, fileDetails):
 
 def addProductionCompany(catalog, movie):
     """
-    Esta función adiciona un libro a la lista de libros publicados
-    por un autor.
-    Cuando se adiciona el libro se actualiza el promedio de dicho autor
+    Esta función adiciona una pelicula por su productora en el map
     """
     ProductionCompanies = catalog['productionCompany']
     comp_name = movie["production_companies"]
@@ -109,36 +107,6 @@ def addProductionCompany(catalog, movie):
     else:
         company['vote_average'] = (comp_avg + float(movie_avg)) / 2
 
-
-#___________________________________________________________________________
-def iniciarTADLista():
-    lst = lt.newList("ARRAY_LIST", compareRecordIds)
-    return lst
-# Funciones para agregar informacion al catalogo
-
-def loadCSVFile(lst, fileCasting, fileDetails):
-    dialect = csv.excel()
-    dialect.delimiter=";"
-    try:
-        with open( fileDetails, encoding="utf-8-sig") as csvfile:
-            row = csv.DictReader(csvfile, dialect=dialect)
-            for elemento in row:
-                lt.addLast(lst,elemento)
-        with open( fileCasting, encoding="utf-8-sig") as csvfile:
-            row = csv.DictReader(csvfile, dialect=dialect)
-            x=1
-            for elemento in row: 
-                pelicula = lt.getElement(lst,x)
-                for dato in elemento:
-                    if dato != "id":
-                        pelicula[dato]=elemento[dato]
-                lt.changeInfo(lst,x,pelicula)
-                x +=1
-    except:
-        print("Hubo un error con la carga del archivo")
-    return lst
-
-#______________________________________
 
 # ==============================
 # Funciones de consulta
