@@ -241,7 +241,7 @@ def listSize(lst):
     return lt.size(lst)
 
 def getFifteenElements(lst):
-    lst = lt.subList(lst,1,15)
+    lst = lt.subList(lst,1,listSize(lst)//3)
     iterator = it.newIterator(lst)
     movies = []
     while it.hasNext(iterator):

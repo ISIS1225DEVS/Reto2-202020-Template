@@ -51,7 +51,14 @@ Details = "themovies/SmallMoviesDetailsCleaned.csv"
 # ___________________________________________________
 
 def printMenu():
-    return None
+    print("1- Inicializar Catálogo")
+    print("2- Cargar Archivos")
+    print("3- Descubrir productoras de cine")
+    print("4- Conocer a un director")
+    print("5- Conocer a un actor")
+    print("6- Entender un género cinematográfico")
+    print("7- Encontrar películas por país")
+    print("8- Salir")
 
 
 # ___________________________________________________
@@ -75,7 +82,7 @@ while True:
     elif int(inputs[0]) == 3:
         company = input("Ingrese el nombre de la compañia que desea consultar")
         info = controller.moviesByCompany(cont,company)
-        print("La compañia " + company + " tiene un total de "+ str(info[1]) + " peliculas, con un promedio de " + str(info[2]) + " algunas de sus peliculas son estas: \n" + str(info[0]))
+        print("La compañia " + company + " tiene un total de "+ str(info[1]) + " peliculas, con un promedio de " + str(round(info[2],2)) + " algunas de sus peliculas son estas: \n" + str(info[0]))
 
     elif int(inputs[0]) == 4:
         authorname = input("Nombre del autor a buscar: ")
