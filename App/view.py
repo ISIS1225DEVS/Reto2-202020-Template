@@ -26,6 +26,7 @@ from DISClib.ADT import list as lt
 from DISClib.DataStructures import listiterator as it
 from App import controller
 assert config
+from time import process_time 
 
 """
 La vista se encarga de la interacción con el usuario.
@@ -117,12 +118,18 @@ while True:
 
     elif int(inputs[0]) == 2:
         print("Cargando información de los archivos ....")
+        t1_start = process_time() #tiempo inicial
         controller.loadData(cont, moviesfile)
+        t1_stop = process_time() #tiempo final
+        print("Tiempo de ejecución ",t1_stop-t1_start," segundos")
         print('Películas cargadas: ' + str(controller.moviesSize(cont)))
 
     elif int(inputs[0]) == 3:
         producer = input("Buscando películas de la productora?: ")
+        t2_start = process_time() #tiempo inicial
         moviesproductor = controller.getMoviesByProducer(cont, producer)
+        t2_stop = process_time() #tiempo final
+        print("Tiempo de ejecución ",t2_stop-t2_start," segundos")
         printMoviesByProducer(moviesproductor)
     else:
         sys.exit(0)

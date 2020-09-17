@@ -53,12 +53,12 @@ def newCatalog():
 
     catalog['movies'] = lt.newList('SINGLE_LINKED', comparemovieIds)
     catalog['producers'] = mp.newMap(200,
-                                   maptype='CHAINING',
-                                   loadfactor=0.4,
+                                   maptype='PROBING',
+                                   loadfactor=0.5,
                                    comparefunction=compareProducersByName)
     catalog['movieIds'] = mp.newMap(1000,
-                                  maptype='CHAINING',
-                                  loadfactor=0.7,
+                                  maptype='PROBING',
+                                  loadfactor=0.5,
                                   comparefunction=compareProducersByName)
 
     return catalog
