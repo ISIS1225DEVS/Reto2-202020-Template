@@ -29,7 +29,7 @@ assert config
 
 """
 La vista se encarga de la interacción con el usuario.
-Presenta el menu de opciones y por cada seleccion
+Presenta el menu de opciones  y  por cada seleccion
 hace la solicitud al controlador para ejecutar la
 operación seleccionada.
 """
@@ -39,7 +39,8 @@ operación seleccionada.
 # ___________________________________________________
 
 
-
+catalogfile = 'MoviesCastingRaw-small.csv'
+moviesfile = 'SmallMoviesDetailsCleaned.csv'
 
 
 # ___________________________________________________
@@ -49,7 +50,80 @@ operación seleccionada.
 # ___________________________________________________
 
 
+def printMoviesByProducer(producer):
+    """
+    Imprime los libros de un autor determinado
+    """
+    if producer:
+        print('Productor encontrado: ' + producer['name'])
+        print('Promedio: ' + str(producer['average_rating']))
+        print('Total de libros: ' + str(lt.size(producer['books'])))
+        iterator = it.newIterator(producer['books'])
+        while it.hasNext(iterator):
+            book = it.next(iterator)
+            print('Titulo: ' + book['title'] + '  ISBN: ' + book['isbn'])
+    else:
+        print('No se encontro el autor')
+
+
+def printBooksbyTag(books):
+    """
+    Imprime los libros que han sido clasificados con
+    una etiqueta
+    """
+    print('Se encontraron: ' + str(lt.size(books)) + ' Libros')
+    iterator = it.newIterator(books)
+    while it.hasNext(iterator):
+        book = it.next(iterator)
+        print(book['title'])
+
+
+def printBooksbyYear(books):
+    """
+    Imprime los libros que han sido publicados en un
+    año
+    """
+    print('Se encontraron: ' + str(lt.size(books)) + ' Libros')
+    iterator = it.newIterator(books)
+    while it.hasNext(iterator):
+        book = it.next(iterator)
+        print(book['title'])
+
 
 # ___________________________________________________
 #  Menu principal
 # ___________________________________________________
+
+
+def printMenu():
+    print("Bienvenido")
+    print("1- Inicializar Catálogo")
+    print("2- Cargar información de las películas en el catálogo")
+    print("3- Descubrir productoras de cine (individual)")
+    print("0- Salir")
+
+
+"""
+Menu principal
+"""
+while True:
+    printMenu()
+    inputs = input('Seleccione una opción para continuar\n')
+
+    if int(inputs[0]) == 1:
+        print("Inicializando Catálogo ....")
+        # cont es el controlador que se usará de acá en adelante
+        cont = controller.initCatalog()
+
+    elif int(inputs[0]) == 2:
+        print("Cargando información de los archivos ....")
+        controller.loadData(cont, moviesfile)
+        print('Películas cargadas: ' + str(controller.booksSize(cont)))
+
+    elif int(inputs[0]) == 3:
+        producer = input("Buscando películas de la productora?: ")
+        movies = controller.getMoviesByProducer(cont, producer)
+        print(movies)
+    else:
+        sys.exit(0)
+sys.exit(0)
