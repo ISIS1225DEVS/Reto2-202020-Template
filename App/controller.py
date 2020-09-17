@@ -64,12 +64,12 @@ def loadMovies(catalog, moviesfile):
       autor, se crea una lista con sus movies
     """
     moviesfile = cf.data_dir + moviesfile
-    input_file = csv.DictReader(open(moviesfile,encoding="UTF-8"),delimiter=";")
+    input_file = csv.DictReader(open(moviesfile,encoding="utf-8-sig"),delimiter=";", quotechar='\"')
     for movie in input_file:
         model.addMovies(catalog, movie)
         producers = movie['production_companies'].split(";")  # Se obtienen los autores
         for productor in producers:
-            model.addMovieProducer(catalog, productor.strip(), movie)
+            model.addMovieProducer(catalog, productor, movie)
 
 def moviesSize(catalog):
     """Numero de libros leido

@@ -56,12 +56,12 @@ def printMoviesByProducer(producer):
     """
     if producer:
         print('Productor encontrado: ' + producer['name'])
-        print('Promedio: ' + str(producer['average_rating']))
-        print('Total de libros: ' + str(lt.size(producer['books'])))
-        iterator = it.newIterator(producer['books'])
+        print('Promedio: ' + str(producer['vote_average']))
+        print('Total de películas: ' + str(lt.size(producer['movies'])))
+        iterator = it.newIterator(producer['movies'])
         while it.hasNext(iterator):
             book = it.next(iterator)
-            print('Titulo: ' + book['title'] + '  ISBN: ' + book['isbn'])
+            print('Titulo: ' + book['original_title'] + '  Id: ' + book['id'])
     else:
         print('No se encontro el autor')
 
@@ -118,12 +118,12 @@ while True:
     elif int(inputs[0]) == 2:
         print("Cargando información de los archivos ....")
         controller.loadData(cont, moviesfile)
-        print('Películas cargadas: ' + str(controller.booksSize(cont)))
+        print('Películas cargadas: ' + str(controller.moviesSize(cont)))
 
     elif int(inputs[0]) == 3:
         producer = input("Buscando películas de la productora?: ")
-        movies = controller.getMoviesByProducer(cont, producer)
-        print(movies)
+        moviesproductor = controller.getMoviesByProducer(cont, producer)
+        printMoviesByProducer(moviesproductor)
     else:
         sys.exit(0)
 sys.exit(0)

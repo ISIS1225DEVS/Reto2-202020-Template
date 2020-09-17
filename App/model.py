@@ -49,8 +49,7 @@ def newCatalog():
     """
     catalog = {'producers': None,
                 'movies': None,
-                'movieIds':None,
-    }
+                'movieIds':None}
 
     catalog['movies'] = lt.newList('SINGLE_LINKED', comparemovieIds)
     catalog['producers'] = mp.newMap(200,
@@ -60,7 +59,7 @@ def newCatalog():
     catalog['movieIds'] = mp.newMap(1000,
                                   maptype='CHAINING',
                                   loadfactor=0.7,
-                                  comparefunction=comparemovieIds)
+                                  comparefunction=compareProducersByName)
 
     return catalog
 
@@ -87,8 +86,6 @@ def addMovies(catalog, movie):
     Finalmente crea una entrada en el Map de años, para indicar que este
     libro fue publicaco en ese año.
     """
-    print(movie)
-    print(type(movie))
     lt.addLast(catalog['movies'], movie)
     mp.put(catalog['movieIds'], movie['production_companies'], movie)
 
@@ -123,7 +120,7 @@ def newProducer(name):
     """
     producer = {'name': "", "movies": None,  "vote_average": 0}
     producer['name'] = name
-    producer['movies'] = lt.newList('SINGLE_LINKED', compareproducersByName)
+    producer['movies'] = lt.newList('SINGLE_LINKED', compareProducersByName)
     return producer
 # ==============================
 # Funciones de consulta
@@ -133,7 +130,7 @@ def moviesSize(catalog):
     """
     Número de libros en el catago
     """
-    return lt.size(catalog['producer'])
+    return lt.size(catalog['movies'])
 
 # ==============================
 # Funciones de Comparacion
@@ -144,6 +141,8 @@ def comparemovieIds(id1, id2):
     """
     Compara dos ids de libros
     """
+    id1=int(id1)
+    id2=int(id2)
     if (id1 == id2):
         return 0
     elif id1 > id2:
@@ -151,7 +150,7 @@ def comparemovieIds(id1, id2):
     else:
         return -1
 
-def getmoviesByProducer(catalog, producername):
+def getMoviesByProducer(catalog, producername):
     """
     Retorna un autor con sus libros a partir del nombre del autor
     """
