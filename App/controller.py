@@ -25,6 +25,10 @@ from App import model
 import csv
 import model as mdl
 
+from DISClib.ADT import map as mp
+from DISClib.ADT import list as lt
+
+
 import config as cf
 import sys
 import csv
@@ -48,6 +52,7 @@ recae sobre el controlador.
 #  de datos en los modelos
 # ___________________________________________________
 
+
 def cargar_archivo(archivo):
     lista=mdl.loadCSVFile(archivo)
     return lista
@@ -59,3 +64,16 @@ def tablahash(lista,criteria):
 def buscar (lista,company):
     a=mdl.buscar(lista,company)
     return(a)
+
+def initpeliculas():
+    catalogo=mdl.nuevos_mapas
+    return catalogo
+
+def cargar_datos(catalogo,archivo):
+    peliculas=mdl.loadCSVFile(archivo, sep=";")
+    for elemento in range(1,lt.size(peliculas)):
+        actual=lt.getElement(peliculas,elemento)
+        nuevo=mdl.cargar_compañias(catalogo,peliculas["production_companies"],(peliculas["production_companies"],peliculas["title"]))
+    return nuevo
+        
+

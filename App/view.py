@@ -27,6 +27,7 @@ from DISClib.DataStructures import listiterator as it
 from App import controller
 assert config
 import controller as cont
+import model as mod
 
 
 import config as cf
@@ -65,6 +66,7 @@ operación seleccionada.
 # ___________________________________________________
 
 def main():
+
     archivo={"size":0}
     tablacompanies={"size":0}
     while True:
@@ -92,4 +94,14 @@ def main():
 
 
 
+main()
+
+    print("""Seleccione opcion:
+    1 Cargar archivo""")
+    opcion=int(input("Ingrese opcion"))
+    if opcion==1:
+        nombre=input("Inserte nombre del archivo a cargar")
+        catalogo=cont.initpeliculas()
+        lista=cont.cargar_datos(catalogo,nombre)
+        print(lista)
 main()
