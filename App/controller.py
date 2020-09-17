@@ -61,12 +61,12 @@ def loadData(catalog, castingfile, detailsfile):
 
 
 """def loadCasting(catalog, castingfile):
-
+    
     Carga cada una de las lineas del archivo de libros.
     - Se agrega cada libro al catalogo de libros
     - Por cada libro se encuentran sus autores y por cada
       autor, se crea una lista con sus libros
-
+    
     castingfile = cf.data_dir + castingfile
     input_file = csv.DictReader(open(castingfile,encoding="utf-8-sig"))
     for movie in input_file:
@@ -79,11 +79,26 @@ def loadMovies(catalog, detailsfile):
     del archivo de etiquetas
     """
     detailsfile = cf.data_dir + detailsfile
-    input_file = csv.DictReader(open(detailsfile,encoding="utf-8-sig"))
+    input_file = csv.DictReader(open(detailsfile,encoding="utf-8-sig"),delimiter=";")
     for movie in input_file:
         model.addMovie(catalog, movie)
+        companies = movie["production_companies"].split(",")
+        for company in companies:
+            model.addProductionCompany(catalog, company.strip(), movie)
+
+def moviesByProductionCompanies(catalog, compname):
+    """
+    Retorna las peliculas de una productora de cine
+    """
+    compinfo = model.moviesByProductionCompany(catalog, compname)
+    return compinfo
 
 def moviesSize(catalog):
     """Numero de peliculas leido
     """
     return model.moviesSize(catalog)
+
+def companiesSize(catalog):
+    """Numero de peliculas leido
+    """
+    return model.companiesSize(catalog)

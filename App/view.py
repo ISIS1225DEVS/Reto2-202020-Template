@@ -57,6 +57,7 @@ def printMenu():
     print("¡Bienvenido!")
     print("1- Inicializar catálogo")
     print("2- Cargar información en el catálogo")
+    print("3- (Req. 1) Descubrir productoras de cine")
     print("0- Salir")
 
 while True:
@@ -66,14 +67,18 @@ while True:
         print("Inicializando Catálogo ....")
         # cont es el controlador que se usará de acá en adelante
         cont = controller.initCatalog()
+
     elif int(inputs[0]) == 2:
         print("Cargando información de los archivos ....")
         controller.loadData(cont, castingfile, detailsfile)
         print('Peliculas cargadas: ' + str(controller.moviesSize(cont)))
-        print("")
-        print("Primera película: "+str(lt.firstElement(cont)))
-        print("")
-        print("Última película: "+str(lt.lastElement(cont)))
+        print("Productoras de cine cargadas: " + str(controller.companiesSize(cont)))
+
+    elif int(inputs[0]) == 3:
+        name = input("Ingrese el nombre de la productora de cine: ")
+        movies = controller.moviesByProductionCompanies(cont, name))
+        print(movies)
+
     else:
         sys.exit(0)
 sys.exit(0)

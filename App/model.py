@@ -32,27 +32,82 @@ es decir contiene los modelos con los datos en memoria
 """
 
 # -----------------------------------------------------
-# API del TAD Catalogo de Libros
+# API del TAD Catalogo de Peliculas
 # -----------------------------------------------------
 
 def newCatalog():
-    catalog = lt.newList('SINGLE_LINKED', compareMoviesIds)
+    catalog = {'movies': None,
+               'production companies': None}
+    catalog["movies"] = lt.newList('SINGLE_LINKED', compareMoviesIds)
+    catalog["production companies"]=mp.newMap(2000,
+                                              maptype="CHAINING",
+                                              loadfactor=2,
+                                              comparefunction=None)
     return catalog
+
+def newCompany(name):
+    """
+    Crea una nueva estructura para modelar los libros de un autor
+    y su promedio de ratings
+    """
+    production_comp = {'name': "", "movies": None,  "average_rating": 0}
+    production_comp["name"] = name
+    production_comp["movies"] = lt.newList('SINGLE_LINKED', compareCompaniesByName)
+    return production_comp
 
 # Funciones para agregar informacion al catalogo
 
 def addMovie(catalog, movie):
-    lt.addLast(catalog, movie)
+    lt.addLast(catalog["movies"], movie)
+
+def addProductionCompany(catalog, companyname, movie):
+    """
+    Esta función adiciona una compañia a la lista de peliculas publicadas
+    por una compañia.
+    Cuando se adiciona la compañia se actualiza el promedio de dicha compañia
+    """
+    production_comp = catalog["production companies"]
+    compname=movie["production_companies"]
+    existcomp = mp.contains(production_comp, compname)
+    if existcomp:
+        entry = mp.get(production_comp, compname)
+        company = me.getValue(entry)
+    else:
+        company = newCompany(compname)
+        mp.put(production_comp, companyname, company)
+    lt.addLast(company["movies"], movie)
+
+    compavg = company["average_rating"]
+    movieavg = movie["vote_average"]
+    if (compavg == 0.0):
+        company["average_rating"] = float(movieavg)
+    else:
+        company["average_rating"] = (compavg + float(movieavg)) / 2
 
 # ==============================
 # Funciones de consulta
 # ==============================
+
+def moviesByProductionCompany(catalog, compname):
+    """
+    Retorna una productora de cine con sus peliculas a partir del nombre de la productora
+    """
+    company = mp.get(catalog["production companies"], compname)
+    if company:
+        return me.getValue(company)
+    return None
 
 def moviesSize(catalog):
     """
     Número de peliculas en el catalogo
     """
     return lt.size(catalog)
+
+def companiesSize(catalog):
+    """
+    Numero de autores en el catalogo
+    """
+    return mp.size(catalog["production companies"])
 
 # ==============================
 # Funciones de Comparacion
@@ -65,6 +120,19 @@ def compareMoviesIds(id1, id2):
     if (id1 == id2):
         return 0
     elif id1 > id2:
+        return 1
+    else:
+        return -1
+
+def compareCompaniesByName(keyname, company):
+    """
+    Compara dos nombres de compañia de produccion. El primero es una cadena
+    y el segundo un entry de un map
+    """
+    compentry = me.getKey(company)
+    if (keyname == compentry):
+        return 0
+    elif (keyname > compentry):
         return 1
     else:
         return -1
