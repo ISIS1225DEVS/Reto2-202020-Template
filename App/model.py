@@ -32,71 +32,35 @@ En este archivo definimos los TADs que vamos a usar,
 es decir contiene los modelos con los datos en memoria
 
 """
+# ==============================
+# Funciones de Comparacion
+# ==============================
 def getKeyFunction(el1,el2):
     if el1 > el2['key']:
         return 1
     elif el1 < el2['key']:
         return -1
     return 0
+
 # -----------------------------------------------------
 # API del TAD Catalogo de Libros
 # -----------------------------------------------------
-def newCatalog (file1, file2):
-    lst = lt.newList("ARRAY_LIST")
-    dialect = csv.excel()
-    dialect.delimiter=";"
-    
-    with open(cf.data_dir + file1, encoding="utf-8-sig") as csvfile1:
-        row = csv.DictReader(csvfile1, dialect=dialect)
-        for elemento in row:
-            lt.addLast(lst,elemento)
-    with open(cf.data_dir + file2, encoding="utf-8-sig") as csvfile2: #Cambiamos el encoding ya que generaba
-        row = csv.DictReader(csvfile2,dialect=dialect)                
-        i = 1
-        for elemento in row:
-            if elemento["id"] == lt.getElement(lst,i)["id"]:
-                for column in elemento:
-                    if column != "id":
-                        lt.getElement(lst,i)[column] = elemento[column]
-            i += 1
+def crearCatalogo(tipo='ARRAY_LIST',cmpfunction=None):
+    return lt.newList(tipo,cmpfunction)
 
+def newMap(numelements=17,prime=109345121,maptype='CHAINING',loadfactor=0.5,comparefunction=getKeyFunction):
+    return mp.newMap(numelements,prime,maptype,loadfactor,comparefunction)
 
-    print("Datos cargados, " + str(lt.size(lst)) + " elementos cargados")  
-    return lst
+def crearParejaCatalogo(key,value):
+    return me.newMapEntry(key,value)
 
 # Funciones para agregar informacion al catalogo
 def agregarFinal(lst,element):
     lt.addLast(lst,element)
 
-def addMovie(map,llave,movie):
-    mp.put(map,llave,movie)
+def agregarAlMap(mapa,key,value):
+    mp.put(mapa,key,value)
 
-def moviesByProductionCompany (lst, companyname):
-    productionCompanyMAP = model.crearMap()
-    iterator = iter.newIterator(lst)
-    while iter.hasNext(iterator):
-        if iter.next(iterator)['production_companies'] == companyname:#list[i]['production company'] == companyname:
-            addMovie(moviesByProductionCompany, map[key])
-    return moviesByProductionCompany
-def crearMap():
-    return mp.newMap(comparefunction=getKeyFunction)
-
-def obtenerLlave(map, llave):
-    return mp.get(map,llave)
-    
-
-
-def moviesByCountry (countryname):
-    pass
-
-def moviesByDirector (directorname):
-    pass
-
-def moviesByActor (actorname):
-    pass
-
-def moviesByGenre (genre):
-    pass
 
 
 # ==============================
@@ -105,14 +69,20 @@ def moviesByGenre (genre):
 def buscarPeliculas(lst,pos):
     return lt.getElement(lst,pos)
 
-# ==============================
-# Funciones de Comparacion
-# ==============================
+def tamanio(lst):
+    return lt.size(lst)
 
-def compareRecordIds (recordA, recordB):
-    if int(recordA['id']) == int(recordB['id']):
-        return 0
-    elif int(recordA['id']) > int(recordB['id']):
-        return 1
-    return -1
+def buscarKeyMap(mapa,key):
+    return mp.get(mapa,key)
 
+def setKey(entry,key):
+    return me.setKey(entry,key)
+
+def setValue(entry,value):
+    return me.setValue(entry,value)
+
+def getKey(entry):
+    return me.getKey(entry)
+
+def getValue(entry):
+    return me.getValue(entry)

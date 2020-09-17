@@ -25,6 +25,7 @@ import config
 from DISClib.ADT import list as lt
 from DISClib.DataStructures import listiterator as it
 from App import controller
+from time import process_time
 assert config
 
 """
@@ -39,6 +40,7 @@ operación seleccionada.
 # ___________________________________________________
 # file1 = "MoviesCastingRaw-small.csv"
 # file2 = "SmallMoviesDetailsCleaned.csv"
+
 file1 = "AllMoviesCastingRaw.csv"
 file2 = "AllMoviesDetailsCleaned.csv"
 
@@ -72,18 +74,39 @@ def printMenu():
     print('0- Salir')
 
 while True:
-    printMenu()
-    inputs = input('seleccione una opción para\n')
-    if len(inputs)>0:
-        if int(inputs[0]) == 1:
-            lstmovies = controller.iniciarCatalogo("AllMoviesDetailsCleaned.csv","AllMoviesCastingRaw.csv")
-    
-        elif int(inputs[0]) == 2:
-            companyname = input('Ingrese el nombre la productora\n')
-            a = controller.productionCompany(lstmovies,companyname)
-            b = controller.obternerllave(a,companyname)
-            print(b)
-        elif int(inputs[0]) == 3:
-            pass
-        elif int(inputs[0]) == 0:
-            sys.exit(0)
+    imprimirMenu()
+    # listaMovies = controller.iniciarCatalogo('ARRAY_LIST')
+    seleccion = input("Seleccione una opción\n")
+    # try:
+    if int(seleccion[0]) == 1:
+        moviesCatalog = {}
+        print("Cargando archivos...")
+        t1 = process_time()
+        moviesCatalog = controller.cargarByCriteria(moviesCatalog,"production_companies",file2,file1)
+        t2 = process_time()
+        print("Tiempo de carga:",t2-t1,"Segundos")
+
+    elif int(seleccion[0]) == 2:
+        productora = input("Por favor ingrese el nombre de la productora que consulta:\n")
+        
+        result = controller.limpiarProductora(moviesCatalog["production_companies"],productora)
+        print("\nPelículas de:",productora)
+        iterator = it.newIterator(result[0])
+        while it.hasNext(iterator):
+            pelicula = it.next(iterator)
+            print("{:<50}{:<50}".format(pelicula[0],pelicula[1]))
+        print("\nLa cantidad de películas de la productora es:",result[1])
+        print("El promedio de las películas de la productora es:",round(result[2],2))
+        
+    elif int(seleccion[0]) == 3:
+        pass
+    elif int(seleccion[0]) == 4:
+        pass
+    elif int(seleccion[0]) == 5:
+        pass
+    elif int(seleccion[0]) == 6:
+        pass
+    else:
+        sys.exit()
+    # except:
+        # print("hubo un error")
