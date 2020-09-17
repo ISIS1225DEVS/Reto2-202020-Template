@@ -84,12 +84,14 @@ while True:
         t1 = process_time()
         moviesCatalog = controller.cargarByCriteria(moviesCatalog,"production_companies",file2,file1)
         t2 = process_time()
-        print("Tiempo de carga:",t2-t1,"Segundos")
+        print("Tiempo de ejecución:",t2-t1,"Segundos")
 
     elif int(seleccion[0]) == 2:
         productora = input("Por favor ingrese el nombre de la productora que consulta:\n")
-        
+        t1 = process_time()
         result = controller.limpiarProductora(moviesCatalog["production_companies"],productora)
+        t2 = process_time()
+        print("Tiempo de ejecución:",t2-t1,"Segundos")
         print("\nPelículas de:",productora)
         iterator = it.newIterator(result[0])
         while it.hasNext(iterator):
