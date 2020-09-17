@@ -21,7 +21,7 @@
  """
 
 import config as cf
-from App import model
+from App import SampleModel
 import csv
 
 
