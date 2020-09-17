@@ -23,6 +23,7 @@
 import config as cf
 from App import model
 import csv
+from DISClib.DataStructures import listiterator as iter
 
 
 """
@@ -45,30 +46,19 @@ def iniciarCatalogo(file1,file2):
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
 # ___________________________________________________
-def cargarArchivos(file1,file2, cmpfunction=None):
-    lst=iniciarCatalogo()
-    dialect = csv.excel()
-    dialect.delimiter=";"
-    # try:
-    with open(cf.data_dir + file1, encoding="utf-8-sig") as csvfile1:
-        row = csv.DictReader(csvfile1, dialect=dialect)
-        for elemento in row:
-            model.agregarFinal(lst,elemento)
-    with open(cf.data_dir + file2, encoding="utf-8-sig") as csvfile2: #Cambiamos el encoding ya que generaba
-        row = csv.DictReader(csvfile2,dialect=dialect)                #un error con los archivos grandes
-        i = 1
-        for elemento in row:
-            if elemento["id"] == model.buscarPeliculas(lst,i)["id"]:
-                for column in elemento:
-                    if column != "id":
-                        model.buscarPeliculas(lst,i)[column] = elemento[column]
-            i += 1
-    # except:
-        # print("Hubo un error con la carga del archivo")
-    return lst
+
 
 def productionCompany(lst,companyname):
-    model.moviesByProductionCompany(lst)
+    productionCompanyMAP = model.crearMap()
+    companylst = []
+    iterator = iter.newIterator(lst)
+    while iter.hasNext(iterator):
+        movie = iter.next(iterator)
+        if movie['production_companies'] == companyname:#list[i]['production company'] == companyname:
+            companylst.append(movie['title'])
+    model.addMovie(productionCompanyMAP,companyname,companylst)
+    return productionCompanyMAP
 
-
+def obternerllave(map, llave):
+    return model.obtenerLlave(map,llave)
 

@@ -66,11 +66,13 @@ while True:
     inputs = input('seleccione una opción para\n')
     if len(inputs)>0:
         if int(inputs[0]) == 1:
-            lstmovies = controller.iniciarCatalogo("Moviesdb/AllMoviesDetailsCleaned.csv","theMoviesdb/AllMoviesCastingRaw.csv")
+            lstmovies = controller.iniciarCatalogo("AllMoviesDetailsCleaned.csv","AllMoviesCastingRaw.csv")
     
         elif int(inputs[0]) == 2:
-            companyName = input('Ingrese el nombre la productora\n')
-            controller.productionCompany(lstmovies,companyname)
+            companyname = input('Ingrese el nombre la productora\n')
+            a = controller.productionCompany(lstmovies,companyname)
+            b = controller.obternerllave(a,companyname)
+            print(b)
         elif int(inputs[0]) == 3:
             pass
         elif int(inputs[0]) == 0:

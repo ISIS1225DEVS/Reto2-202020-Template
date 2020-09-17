@@ -19,61 +19,71 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  """
-import config
+import config as cf
 from DISClib.ADT import list as lt
 from DISClib.ADT import map as mp
 from DISClib.DataStructures import mapentry as me
-assert config
+from DISClib.DataStructures import listiterator as iter
+
+import csv
 
 """
 En este archivo definimos los TADs que vamos a usar,
 es decir contiene los modelos con los datos en memoria
 
 """
-
+def getKeyFunction(el1,el2):
+    if el1 > el2['key']:
+        return 1
+    elif el1 < el2['key']:
+        return -1
+    return 0
 # -----------------------------------------------------
 # API del TAD Catalogo de Libros
 # -----------------------------------------------------
-
-
-
-# Funciones para agregar informacion al catalogo
 def newCatalog (file1, file2):
-    lst = lt.newCatalog()
+    lst = lt.newList("ARRAY_LIST")
     dialect = csv.excel()
     dialect.delimiter=";"
-    try:
-        with open(  cf.data_dir + file1, encoding="utf-8-sig") as csvfile1:
-            row = csv.DictReader(csvfile1, dialect=dialect)
-            for elemento in row:
-                lt.addLast(lst,elemento)
-        with open(cf.data_dir + file2, encoding="utf-8-sig") as csvfile2: #Cambiamos el encoding ya que generaba
-            row = csv.DictReader(csvfile2,dialect=dialect)                
-            i = 1
-            for elemento in row:
-                if elemento["id"] == lt.getElement(lst,i)["id"]:
-                    for column in elemento:
-                        if column != "id":
-                            lt.getElement(lst,i)[column] = elemento[column]
-                i += 1
+    
+    with open(cf.data_dir + file1, encoding="utf-8-sig") as csvfile1:
+        row = csv.DictReader(csvfile1, dialect=dialect)
+        for elemento in row:
+            lt.addLast(lst,elemento)
+    with open(cf.data_dir + file2, encoding="utf-8-sig") as csvfile2: #Cambiamos el encoding ya que generaba
+        row = csv.DictReader(csvfile2,dialect=dialect)                
+        i = 1
+        for elemento in row:
+            if elemento["id"] == lt.getElement(lst,i)["id"]:
+                for column in elemento:
+                    if column != "id":
+                        lt.getElement(lst,i)[column] = elemento[column]
+            i += 1
 
-    except:
-        print("Hubo un error con la carga del archivo")
 
-    print("Datos cargados, " + str(lt.size(lst)) + " elementos cargados")
-    print(lt.firstElement(lst))
-    print(lt.lastElement(lst))    
+    print("Datos cargados, " + str(lt.size(lst)) + " elementos cargados")  
     return lst
 
-def addMovie (lst,movie):
-    mp.put(lst,movie['title'],movie)
+# Funciones para agregar informacion al catalogo
+
+
+def addMovie(map,llave,movie):
+    mp.put(map,llave,movie)
 
 def moviesByProductionCompany (lst, companyname):
-    productionCompanyMAP = mp.newMap()
-    for i in range(0,lt.size(lst)):
-        if list[i]['production company'] == companyname:
+    productionCompanyMAP = model.crearMap()
+    iterator = iter.newIterator(lst)
+    while iter.hasNext(iterator):
+        if iter.next(iterator)['production_companies'] == companyname:#list[i]['production company'] == companyname:
             addMovie(moviesByProductionCompany, map[key])
     return moviesByProductionCompany
+def crearMap():
+    return mp.newMap(comparefunction=getKeyFunction)
+
+def obtenerLlave(map, llave):
+    return mp.get(map,llave)
+    
+
 
 def moviesByCountry (countryname):
     pass
