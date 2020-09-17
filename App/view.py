@@ -63,31 +63,27 @@ def imprimirMenu():
 # ___________________________________________________
 #  Menu principal
 # ___________________________________________________
+
+def printMenu():
+    print('Bienvenid@')
+    print('1- Cargar Películas')
+    print('2- ')
+    print('3- ')
+    print('0- Salir')
+
 while True:
-    imprimirMenu()
-    listaMovies = controller.iniciarCatalogo('ARRAY_LIST')
-    seleccion = input("Seleccione una opción\n")
-    try:
-        if int(seleccion[0]) == 1:
-            print("Cargando archivos...")
-            listaMovies = controller.cargarArchivos(file1,file2)
-            print("Se cargaron",listaMovies["size"],"películas\n")
-            el_in = lt.getElement(listaMovies,1)
-            el_fin = lt.getElement(listaMovies,0)
-            print("{:<21}{:<21}{:<21}{:<21}{:<21}".format("Título","Fecha de estreno","Votación promedio","Cantidad de votos","Idioma"))
-            print("{:<21}{:<21}{:<21}{:<21}{:<21}".format(el_in["title"],el_in["release_date"],el_in["vote_average"],el_in["vote_count"],el_in["spoken_languages"]))
-            print("{:<21}{:<21}{:<21}{:<21}{:<21}".format(el_fin["title"],el_fin["release_date"],el_fin["vote_average"],el_fin["vote_count"],el_fin["spoken_languages"]))
-        elif int(seleccion[0]) == 2:
+    printMenu()
+    inputs = input('seleccione una opción para\n')
+    if len(inputs)>0:
+        if int(inputs[0]) == 1:
+            lstmovies = controller.iniciarCatalogo("AllMoviesDetailsCleaned.csv","AllMoviesCastingRaw.csv")
+    
+        elif int(inputs[0]) == 2:
+            companyname = input('Ingrese el nombre la productora\n')
+            a = controller.productionCompany(lstmovies,companyname)
+            b = controller.obternerllave(a,companyname)
+            print(b)
+        elif int(inputs[0]) == 3:
             pass
-        elif int(seleccion[0]) == 3:
-            pass
-        elif int(seleccion[0]) == 4:
-            pass
-        elif int(seleccion[0]) == 5:
-            pass
-        elif int(seleccion[0]) == 6:
-            pass
-        else:
-            sys.exit()
-    except:
-        sys.exit()    
+        elif int(inputs[0]) == 0:
+            sys.exit(0)
