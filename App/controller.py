@@ -56,3 +56,10 @@ def cargar_archivo(archivo):
     lista=mdl.loadCSVFile(archivo)
     return lista
 
+def tablahash(lista,criteria):
+    tabla=mdl.tablahash(lista,criteria)
+    return tabla
+
+def buscar (lista,company):
+    a=mdl.buscar(lista,company)
+    return(a)
