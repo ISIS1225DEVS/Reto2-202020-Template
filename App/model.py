@@ -38,7 +38,7 @@ es decir contiene los modelos con los datos en memoria
 
 
 # Funciones para agregar informacion al catalogo
-def newCatalog (file1, file2, compareRecordIds):
+def newCatalog (file1, file2):
     lst = lt.newCatalog()
     dialect = csv.excel()
     dialect.delimiter=";"
@@ -62,14 +62,18 @@ def newCatalog (file1, file2, compareRecordIds):
 
     print("Datos cargados, " + str(lt.size(lst)) + " elementos cargados")
     print(lt.firstElement(lst))
-    print(lt.lastElement(lst)))    
+    print(lt.lastElement(lst))    
     return lst
 
-def addMovie (movie):
-    pass
+def addMovie (lst,movie):
+    mp.put(lst,movie['title'],movie)
 
-def moviesByProductionCompany (companyname):
-    pass
+def moviesByProductionCompany (lst, companyname):
+    productionCompanyMAP = mp.newMap()
+    for i in range(0,lt.size(lst)):
+        if list[i]['production company'] == companyname:
+            addMovie(moviesByProductionCompany, map[key])
+    return moviesByProductionCompany
 
 def moviesByCountry (countryname):
     pass
