@@ -24,13 +24,14 @@ import config as cf
 from App import model
 import csv
 import model as mdl
+
 from DISClib.ADT import map as mp
 from DISClib.ADT import list as lt
+
 
 import config as cf
 import sys
 import csv
-
 
 from time import process_time 
 
@@ -46,12 +47,23 @@ recae sobre el controlador.
 #  Inicializacion del catalogo
 # ___________________________________________________
 
-
 # ___________________________________________________
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
 # ___________________________________________________
 
+
+def cargar_archivo(archivo):
+    lista=mdl.loadCSVFile(archivo)
+    return lista
+
+def tablahash(lista,criteria):
+    tabla=mdl.tablahash(lista,criteria)
+    return tabla
+
+def buscar (lista,company):
+    a=mdl.buscar(lista,company)
+    return(a)
 
 def initpeliculas():
     catalogo=mdl.nuevos_mapas
@@ -64,3 +76,4 @@ def cargar_datos(catalogo,archivo):
         nuevo=mdl.cargar_compañias(catalogo,peliculas["production_companies"],(peliculas["production_companies"],peliculas["title"]))
     return nuevo
         
+

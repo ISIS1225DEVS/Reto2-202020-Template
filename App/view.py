@@ -66,6 +66,36 @@ operación seleccionada.
 # ___________________________________________________
 
 def main():
+
+    archivo={"size":0}
+    tablacompanies={"size":0}
+    while True:
+        
+        print("Seleccione opcion:\n1) Cargar archivo\n2) requerimiento 1")
+        opcion=int(input("Ingrese opcion\n"))
+        if opcion==1:
+            nombre=input("Inserte nombre del archivo a cargar\n")
+            archivo=cont.cargar_archivo("Data/"+nombre)
+            tablacompanies=cont.tablahash(archivo,"production_companies")
+            print("Datos cargados, ",archivo['size']," elementos cargados")
+            if archivo['size']>0:
+                print(lt.getElement(archivo,1))
+                print(lt.lastElement(archivo))
+                
+            else:
+                print("Archivo vacío")
+        elif opcion==2:
+            company=input("ingrese el nombre de la compañia interesada\n")
+            dato=cont.buscar(tablacompanies,company)
+            print(dato)
+            
+        else:
+            sys.exit(0)
+
+
+
+main()
+
     print("""Seleccione opcion:
     1 Cargar archivo""")
     opcion=int(input("Ingrese opcion"))
