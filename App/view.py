@@ -40,7 +40,7 @@ operación seleccionada.
 
 
 catalogfile = 'MoviesCastingRaw-small.csv'
-moviesfile = 'SmallMoviesDetailsCleaned.csv'
+moviesfile = 'AllMoviesDetailsCleaned.csv'
 
 
 # ___________________________________________________
