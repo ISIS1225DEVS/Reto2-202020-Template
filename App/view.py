@@ -44,6 +44,8 @@ def printMenu():
     print("2- Cargar información en el catálogo")
     print("3- Conocer una productora")
     print("4- Conocer un director")
+    print("5- Conocer un Genero")
+    print("6- Conocer un Pais")
     print("0- Salir")
 
 
@@ -65,9 +67,9 @@ while True:
         controller.loadDatos(catalog)
         print ('Peliculas cargados: ' + str(lt.size(catalog['Peliculas'])))
         print ('Directores cargados: ' + str(mp.size(catalog['Directores'])))
-        print ('Géneros cargados: ' + str(lt.size(catalog['Generos'])))
-        print("Productoras cargadas: "+ str(mp.size(catalog['Productoras'])),"\n")
-
+        print ('Géneros cargados: ' + str(mp.size(catalog['Generos'])))
+        print("Productoras cargadas: "+ str(mp.size(catalog['Productoras'])))
+        print("Paises cargadas: "+ str(mp.size(catalog['Paises'])),"\n")
         pelicula1=lt.getElement(catalog["Peliculas"],1)
         pelicula2=lt.getElement(catalog["Peliculas"],lt.size(catalog["Peliculas"]))
         print("La primera pelicula es:","\n\n","Titulada:",pelicula1["original_title"],"\n","Estrenada el dia:",pelicula1["release_date"])
@@ -96,6 +98,39 @@ while True:
             nombre=element["original_title"]
             print(nombre)
         print("Con un promedio de votos de",director["Vote_average"])
+    elif int(inputs[0])==5:
+        Genero=input("Ingrese el nombre de el genero que desea conocer:\n")
+        Generoes= controller.darGenero(catalog,Genero)
+        print("El genero",Genero,"tiene",lt.size(Generoes["Peliculas_genero"]),"peliculas las cuales son:")
+        iterador= it.newIterator(Generoes["Peliculas_genero"])
+        i=0
+        while it.hasNext(iterador) and i<10 :
+            element=it.next(iterador)
+            nombre=element["original_title"]
+            print(nombre)
+            i+=1
+        print("Con un promedio de votos de",Generoes["Vote_average"])
+    elif int(inputs[0])==6:
+        nombre=input("Ingrese el nombre de el pais que desea conocer:\n")
+        pais= controller.darpais(catalog,nombre)
+        print("El pais",nombre,"tiene",lt.size(pais["Peliculas"]),"peliculas las cuales son:","\n")
+        iterador= it.newIterator(pais["Peliculas"])
+        directores=pais["Directores"]
+        i=0
+        j=0
+        while it.hasNext(iterador) and i<10 :
+            element=it.next(iterador)
+            nombre=element["original_title"]
+            for j in range (0,i+1):
+                director=directores[j]
+            j+=1
+            i+=1
+            print(nombre,",Año de produccion:",element["release_date"],"y su director:",director)
+
+
+
+        print("Con un promedio de votos de",pais["Vote_average"])
+    
 
     else:
         sys.exit(0)

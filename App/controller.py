@@ -84,6 +84,7 @@ def load_Directores_peliculas1(catalog,lista):
             while i<len(lista) and not ya:
                 element=lista[i]
                 ya=model.addPeliculaActor(catalog,element,pelicula)
+                model.addPeliculaPais(catalog,element,pelicula)
                 i+=1
             j+=1
             i=j
@@ -101,11 +102,15 @@ def darDirector(catalog,nombre_director):
     return director
 
 def darGenero(catalog,nombre_genero):
-    model.darGenero(catalog,nombre_genero)
+    genero=model.darGenero(catalog,nombre_genero)
+    return genero
 
 def darProductora(catalog,nombre_productora):
     productora=model.darproductora(catalog,nombre_productora)
     return productora
+def darpais(catalog,nombre_pais):
+    pais=model.darpais(catalog,nombre_pais)
+    return pais 
 # ___________________________________________________
 #  Inicializacion del catalogo
 # ___________________________________________________

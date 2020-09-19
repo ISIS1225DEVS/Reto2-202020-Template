@@ -79,6 +79,15 @@ def compareGeners(keyname, genero):
         return 1
     else:
         return -1
+def comparePaises(keyname, pais):
+    
+    paisentry = me.getKey(pais)
+    if (keyname == paisentry):
+        return 0
+    elif (keyname > paisentry):
+        return 1
+    else:
+        return -1
 
 def newCatalog():
    
@@ -97,7 +106,16 @@ def newCatalog():
                                    loadfactor=2,
                                    comparefunction=compareProductoras)
 
-    catalog['Generos'] = mp.newMap(164527,
+    catalog['Generos'] = mp.newMap(23,
+                                   maptype='CHAINING',
+                                   loadfactor=2,
+                                   comparefunction=compareProductoras)
+    catalog['Paises'] = mp.newMap(117,
+                                   maptype='CHAINING',
+                                   loadfactor=2,
+                                   comparefunction=compareProductoras)
+    
+    catalog['Actores'] = mp.newMap(164527,
                                    maptype='CHAINING',
                                    loadfactor=2,
                                    comparefunction=compareProductoras)
@@ -119,12 +137,32 @@ def nueva_productora(nombre_productora):
     Productora["Peliculas"]= lt.newList("ARRAY_LIST")
     return Productora
 
+def nuevo_pais(nombre_pais):
+
+    pais={'Nombre': "", "Peliculas": None,  "Vote_average": 0}
+    pais["Nombre"]=nombre_pais
+    pais["Peliculas"]= lt.newList("ARRAY_LIST")
+    pais["Directores"]= []
+    return pais
+
 def nuevo_genero(nombre_genero):
     
     genero = {'Nombre_genero': "", "Peliculas_genero": None, "Vote_average": 0}
     genero["Nombre_genero"]= nombre_genero
     genero["Peliculas_genero"]=lt.newList("ARRAY_LIST")
     return genero 
+
+def nuevo_Actor(nombre_genero):
+    
+    Actor = {'Nombre': "", "Peliculas_genero": None, "Vote_average": 0, "Directores": None}
+    Actor["Nombre"]= nombre_genero
+    Actor["Peliculas"]=lt.newList("ARRAY_LIST")
+    Actor["Directores"]=lt.newList("ARRAY_LIST")
+    return genero 
+def nuevo_director_actor(nombre_director):
+    Actor = {'Nombre': "", "Cantidad":0}
+    return Actor
+
 
 def addPeliculaActor(catalog, director_lista, pelicula ):
     ya=False
@@ -142,6 +180,7 @@ def addPeliculaActor(catalog, director_lista, pelicula ):
             mp.put(Directores,nombre_director,director)   
 
         lt.addLast(director['Peliculas'], pelicula)
+        
 
         directorav = director['Vote_average']
         pelicualav = pelicula['vote_average']
@@ -151,6 +190,68 @@ def addPeliculaActor(catalog, director_lista, pelicula ):
             director['Vote_average'] = (directorav + float(pelicualav)) / 2
         ya=True 
     return ya 
+def addPeliculaPais(catalog, director_lista, pelicula ):
+    
+    nombre_director=director_lista["director_name"]
+    id1=director_lista["id"]
+    id2=pelicula["\ufeffid"]
+    Pais=pelicula["production_countries"]
+    if id1==id2:
+        Paises = catalog['Paises']
+        existe_pais= mp.contains(Paises,Pais)
+        if existe_pais:
+            entry = mp.get(Paises,Pais)
+            paises= me.getValue(entry)
+        else:
+            paises = nuevo_pais(Pais)
+            mp.put(Paises,Pais,paises)   
+
+        lt.addLast(paises['Peliculas'], pelicula)
+        paises['Directores'].append(nombre_director)
+        paisrav = paises['Vote_average']
+        pelicualav = pelicula['vote_average']
+        if (paisrav  == 0.0):
+            paises['Vote_average'] = float(pelicualav)
+        else:
+            paises['Vote_average'] = (paisrav  + float(pelicualav)) / 2
+        
+    return ya 
+
+
+def addPeliculaActor(catalog, director_lista, pelicula ):
+    
+    nombre_director=director_lista["director_name"]
+    id1=director_lista["id"]
+    id2=pelicula["\ufeffid"]
+    
+    if id1==id2:
+        for i inrange (0,6):
+            actor=director_lista["actor"+i+"_gender"]
+            Actores = catalog['Actores']
+            existe_Actor= mp.contains(Actores,actor)
+
+            if existe_Actor:
+                entry = mp.get(Actores,actor)
+                actoris= me.getValue(entry)
+            else:
+                actoris = nuevo_pais(actor)
+                mp.put(Actores,actor,actoris)   
+
+            lt.addLast(actoris['Peliculas'], pelicula)
+            directores=actoris["Direstores"]
+            esta_director= lt.isPresent(directores,nombre_director)
+            if esta_director==0:
+
+            paisrav = paises['Vote_average']
+            pelicualav = pelicula['vote_average']
+            if (paisrav  == 0.0):
+                paises['Vote_average'] = float(pelicualav)
+            else:
+                paises['Vote_average'] = (paisrav  + float(pelicualav)) / 2
+        
+    return ya 
+
+
 
 def addProductora(catalog, pelicula ):
     
@@ -206,17 +307,30 @@ def darAutor(catalog,nombre_director):
     t2=process_time()
 
 def darGenero(catalog,nombre_genero):
-    existe_genero= lt.isPresent(catalog["Generos"],nombre_genero)
-    genero=lt.getElement(catalog["Generos"],existe_genero)
+    t1=process_time()
+    entry= mp.get(catalog["Generos"],nombre_genero)
+    genero=None
+    if entry:
+        genero= me.getValue(entry)
+        t2=process_time()
+    return genero
 
 def darproductora(catalog,nombre_productora):
     t1=process_time()
     entry= mp.get(catalog["Productoras"],nombre_productora)
     productora=None
     if entry:
-        productora= me.getValue(entry)
-        t2=process_time()
-    return productora
+        return me.getValue(entry)
+    else:
+        return 1
+def darpais(catalog,nombre_pais):
+    t1=process_time()
+    entry= mp.get(catalog["Paises"],nombre_pais)
+    productora=None
+    if entry:
+        return me.getValue(entry)
+    else:
+        return 1
     
    
 
