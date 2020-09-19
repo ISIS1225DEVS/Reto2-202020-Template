@@ -64,6 +64,8 @@ def loadmovies(catalog):
             lt.addLast(catalog["Peliculas"],pelicula)
             
             model.addProductora(catalog,pelicula)
+            model.addGenero(catalog,pelicula)
+            
     t2=process_time()
     
                    

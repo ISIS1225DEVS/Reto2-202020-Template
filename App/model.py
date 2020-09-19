@@ -70,11 +70,15 @@ def compareProductoras(keyname, Productora):
     else:
         return -1
             
-def compareGeners(nombre_genero, genero):
-    if nombre_genero == genero["Nombre_genero"]:
+def compareGeners(keyname, genero):
+    
+    Generoentry = me.getKey(genero)
+    if (keyname == Generoentry):
         return 0
-    else:
+    elif (keyname > Generoentry):
         return 1
+    else:
+        return -1
 
 def newCatalog():
    
@@ -93,7 +97,10 @@ def newCatalog():
                                    loadfactor=2,
                                    comparefunction=compareProductoras)
 
-    catalog['Generos'] = lt.newList("ARRAY_LIST", cmpfunction=compareGeners)
+    catalog['Generos'] = mp.newMap(164527,
+                                   maptype='CHAINING',
+                                   loadfactor=2,
+                                   comparefunction=compareProductoras)
 
 
     return catalog
@@ -166,24 +173,25 @@ def addProductora(catalog, pelicula ):
         productoraes["Vote_average"]= (Productoraav+float(pelicualav)) / 2
 
 
-def addGenero(catalog,lista_genero,pelicula):
-        generos=lista_genero["genres"]
-        generos_lista=generos.split("|")
-        for genero in generos_lista:
-            generoscat=catalog["Generos"]
-            existe_genero= lt.isPresent(generoscat,genero)
-            if existe_genero > 0:
-                generoes=lt.getElement(generoscat,existe_genero)
-            else:
-                generoes= nuevo_genero(genero)
-                lt.addLast(generoscat,generoes)
-            lt.addLast(generoes["Peliculas_genero"],pelicula)
-            generoav= generoes["Vote_average"]
-            pelicualav = pelicula['vote_average']
-            if (generoav == 0):
-                generoes["Vote_average"]= float(pelicualav)
-            else:
-                generoes["Vote_average"]= (generoav+float(pelicualav)) / 2
+def addGenero(catalog,pelicula):
+    generos=pelicula["genres"]
+    generos_lista=generos.split("|")
+    for genero in generos_lista:
+        generoscat=catalog["Generos"]
+        existe_genero= mp.contains(generoscat,genero)
+        if existe_genero:
+            entry= mp.get(generoscat,genero)
+            generoes= me.getValue(entry)
+        else:
+            generoes= nuevo_genero(genero)
+            mp.put(generoscat,genero,generoes)
+        lt.addLast(generoes["Peliculas_genero"],pelicula)
+        generoav= generoes["Vote_average"]
+        pelicualav = pelicula['vote_average']
+        if (generoav == 0):
+            generoes["Vote_average"]= float(pelicualav)
+        else:
+            generoes["Vote_average"]= (generoav+float(pelicualav)) / 2
                 
 
 
