@@ -183,6 +183,17 @@ def moviesSize(catalog):
     """
     return lt.size(catalog['movies'])
 
+def producersSize(catalog):
+    """
+    Número de libros en el catago
+    """
+    return lt.size(catalog['producers'])
+
+def directorsSize(catalog):
+    """
+    Número de libros en el catago
+    """
+    return lt.size(catalog['directors'])
 # ==============================
 # Funciones de Comparacion
 # ==============================
@@ -208,4 +219,14 @@ def getMoviesByProducer(catalog, producername):
     producer = mp.get(catalog['producers'], producername)
     if producer:
         return me.getValue(producer)
+    return None
+
+
+def getMoviesByDirector(catalog, directorname):
+    """
+    Retorna un autor con sus libros a partir del nombre del autor
+    """
+    director = mp.get(catalog['directors'], directorname)
+    if director:
+        return me.getValue(director)
     return None

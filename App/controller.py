@@ -70,6 +70,7 @@ def loadMovies(catalog, moviesfile):
         producers = movie['production_companies'].split(";")  # Se obtienen los autores
         for productor in producers:
             model.addMovieProducer(catalog, productor, movie)
+            
 
 def moviesSize(catalog):
     """Numero de libros leido

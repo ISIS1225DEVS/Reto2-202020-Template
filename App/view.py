@@ -101,6 +101,7 @@ def printMenu():
     print("1- Inicializar Catálogo")
     print("2- Cargar información de las películas en el catálogo")
     print("3- Descubrir productoras de cine (individual)")
+    print("4- Conocer a un director")
     print("0- Salir")
 
 
