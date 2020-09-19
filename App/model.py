@@ -49,7 +49,8 @@ def newCatalog():
     """
     catalog = {'producers': None,
                 'movies': None,
-                'movieIds':None}
+                'movieIds':None,
+                'directors':None}
 
     catalog['movies'] = lt.newList('SINGLE_LINKED', comparemovieIds)
     catalog['producers'] = mp.newMap(200,
@@ -60,6 +61,10 @@ def newCatalog():
                                   maptype='PROBING',
                                   loadfactor=0.5,
                                   comparefunction=compareProducersByName)
+    catalog['directors'] = mp.newMap(200,
+                                   maptype='PROBING',
+                                   loadfactor=0.5,
+                                   comparefunction=compareProducersByName)
 
     return catalog
 
@@ -69,6 +74,19 @@ def compareProducersByName(keyname, producer):
     y el segundo un entry de un map
     """
     authentry = me.getKey(producer)
+    if (keyname == authentry):
+        return 0
+    elif (keyname > authentry):
+        return 1
+    else:
+        return -1
+
+def compareDirectorsByName(keyname, director):
+    """
+    Compara dos nombres de autor. El primero es una cadena
+    y el segundo un entry de un map
+    """
+    authentry = me.getKey(director)
     if (keyname == authentry):
         return 0
     elif (keyname > authentry):
@@ -112,6 +130,39 @@ def addMovieProducer(catalog, producername, movie):
         producer['vote_average'] = float(movieavg)
     else:
         producer['vote_average'] = (authavg + float(movieavg)) / 2
+
+def addMovieDirector(catalog, directorname, movie):
+    """
+    Esta función adiciona un libro a la lista de libros publicados
+    por un autor.
+    Cuando se adiciona el libro se actualiza el promedio de dicho autor
+    """
+    directors = catalog['directors']
+    existdirector = mp.contains(directors, directorname)
+    if existdirector:
+        entry = mp.get(directors, directorname)
+        director = me.getValue(entry)
+    else:
+        director = newDirector(directorname)
+        mp.put(directors, directorname, director)
+    lt.addLast(director['movies'], movie)
+
+    authavg = director['vote_average']
+    movieavg = movie['vote_average']
+    if (authavg == 0.0):
+        director['vote_average'] = float(movieavg)
+    else:
+        director['vote_average'] = (authavg + float(movieavg)) / 2
+
+def newDirector(name):
+    """
+    Crea una nueva estructura para modelar los libros de un autor
+    y su promedio de ratings
+    """
+    director = {'name': "", "movies": None,  "vote_average": 0}
+    director['name'] = name
+    director['movies'] = lt.newList('SINGLE_LINKED', compareDirectorsByName)
+    return director
 
 def newProducer(name):
     """
