@@ -21,11 +21,11 @@
  """
 
 import sys
-import config
+import config as conf
 from DISClib.ADT import list as lt
-from DISClib.DataStructures import listiterator as it
+from DISClib.ADT import map as mp
 from App import controller
-assert config
+from time import process_time 
 
 """
 La vista se encarga de la interacción con el usuario.
@@ -37,12 +37,13 @@ operación seleccionada.
 # ___________________________________________________
 #  Ruta a los archivos
 # ___________________________________________________
+detalles = "Data\AllMoviesDetailsCleaned.csv"
+casting = "Data\AllMoviesCastingRaw.csv"
+#detalles = "Data\SmallMoviesDetailsCleaned.csv"
+#casting = "Data\MoviesCastingRaw-small.csv"
 
 
-
-
-
-# ___________________________________________________
+#___________________________________________________
 #  Funciones para imprimir la inforamación de
 #  respuesta.  La vista solo interactua con
 #  el controlador.
@@ -53,3 +54,46 @@ operación seleccionada.
 # ___________________________________________________
 #  Menu principal
 # ___________________________________________________
+catalog = None
+def printMenu():
+    print("Bienvenido")
+    print("1- Inicializar Catálogo")
+    print("2- Cargar información en el catálogo")
+    print("3- (Req-1)Consultar peliculas por compañia")
+
+while True:
+    printMenu()
+    Monika = input('Seleccione una opción para continuar\n')
+    if int(Monika) == 1:
+        print("Inicializando Catálogo ....")
+        t1 = process_time()
+        # cont es el controlador que se usará de acá en adelante
+        catalog = controller.initCatalog(detalles, casting)
+        t2 = process_time()
+        print("Catalogo creado exitosamente")
+        print("tiempo de ejecución:",t2-t1,"segundos")
+        #print(catalog)
+
+    elif int(Monika) == 2:
+        print("Cargando información al catalogo...")
+        t1 = process_time()
+        controller.cargar_elementos_al_catalogo(catalog)
+        t2 = process_time()
+        print("Proceso finalizado")
+        print("tiempo de carga:",t2-t1,"segundos")
+        #print(mp.keySet(catalog["production_companies(map)"]))
+        #print(mp.valueSet(catalog["production_companies(map)"]))
+    
+    elif int(Monika) == 3:
+         B = input("Ingrese nombre de la compañia")
+         print("leyendo archivos...")
+         t1 = process_time()
+         Lista = controller.lista_pel_per_companie(catalog, B)
+         t2 = process_time()
+         print(Lista)
+         print("tiempo de carga:",t2-t1,"segundos")
+
+
+
+
+       
