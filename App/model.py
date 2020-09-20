@@ -223,9 +223,7 @@ def getMoviesByProducer(catalog, producername):
 
 
 def getMoviesByDirector(catalog, directorname):
-    """
-    Retorna un autor con sus libros a partir del nombre del autor
-    """
+    
     director = mp.get(catalog['directors'], directorname)
     if director:
         return me.getValue(director)
