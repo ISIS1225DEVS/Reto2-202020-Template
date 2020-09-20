@@ -48,7 +48,7 @@ def loadDirectores1():
     lst=[]
     dialect = csv.excel()
     dialect.delimiter=";"
-    with open(  cf.data_dir + "AllMoviesCastingRaw.csv", encoding="utf-8") as csvfile:
+    with open(  cf.data_dir + "MoviesCastingRaw-small.csv", encoding="utf-8") as csvfile:
             row = csv.DictReader(csvfile, dialect=dialect)
             for elemento in row: 
                 lst.append(elemento)
@@ -58,7 +58,7 @@ def loadmovies(catalog):
     t1= process_time()
     dialect = csv.excel()
     dialect.delimiter=";"
-    with open(  cf.data_dir + "AllMoviesDetailsCleaned.csv", encoding="utf-8") as csvfile:
+    with open(  cf.data_dir + "SmallMoviesDetailsCleaned.csv", encoding="utf-8") as csvfile:
         row = csv.DictReader(csvfile, dialect=dialect)
         for pelicula in row: 
             lt.addLast(catalog["Peliculas"],pelicula)
@@ -75,7 +75,7 @@ def load_Directores_peliculas1(catalog,lista):
     t1= process_time()
     dialect = csv.excel()
     dialect.delimiter=";"
-    with open(  cf.data_dir + "AllMoviesDetailsCleaned.csv", encoding="utf-8") as csvfile:
+    with open(  cf.data_dir + "SmallMoviesDetailsCleaned.csv", encoding="utf-8") as csvfile:
         row = csv.DictReader(csvfile, dialect=dialect)
         i=0
         j=0
@@ -83,8 +83,9 @@ def load_Directores_peliculas1(catalog,lista):
             ya=False
             while i<len(lista) and not ya:
                 element=lista[i]
-                ya=model.addPeliculaActor(catalog,element,pelicula)
+                ya=model.addPeliculaDirector(catalog,element,pelicula)
                 model.addPeliculaPais(catalog,element,pelicula)
+                model.addPeliculaActor(catalog,element,pelicula)
                 i+=1
             j+=1
             i=j
@@ -111,6 +112,10 @@ def darProductora(catalog,nombre_productora):
 def darpais(catalog,nombre_pais):
     pais=model.darpais(catalog,nombre_pais)
     return pais 
+def darActores(catalog,nombre):
+    actor=model.darActor(catalog,nombre)
+    return actor
+
 # ___________________________________________________
 #  Inicializacion del catalogo
 # ___________________________________________________

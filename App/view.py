@@ -46,6 +46,7 @@ def printMenu():
     print("4- Conocer un director")
     print("5- Conocer un Genero")
     print("6- Conocer un Pais")
+    print("7- Conocer Actor")
     print("0- Salir")
 
 
@@ -69,14 +70,15 @@ while True:
         print ('Directores cargados: ' + str(mp.size(catalog['Directores'])))
         print ('Géneros cargados: ' + str(mp.size(catalog['Generos'])))
         print("Productoras cargadas: "+ str(mp.size(catalog['Productoras'])))
-        print("Paises cargadas: "+ str(mp.size(catalog['Paises'])),"\n")
+        print("Paises cargados: "+ str(mp.size(catalog['Paises'])))
+        print("Actores cargados: "+ str(mp.size(catalog['Actores'])),"\n")
         pelicula1=lt.getElement(catalog["Peliculas"],1)
         pelicula2=lt.getElement(catalog["Peliculas"],lt.size(catalog["Peliculas"]))
         print("La primera pelicula es:","\n\n","Titulada:",pelicula1["original_title"],"\n","Estrenada el dia:",pelicula1["release_date"])
         print(" Su promedio de votacion:",pelicula1["vote_average"],"\n","su numero de votos",pelicula1["vote_count"],"\n","Y su idioma:",pelicula1["original_language"],"\n")
         print("La ultima pelicula es:","\n\n","Titulada:",pelicula2["original_title"],"\n","Estrenada el dia:",pelicula2["release_date"])
         print(" Su promedio de votacion:",pelicula2["vote_average"],"\n","su numero de votos",pelicula2["vote_count"],"\n","Y su idioma:",pelicula2["original_language"],"\n")
-    
+        
     elif int(inputs[0])==3:
         nombre=input("Ingrese el nombre de la productora:\n")
         productora= controller.darProductora(catalog,nombre)
@@ -126,11 +128,20 @@ while True:
             j+=1
             i+=1
             print(nombre,",Año de produccion:",element["release_date"],"y su director:",director)
-
-
-
         print("Con un promedio de votos de",pais["Vote_average"])
     
+    elif int(inputs[0])==7:
+        nombre=input("Ingrese el nombre de el Actor que desea conocer:\n")
+        actor= controller.darActores(catalog,nombre)
+        print("El Actor",nombre,"tiene",lt.size(actor["Peliculas"]),"peliculas las cuales son:","\n")
+        iterador= it.newIterator(actor["Peliculas"])
+        directores=actor["Directores"]
+        i=0
+        j=0
+        while it.hasNext(iterador) and i<10 :
+            element=it.next(iterador)
+            nombre=element["original_title"]
+            print(nombre)
 
     else:
         sys.exit(0)
