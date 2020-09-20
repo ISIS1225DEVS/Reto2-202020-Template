@@ -63,7 +63,7 @@ def newProductionCompany(name):
     """
     prod_company = {'name': "", "movies": None,  "vote_average": 0}
     prod_company['name'] = name
-    prod_company['movies'] = lt.newList('SINGLE_LINKED', compareRecordIds)
+    prod_company['movies'] = lt.newList('SINGLE_LINKED', compareText)
     return prod_company
 
 def newActor(name):
@@ -74,7 +74,7 @@ def newActor(name):
     """
     actor = {'name': "", "movies": None, "vote_average": 0, "directors":None}
     actor['name'] = name
-    actor['movies'] = lt.newList('SINGLE_LINKED', compareRecordIds)
+    actor['movies'] = lt.newList('SINGLE_LINKED', compareText)
     actor["directors"] = mp.newMap(40, 
                                    maptype='PROBING', 
                                    loadfactor=0.4, #CHAINING 10 , PROBING 0.4
