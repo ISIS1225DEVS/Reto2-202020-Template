@@ -30,7 +30,19 @@ En este archivo definimos los TADs que vamos a usar,
 es decir contiene los modelos con los datos en memoria
 
 """
+def catalogo():
+    catalogo = {"archivo_peliculas": None,
+                "peliculas_por_compañia": None}
 
+
+    catalogo["peliculas_por_compañia"] = mp.newMap( numelements=10003,
+                                                    prime=109345121,   
+                                                    maptype='CHAINING', 
+                                                    loadfactor=0.5, 
+                                                    comparefunction=companiescomparer)
+                                                 
+    catalogo["archivo_peliculas"] = lt.newList("ARRAY_LIST")
+    return catalogo
 # -----------------------------------------------------
 # API del TAD Catalogo de Libros
 # -----------------------------------------------------
@@ -38,17 +50,42 @@ es decir contiene los modelos con los datos en memoria
 
 
 # Funciones para agregar informacion al catalogo
+def añadir_compañia(catalogo, movie, compañia):
+    if mp.contains(catalogo["peliculas_por_compañia"], compañia) == True:
+        lt.addLast(me.getValue(mp.get(catalogo["peliculas_por_compañia"], compañia)), movie["original_title"])
+    else:
+        N = lt.newList("ARRAY_LIST")
+        lt.addLast(N, movie["original_title"])
+        mp.put(catalogo["peliculas_por_compañia"], compañia, N)
+
+
+def addmovie(catalogo, movie):
+
+    lt.addLast(catalogo["archivo_peliculas"], movie)
+
+
 
 
 
 # ==============================
 # Funciones de consulta
 # ==============================
-
-
+def mostrar_compañias(catalog):
+    A = mp.keySet(catalog["peliculas_por_compañia"])
+    return A
 
 # ==============================
 # Funciones de Comparacion
 # ==============================
-
-
+def companiescomparer(keyname, compani):
+    """
+    Compara dos nombres de autor. El primero es una cadena
+    y el segundo un entry de un map
+    """
+    comp_entry = me.getKey(compani)
+    if (keyname == comp_entry):
+        return 0
+    elif (keyname > comp_entry):
+        return 1
+    else:
+        return -1

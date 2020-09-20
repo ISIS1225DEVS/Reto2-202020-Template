@@ -37,8 +37,8 @@ operación seleccionada.
 # ___________________________________________________
 #  Ruta a los archivos
 # ___________________________________________________
-detalles = "Data\AllMoviesDetailsCleaned.csv"
-casting = "Data\AllMoviesCastingRaw.csv"
+detalles = "AllMoviesDetailsCleaned.csv"
+casting = "AllMoviesCastingRaw.csv"
 #detalles = "Data\SmallMoviesDetailsCleaned.csv"
 #casting = "Data\MoviesCastingRaw-small.csv"
 
@@ -54,44 +54,34 @@ casting = "Data\AllMoviesCastingRaw.csv"
 # ___________________________________________________
 #  Menu principal
 # ___________________________________________________
-catalog = None
 def printMenu():
     print("Bienvenido")
     print("1- Inicializar Catálogo")
     print("2- Cargar información en el catálogo")
     print("3- (Req-1)Consultar peliculas por compañia")
 
-while True:
+
+catalogo = None
+Altair = True
+while Altair == True:
     printMenu()
     Monika = input('Seleccione una opción para continuar\n')
     if int(Monika) == 1:
-        print("Inicializando Catálogo ....")
-        t1 = process_time()
-        # cont es el controlador que se usará de acá en adelante
-        catalog = controller.initCatalog(detalles, casting)
-        t2 = process_time()
+        catalogo = controller.iniciar_catalogo()
         print("Catalogo creado exitosamente")
-        print("tiempo de ejecución:",t2-t1,"segundos")
-        #print(catalog)
-
     elif int(Monika) == 2:
-        print("Cargando información al catalogo...")
         t1 = process_time()
-        controller.cargar_elementos_al_catalogo(catalog)
+        controller.cargar_info(catalogo, detalles, casting)
         t2 = process_time()
-        print("Proceso finalizado")
-        print("tiempo de carga:",t2-t1,"segundos")
-        #print(mp.keySet(catalog["production_companies(map)"]))
-        #print(mp.valueSet(catalog["production_companies(map)"]))
-    
+        
+        print("tiempo de procesado", t2-t1,"segundos")
     elif int(Monika) == 3:
-         B = input("Ingrese nombre de la compañia")
-         print("leyendo archivos...")
-         t1 = process_time()
-         Lista = controller.lista_pel_per_companie(catalog, B)
-         t2 = process_time()
-         print(Lista)
-         print("tiempo de carga:",t2-t1,"segundos")
+        t1 = process_time()
+        print(controller.mostrar_compañias(catalogo))
+        t2 = process_time()
+    else:
+        Altair = False
+
 
 
 

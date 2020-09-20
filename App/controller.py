@@ -36,6 +36,9 @@ recae sobre el controlador.
 # ___________________________________________________
 #  Inicializacion del catalogo
 # ___________________________________________________
+def iniciar_catalogo():
+    catalogo = model.catalogo()
+    return catalogo
 
 
 
@@ -44,3 +47,24 @@ recae sobre el controlador.
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
 # ___________________________________________________
+def cargar_info(catalogo, archivo1, archivo2):
+    cargar_compañias(catalogo, archivo1)
+
+
+
+
+def cargar_compañias(catalogo, archivo):
+    sep = ";"
+    dialect = csv.excel()
+    dialect.delimiter=sep
+    archivo = cf.data_dir + archivo
+    input_file = csv.DictReader(open(archivo, encoding="utf-8"), dialect=dialect)
+    for movie in input_file:
+        #model.addmovie(catalogo, movie)
+        compañia = movie["production_companies"] # Se obtienen las compañias
+        model.añadir_compañia(catalogo, movie, compañia)
+
+def mostrar_compañias(catalogo):
+    N = model.mostrar_compañias(catalogo)
+    return N
+
