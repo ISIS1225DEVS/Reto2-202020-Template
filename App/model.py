@@ -62,7 +62,6 @@ def agregarAlMap(mapa,key,value):
     mp.put(mapa,key,value)
 
 
-
 # ==============================
 # Funciones de consulta
 # ==============================

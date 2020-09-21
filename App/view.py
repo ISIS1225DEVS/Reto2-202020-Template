@@ -53,6 +53,17 @@ file2 = "AllMoviesDetailsCleaned.csv"
 #  el controlador.
 # ___________________________________________________
 
+def imprimirProductoras(result):
+    print("\nPelículas de:",productora)
+    iterator = it.newIterator(result[0])
+    while it.hasNext(iterator):
+        pelicula = it.next(iterator)
+        print("{:<50}{:<50}".format(pelicula[0],pelicula[1]))
+    print("\nLa cantidad de películas de la productora es:",result[1])
+    print("El promedio de las películas de la productora es:",round(result[2],2))
+# ___________________________________________________
+#  Menu principal
+# ___________________________________________________
 def imprimirMenu():
     print("\n1- Cargar Datos")
     print("2- Descubrir productoras de cine")
@@ -61,17 +72,6 @@ def imprimirMenu():
     print("5- Entender un género cinematográfico")
     print("6- Encontrar películas por país")
     print("0- Salir\n")
-
-# ___________________________________________________
-#  Menu principal
-# ___________________________________________________
-
-def printMenu():
-    print('Bienvenid@')
-    print('1- Cargar Películas')
-    print('2- ')
-    print('3- ')
-    print('0- Salir')
 
 while True:
     imprimirMenu()
@@ -82,7 +82,7 @@ while True:
         moviesCatalog = {}
         print("Cargando archivos...")
         t1 = process_time()
-        moviesCatalog = controller.cargarByCriteria(moviesCatalog,"production_companies",file2,file1)
+        controller.cargarByCriteria(moviesCatalog,"production_companies",file2,file1) # Aquí se escribe el factor de carga loadFactor, el tipo de tabla hashType, y la función de comparación 
         t2 = process_time()
         print("Tiempo de ejecución:",t2-t1,"Segundos")
 
@@ -90,15 +90,10 @@ while True:
         productora = input("Por favor ingrese el nombre de la productora que consulta:\n")
         t1 = process_time()
         result = controller.limpiarProductora(moviesCatalog["production_companies"],productora)
+        # print(result)
         t2 = process_time()
+        imprimirProductoras(result)
         print("Tiempo de ejecución:",t2-t1,"Segundos")
-        print("\nPelículas de:",productora)
-        iterator = it.newIterator(result[0])
-        while it.hasNext(iterator):
-            pelicula = it.next(iterator)
-            print("{:<50}{:<50}".format(pelicula[0],pelicula[1]))
-        print("\nLa cantidad de películas de la productora es:",result[1])
-        print("El promedio de las películas de la productora es:",round(result[2],2))
         
     elif int(seleccion[0]) == 3:
         pass

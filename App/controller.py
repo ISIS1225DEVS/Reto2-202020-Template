@@ -47,22 +47,20 @@ def crearHash(tipo='CHAINING',loadfactor=0.5,cmpfunction=getKeyFunction):
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
 # ___________________________________________________
-def cargarByCriteria(moviesCatalog,criteria,details,casting,cmpfunction=getKeyFunction,hashType='CHAINING',loadfactor=0.5):
+def cargarByCriteria(moviesCatalog,criteria,details,casting,cmpfunction=getKeyFunction,hashType='PROBING',loadfactor=0.5):
     data = cargarArchivosUnificados(details,casting,cmpfunction)
     moviesCatalog[criteria] = crearHash(hashType)
     productoras = {}
     for element in data['elements']:
         if element[criteria] not in productoras:
             value = model.crearCatalogo('ARRAY_LIST')
-            model.agregarFinal(value,element)
+            model.agregarFinal(value,(element))
             productoras[element[criteria]] = value
         else:
             model.agregarFinal(productoras[element[criteria]],element)
-
-        # model.agregarAlMap(moviesCatalog[criteria],element[criteria],element['title'])
     for productora in productoras:
         model.agregarAlMap(moviesCatalog[criteria],productora,productoras[productora])
-    return moviesCatalog            
+    # return moviesCatalog            
 
 def cargarArchivosUnificados(details,casting, cmpfunction=None):
     lst=iniciarCatalogo()
