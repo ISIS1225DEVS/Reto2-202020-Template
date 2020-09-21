@@ -48,7 +48,7 @@ def iniciar_catalogo():
 #  de datos en los modelos
 # ___________________________________________________
 def cargar_info(catalogo, archivo1, archivo2):
-    cargar_compañias(catalogo, archivo1)
+    cargar_datos(catalogo, archivo1)
     cargar_casting(catalogo, archivo2)
     
     
@@ -56,7 +56,7 @@ def cargar_info(catalogo, archivo1, archivo2):
 
 
 
-def cargar_compañias(catalogo, archivo):
+def cargar_datos(catalogo, archivo):
     sep = ";"
     dialect = csv.excel()
     dialect.delimiter=sep
