@@ -93,6 +93,7 @@ def newDirector(name):
     director = {"name":"", "movies": None, "average_vote": 0}
     director["name"] = name
     director["movies"] = lt.newList("SINGLE_LINKED", compareDirectorsByName)
+    return director
 
 def newActor(name):
 
@@ -132,11 +133,19 @@ def addCastings(catalog, casting):
 
     if entry:
         movieCastings = mp.get(catalog["movies"], me.getValue(entry)["name"])
-        
 
+def addDirector(catalog, directorname, movie):
 
-
-
+    directors = catalog["directors"]
+    existdirector = mp.contains(directors, directorname)
+    if existdirector:
+        entry = mp.get(directors, directorname)
+        director = me.getValue(entry)
+    else:
+        director = newDirector(directorname)
+        mp.put(directors, directorname, director)
+    lt.addLast(director["movies"], movie)
+    
 def newDate(release_date):
     
     entry = {"Date": "", "Movies": None}
