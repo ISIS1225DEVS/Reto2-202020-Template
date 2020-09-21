@@ -61,49 +61,76 @@ def imprimirProductoras(result):
         print("{:<50}{:<50}".format(pelicula[0],pelicula[1]))
     print("\nLa cantidad de películas de la productora es:",result[1])
     print("El promedio de las películas de la productora es:",round(result[2],2))
+
+def imprimirGeneros(result):
+    print("\nPelículas de:",genero)
+    iterator = it.newIterator(result[0])
+    while it.hasNext(iterator):
+        pelicula = it.next(iterator)
+        print("{:<50}{:<5}{:<10}".format(pelicula[0],pelicula[1],pelicula[2]))
+    print("\nLa cantidad de películas del género es:",result[1])
+    print("El promedio de la cantidad de votos del género es:",round(result[2],2))
 # ___________________________________________________
 #  Menu principal
 # ___________________________________________________
 def imprimirMenu():
-    print("\n1- Cargar Datos")
-    print("2- Descubrir productoras de cine")
-    print("3- Conocer a un director")
-    print("4- Conocer a un actor")
-    print("5- Entender un género cinematográfico")
-    print("6- Encontrar películas por país")
+    print("\n1- Inicializar Catálogo")
+    print("2- Cargar Datos")
+    print("3- Descubrir productoras de cine")
+    print("4- Conocer a un director")
+    print("5- Conocer a un actor")
+    print("6- Entender un género cinematográfico")
+    print("7- Encontrar películas por país")
     print("0- Salir\n")
 
+
+data = None
+moviesCatalog = {}
 while True:
     imprimirMenu()
-    # listaMovies = controller.iniciarCatalogo('ARRAY_LIST')
     seleccion = input("Seleccione una opción\n")
-    # try:
     if int(seleccion[0]) == 1:
-        moviesCatalog = {}
-        print("Cargando archivos...")
         t1 = process_time()
-        controller.cargarByCriteria(moviesCatalog,"production_companies",file2,file1) # Aquí se escribe el factor de carga loadFactor, el tipo de tabla hashType, y la función de comparación 
+        data = controller.cargarArchivosUnificados(file2,file1)
         t2 = process_time()
-        print("Tiempo de ejecución:",t2-t1,"Segundos")
-
+        print("Tiempo de ejecución (sin contar los prints):",t2-t1,"Segundos")
     elif int(seleccion[0]) == 2:
-        productora = input("Por favor ingrese el nombre de la productora que consulta:\n")
-        t1 = process_time()
-        result = controller.limpiarProductora(moviesCatalog["production_companies"],productora)
-        # print(result)
-        t2 = process_time()
-        imprimirProductoras(result)
-        print("Tiempo de ejecución:",t2-t1,"Segundos")
-        
+        if data != None:
+            t1 = process_time()
+            print("Cargando productoras:")
+            controller.cargarByCriteria(moviesCatalog,"production_companies",data) # Aquí se escribe el factor de carga loadFactor, el tipo de tabla hashType, y la función de comparación 
+            print("Cargando generos:")
+            controller.cargarByCriteria(moviesCatalog,"genres",data)
+            t2 = process_time()
+            print("Tiempo de ejecución:",t2-t1,"Segundos")
+        else:
+            print("\nPor favor inicialice el catálogo primero")
+
     elif int(seleccion[0]) == 3:
-        pass
+        if data != None and moviesCatalog != {}:
+            productora = input("Por favor ingrese el nombre de la productora que consultar:\n")
+            t1 = process_time()
+            result = controller.limpiarProductora(moviesCatalog["production_companies"],productora)
+            # print(result)
+            t2 = process_time()
+            imprimirProductoras(result)
+            print("Tiempo de ejecución:",t2-t1,"Segundos")
+        else:
+            print("\nPor favor inicialice el catálogo o cargue los datos primero")
     elif int(seleccion[0]) == 4:
         pass
     elif int(seleccion[0]) == 5:
         pass
     elif int(seleccion[0]) == 6:
+        genero = input("Por favor ingrese el nombre del género cinematográfico que desea consultar:\n")
+        t1 = process_time()
+        result = controller.limpiarGeneros(moviesCatalog["genres"],genero)
+        t2 = process_time()
+        imprimirGeneros(result)
+        print("Tiempo de ejecución (sin contar los prints):",t2-t1,"Segundos")
+    elif int(seleccion[0]) == 7:
         pass
-    else:
+    elif int(seleccion[0]) == 0:
         sys.exit()
-    # except:
-        # print("hubo un error")
+    else:
+        print("Por favor ingrese una opción válida")
