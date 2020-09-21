@@ -64,7 +64,7 @@ def cargarByCriteria(moviesCatalog,criteria,data,cmpfunction=getKeyFunction,hash
             productoras[element[criteria]] = value
 
 
-            #Condición para separar los géneros por '|'
+            #Condición para separar los géneros por '|' en caso de que el criterio no sea géneros, lo visto en el video sigue funcionando
             if criteria == 'genres':
                 generos = element[criteria].split('|')
                 for genero in generos:
