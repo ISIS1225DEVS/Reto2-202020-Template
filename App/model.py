@@ -49,6 +49,7 @@ def compareDirectactores (nombre, director):
         return 0
     else:
         return 1
+    
 def compareDirectores(keyname, director):
     """
     Compara dos nombres de autor. El primero es una cadena
@@ -113,25 +114,25 @@ def newCatalog():
                "Productoras":None}
 
     catalog['Peliculas'] = lt.newList('ARRAY_LIST', cmpfunction=comparePeliculas)
-    catalog['Directores'] =  mp.newMap(164527,
+    catalog['Directores'] =  mp.newMap(42967,
                                    maptype='CHAINING',
                                    loadfactor=2,
                                    comparefunction=compareDirectores)
-    catalog['Productoras'] =  mp.newMap(164527,
+    catalog['Productoras'] =  mp.newMap(17999,
                                    maptype='CHAINING',
                                    loadfactor=2,
                                    comparefunction=compareProductoras)
 
-    catalog['Generos'] = mp.newMap(23,
+    catalog['Generos'] = mp.newMap(21,
                                    maptype='CHAINING',
                                    loadfactor=2,
                                    comparefunction=compareGeners)
-    catalog['Paises'] = mp.newMap(117,
+    catalog['Paises'] = mp.newMap(119,
                                    maptype='CHAINING',
                                    loadfactor=2,
                                    comparefunction=comparePaises)
     
-    catalog['Actores'] = mp.newMap(164527,
+    catalog['Actores'] = mp.newMap(64794,
                                    maptype='CHAINING',
                                    loadfactor=2,
                                    comparefunction=compareActores)
@@ -141,9 +142,11 @@ def newCatalog():
 
 def nuevo_director(nombre):
     
-    director = {'Nombre': "", "Peliculas": None,  "Vote_average": 0}
+    director = {'Nombre': "", "Peliculas": None,  "Vote_average": 0,"Info_casting":0 }
     director['Nombre'] = nombre
     director['Peliculas'] = lt.newList('ARRAY_LIST')
+    director["Info_casting"]=lt.newList('ARRAY_LIST')
+
     return director
 
 def nueva_productora(nombre_productora):
@@ -178,6 +181,7 @@ def nuevo_Actor(nombre):
 
 def nuevo_director_actor(nombre_director):
     director = {'Nombre': "", "Cantidad":0}
+    director["Nombre"]=nombre_director
     return director
 
 
@@ -186,6 +190,7 @@ def addPeliculaDirector(catalog, director_lista, pelicula ):
     nombre_director=director_lista["director_name"]
     id1=director_lista["id"]
     id2=pelicula["id"]
+    
     if id1==id2:
         Directores = catalog['Directores']
         existe_director = mp.contains(Directores,nombre_director)
@@ -198,9 +203,10 @@ def addPeliculaDirector(catalog, director_lista, pelicula ):
 
         lt.addLast(director['Peliculas'], pelicula)
         
-
+        lt.addLast(director["Info_casting"],director_lista)
         directorav = director['Vote_average']
         pelicualav = pelicula['vote_average']
+
         if (directorav == 0.0):
             director['Vote_average'] = float(pelicualav)
         else:
@@ -239,7 +245,7 @@ def addPeliculaActor(catalog, director_lista, pelicula ):
     
     nombre_director=director_lista["director_name"]
     id1=director_lista["id"]
-    id2=pelicula["id"]
+    id2=pelicula["\ufeffid"]
     
     if id1==id2:
         for i in range (1,6):
@@ -271,7 +277,7 @@ def addPeliculaActor(catalog, director_lista, pelicula ):
             else:
                 actoris['Vote_average'] = (actorav  + float(pelicualav)) / 2
         
-    return 
+     
 
 
 
@@ -355,13 +361,70 @@ def darpais(catalog,nombre_pais):
 
 def darActor(catalog,nombre):
     entry= mp.get(catalog["Actores"],nombre)
-    
+    actor=None
     if entry:
-        return me.getValue(entry)
+        actor=me.getValue(entry)
+        directores=actor["Directores"]
+        mayor=0
+        mejor=None
+        iterador=it.newIterator(directores)
+        while it.hasNext(iterador):
+            element= it.next(iterador)
+            if element["Cantidad"]>= mayor:
+                mayor=element["Cantidad"]
+                mejor=element["Nombre"]
+
+        return actor,mejor
     else:
         return 1
 
-    
+def buscar_actor(nombre,catalog):
+    Actor={"Peliculas": lt.newList("ARRAY_LIST"),"Directores": lt.newList("ARRAY_LIST",cmpfunction=compareDirectactores)}
+    peliculas=catalog["Peliculas"]
+    Directores=catalog["Directores"]
+    LLaves=mp.keySet(Directores)
+    Iterador=it.newIterator(peliculas)
+    while it.hasNext(Iterador):
+        pelicula=it.next(Iterador)
+        id_pelicula=pelicula["id"]
+        Iterador2=it.newIterator(LLaves)
+        es_pelicula=False
+        while it.hasNext(Iterador2) and not es_pelicula:
+            Director=it.next(Iterador2)
+            entry= mp.get(Directores,Director)
+            director_info=me.getValue(entry)
+            director_info_casting=director_info["Info_casting"]
+            Iterador3=it.newIterator(director_info_casting)
+            
+            while it.hasNext(Iterador3) and not es_pelicula:
+                Info=it.next(Iterador3) 
+                id_casting=Info["id"]
+                if id_pelicula==id_casting:
+                    encontro=False 
+                    i=1
+                    while i<=5 and not encontro:
+                        actor=Info["actor"+str(i)+"_name"]
+                        if actor==nombre:
+                            encontro=True
+                            lt.addLast(Actor["Peliculas"],pelicula)
+                            esta_director= lt.isPresent(Actor["Directores"],Director)
+                            if esta_director > 0:
+                                dire=lt.getElement(Actor["Directores"],esta_director)
+                                dire["Cantidad"]+=1
+                            else:
+                                dire=nuevo_director_actor(Director)
+                                lt.addLast(Actor["Directores"],dire)
+                                dire["Cantidad"]+=1
+                            encontro=True
+                        i+=1
+                    es_pelicula=True
+    return Actor
+
+
+
+
+
+
    
 
 # Funciones para agregar informacion al catalogo

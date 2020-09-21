@@ -85,7 +85,7 @@ def load_Directores_peliculas1(catalog,lista):
                 element=lista[i]
                 ya=model.addPeliculaDirector(catalog,element,pelicula)
                 model.addPeliculaPais(catalog,element,pelicula)
-                model.addPeliculaActor(catalog,element,pelicula)
+                #model.addPeliculaActor(catalog,element,pelicula)
                 i+=1
             j+=1
             i=j
@@ -111,11 +111,15 @@ def darProductora(catalog,nombre_productora):
     return productora
 def darpais(catalog,nombre_pais):
     pais=model.darpais(catalog,nombre_pais)
-    return pais 
-def darActores(catalog,nombre):
-    actor=model.darActor(catalog,nombre)
-    return actor
+    return pais
 
+def darActores(catalog,nombre):
+    actor,director=model.darActor(catalog,nombre)
+    return actor,director
+
+def buscar_Actor(catalog,nombre):
+    Actor=model.buscar_actor(nombre,catalog)
+    return Actor
 # ___________________________________________________
 #  Inicializacion del catalogo
 # ___________________________________________________
