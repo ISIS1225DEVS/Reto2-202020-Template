@@ -49,6 +49,9 @@ def iniciar_catalogo():
 # ___________________________________________________
 def cargar_info(catalogo, archivo1, archivo2):
     cargar_compañias(catalogo, archivo1)
+    cargar_casting(catalogo, archivo2)
+    
+    
 
 
 
@@ -59,12 +62,52 @@ def cargar_compañias(catalogo, archivo):
     dialect.delimiter=sep
     archivo = cf.data_dir + archivo
     input_file = csv.DictReader(open(archivo, encoding="utf-8"), dialect=dialect)
+    
     for movie in input_file:
-        #model.addmovie(catalogo, movie)
+        model.addmovie(catalogo, movie)
         compañia = movie["production_companies"] # Se obtienen las compañias
+        generos = (movie["genres"]).split(sep="|")
         model.añadir_compañia(catalogo, movie, compañia)
+        model.añadir_genero(catalogo, movie, generos)
 
-def mostrar_compañias(catalogo):
-    N = model.mostrar_compañias(catalogo)
-    return N
+def cargar_casting(catalogo, archivo):
+    sep = ";"
+    dialect = csv.excel()
+    dialect.delimiter=sep
+    archivo = cf.data_dir + archivo
+    input_file = csv.DictReader(open(archivo, encoding="utf-8"), dialect=dialect)
 
+    for movie in input_file:
+        director = movie["director_name"]
+        model.añadir_director(catalogo, movie, director)
+
+
+
+
+def mostrar_compañias(catalogo, sara):
+    N = model.mostrar_compañias(catalogo, sara)
+    if N != "No existe esa compañia en la base de datos":
+        C = model.calificacion(N)
+        return [C, N]
+    else:
+        return N
+
+def mostrar_directores(catalogo, Monika):
+    N = model.mostrar_director(catalogo, Monika)
+    if N != "No existe ese autor en la base de datos":
+        C = model.calificacion2(N)
+        return [N, C]
+    else:
+        return N
+
+def mostrar_generos(catalogo, Misaka):
+    N = model.mostrar_generos(catalogo, Misaka)
+    if N != "No existe ese genero en la base de datos":
+        C = model.calificacion(N)
+        return [C, N]
+    else:
+        return N
+
+
+A = ("A mario lacerna le gusta la papaya").strip()
+print(A)

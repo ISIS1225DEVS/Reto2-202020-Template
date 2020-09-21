@@ -37,10 +37,10 @@ operación seleccionada.
 # ___________________________________________________
 #  Ruta a los archivos
 # ___________________________________________________
-detalles = "AllMoviesDetailsCleaned.csv"
-casting = "AllMoviesCastingRaw.csv"
-#detalles = "Data\SmallMoviesDetailsCleaned.csv"
-#casting = "Data\MoviesCastingRaw-small.csv"
+#detalles = "AllMoviesDetailsCleaned.csv"
+#casting = "AllMoviesCastingRaw.csv"
+detalles = "SmallMoviesDetailsCleaned.csv"
+casting = "MoviesCastingRaw-small.csv"
 
 
 #___________________________________________________
@@ -59,6 +59,9 @@ def printMenu():
     print("1- Inicializar Catálogo")
     print("2- Cargar información en el catálogo")
     print("3- (Req-1)Consultar peliculas por compañia")
+    print("4- (Req-2)Consultar peliculas por director")
+    print("5- (Req-3)Consular peliculas por actor(En construccion)")
+    print("6- (Req-4)Consultar peliculas por genero")
 
 
 catalogo = None
@@ -72,12 +75,25 @@ while Altair == True:
     elif int(Monika) == 2:
         t1 = process_time()
         controller.cargar_info(catalogo, detalles, casting)
+        print(lt.size(catalogo["archivo_peliculas"]))
         t2 = process_time()
         
         print("tiempo de procesado", t2-t1,"segundos")
     elif int(Monika) == 3:
+        sara = input("Nombre de la compañia: ")
         t1 = process_time()
-        print(controller.mostrar_compañias(catalogo))
+        print(controller.mostrar_compañias(catalogo, sara))
+        t2 = process_time()
+
+    elif int(Monika)== 4:
+        monika = input("Nombre del director: ")
+        t1 = process_time()
+        print(controller.mostrar_directores(catalogo, monika))
+        t2 = process_time()
+    elif int(Monika)== 6:
+        monika = input("Genero que desea interrogar")
+        t1 = process_time()
+        print(controller.mostrar_generos(catalogo, monika))
         t2 = process_time()
     else:
         Altair = False
