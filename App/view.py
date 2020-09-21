@@ -24,7 +24,7 @@ import sys
 import config
 from DISClib.ADT import list as lt
 from DISClib.DataStructures import listiterator as it
-from App import controller
+from App import controller as controller
 assert config
 
 """
@@ -38,9 +38,8 @@ operación seleccionada.
 #  Ruta a los archivos
 # ___________________________________________________
 
-
-
-
+Casting = "themoviesdb/MoviesCastingRaw-small.csv"
+Details = "themoviesdb/SmallMoviesDetailsCleaned.csv"
 
 # ___________________________________________________
 #  Funciones para imprimir la inforamación de
@@ -48,8 +47,54 @@ operación seleccionada.
 #  el controlador.
 # ___________________________________________________
 
-
+def printMenu():
+    print("1- Inicializar Catálogo")
+    print("2- Cargar Archivos")
+    print("3- Descubrir productoras de cine")
+    print("4- Conocer a un director")
+    print("5- Conocer a un actor")
+    print("6- Entender un género cinematográfico")
+    print("7- Encontrar películas por país")
+    print("8- Salir")
 
 # ___________________________________________________
 #  Menu principal
 # ___________________________________________________
+
+while True:
+    printMenu()
+    inputs = input('Seleccione una opción para continuar\n')
+
+    if int(inputs[0]) == 1:
+        print("Inicializando Catálogo ....")
+        # cont es el controlador que se usará de acá en adelante
+        cont = controller.initCatalog()
+
+    elif int(inputs[0]) == 2:
+        print("Cargando información de los archivos ....")
+        controller.loadData(cont, Details, Casting)
+        print("Peliculas cargadas: " + str(controller.movieSize(cont)))
+
+    elif int(inputs[0]) == 3:
+        company = input("Ingrese el nombre de la compañia que desea consultar")
+        info = controller.moviesByCompany(cont,company)
+        print("La compañia " + company + " tiene un total de "+ str(info[1]) + " peliculas, con un promedio de " + str(round(info[2],2)) + " algunas de sus peliculas son estas: \n" + str(info[0]))
+
+    elif int(inputs[0]) == 4:
+        authorname = input("Nombre del autor a buscar: ")
+        authorinfo = controller.getBooksByAuthor(cont, authorname)
+        printAuthorData(authorinfo)
+
+    elif int(inputs[0]) == 5:
+        label = input("Etiqueta a buscar: ")
+        books = controller.getBooksByTag(cont, label)
+        printBooksbyTag(books)
+
+    elif int(inputs[0]) == 6:
+        genre = input("Ingrese el nombre del genero que desea consultar " )
+        info = controller.moviesByGenre(cont,genre)
+        print("El genero " + genre + " tiene un total de "+ str(info[1]) + " peliculas, con un promedio de numero de votos de " + str(round(info[2],2)) + " algunas de las peliculas son estas: \n" + str(info[0]))
+
+    else:
+        sys.exit(0)
+sys.exit(0)

@@ -21,7 +21,7 @@
  """
 
 import config as cf
-from App import model
+from App import model as model
 import csv
 
 
@@ -32,11 +32,13 @@ el modelo varias veces o integrar varias de las respuestas
 del modelo en una sola respuesta. Esta responsabilidad
 recae sobre el controlador.
 """
-
 # ___________________________________________________
 #  Inicializacion del catalogo
 # ___________________________________________________
 
+def initCatalog():
+    catalog = model.newCatalog()
+    return catalog
 
 
 
@@ -44,3 +46,50 @@ recae sobre el controlador.
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
 # ___________________________________________________
+
+
+def loadData(catalog, detailsfile, castingfile):
+    """
+    Carga cada una de las lineas del archivo de libros.
+    - Se agrega cada libro al catalogo de libros
+    - Por cada libro se encuentran sus autores y por cada
+      autor, se crea una lista con sus libros
+    """
+    dialect = csv.excel()
+    dialect.delimiter = ";"
+    detailsfile = cf.data_dir + detailsfile
+    #input_file = #csv.DictReader(open(detailsfile,encoding="utf-8"), dialect=dialect)
+    input_file = csv.DictReader(open(detailsfile,encoding="utf-8"),dialect= dialect)
+    castingfile = cf.data_dir + castingfile
+    input_file2 = csv.DictReader(open(castingfile,encoding="utf-8"),dialect= dialect)
+
+    for movie in input_file:
+      model.addMovie(catalog,movie)
+    for casting in input_file2:
+      model.addCasting(catalog,casting)
+
+
+
+# ___________________________________________________
+#  Funciones para consultas
+# ___________________________________________________
+
+def movieSize(catalog):
+    size = model.moviesSize(catalog)
+    return size
+
+def moviesByCompany(catalog, company):
+    info = model.getMoviesByCompany(catalog,company)
+    movies = info[0]
+    count = model.listSize(movies)
+    moviesReduced = model.getFifteenElements(movies)
+    prom = info[1]/count
+    return (moviesReduced, count, prom)
+
+def moviesByGenre(catalog,genre):
+  info = model.getMoviesByGenre(catalog, genre)
+  movies = info[0]
+  count = model.listSize(movies)
+  moviesReduced = model.getFifteenElements(movies)
+  prom = info[1]/count
+  return (moviesReduced,count,prom)
