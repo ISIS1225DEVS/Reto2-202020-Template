@@ -112,7 +112,7 @@ def cargarArchivosUnificados(details,casting, cmpfunction=None):
     print("Uniendo datos...")
     with open(cf.data_dir + casting, encoding="utf-8-sig") as csvfile2: #Cambiamos el encoding ya que generaba
         row = csv.DictReader(csvfile2,dialect=dialect)                  #un error con los archivos grandes
-        i = 0
+        i = 1
         p = 0
         for elemento in row:
             if i%3290 == 0:
