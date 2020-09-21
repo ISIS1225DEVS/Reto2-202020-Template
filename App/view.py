@@ -49,7 +49,13 @@ moviesCasting= "MoviesCastingRaw-small.csv"
 #  el controlador.
 # ___________________________________________________
 
+def printDirectorData(director):
 
+    if director:
+        print("Director encontrado: " + director["name"])
+        print("Peliculas dirigidas: " + director["movies"])
+        print("Numero de peliculas: " + len(director["movies"])
+        print("Promedio de calificación: " + director)
 
 # ___________________________________________________
 #  Menu principal
@@ -59,6 +65,7 @@ def printMenu():
     print("Bienvenido")
     print("1- Inicializar Catalogo")
     print("2- Cargar información en el catálogo")
+    print("3- Conocer a un director")
     print("0- Salir")
 
 """
@@ -77,6 +84,7 @@ while True:
         print("Peliculas cargadas: "+str(controller.moviesSize(cont)))
         print("Casting cargados: "+ str(controller.castingsSize(cont)))
         print("Actores cargados: "+ str(controller.actorsSize(cont)))
+    elif int(input[0]) == 3:
     else:
         sys.exit(0)
 sys.exit(0)
