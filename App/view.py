@@ -76,7 +76,7 @@ while True:
 
     elif int(inputs[0]) == 3:
         name = input("Ingrese el nombre de la productora de cine: ")
-        movies = controller.moviesByProductionCompanies(cont, name))
+        movies = controller.moviesByProductionCompanies(cont, name)
         print(movies)
 
     else:

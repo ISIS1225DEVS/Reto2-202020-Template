@@ -41,8 +41,8 @@ def newCatalog():
     catalog["movies"] = lt.newList('SINGLE_LINKED', compareMoviesIds)
     catalog["production companies"]=mp.newMap(2000,
                                               maptype="CHAINING",
-                                              loadfactor=2,
-                                              comparefunction=None)
+                                              loadfactor=0.5,
+                                              comparefunction=compareCompaniesByName)
     return catalog
 
 def newCompany(name):
@@ -67,7 +67,7 @@ def addProductionCompany(catalog, companyname, movie):
     Cuando se adiciona la compañia se actualiza el promedio de dicha compañia
     """
     production_comp = catalog["production companies"]
-    compname=movie["production_companies"]
+    compname = movie["production_companies"]
     existcomp = mp.contains(production_comp, compname)
     if existcomp:
         entry = mp.get(production_comp, compname)
