@@ -77,5 +77,9 @@ def directorsSize(catalog):
 def actorsSize(catalog):
     return model.actorsSize(catalog)
 
+def getMoviesbyDirector(catalog, directorname):
+    directorinfo = model.getMoviesByDirector(catalog, directorname)
+    return directorinfo
+
         
         
