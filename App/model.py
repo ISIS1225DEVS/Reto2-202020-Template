@@ -189,7 +189,7 @@ def addPeliculaDirector(catalog, director_lista, pelicula ):
     ya=False
     nombre_director=director_lista["director_name"]
     id1=director_lista["id"]
-    id2=pelicula["id"]
+    id2=pelicula["\ufeffid"]
     
     if id1==id2:
         Directores = catalog['Directores']
@@ -217,7 +217,7 @@ def addPeliculaPais(catalog, director_lista, pelicula ):
     
     nombre_director=director_lista["director_name"]
     id1=director_lista["id"]
-    id2=pelicula["id"]
+    id2=pelicula["\ufeffid"]
     Pais=pelicula["production_countries"]
     if id1==id2:
         Paises = catalog['Paises']
