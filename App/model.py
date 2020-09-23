@@ -23,6 +23,7 @@ import config
 from DISClib.ADT import list as lt
 from DISClib.ADT import map as mp
 from DISClib.DataStructures import mapentry as me
+from DISClib.DataStructures import arraylistiterator as it
 assert config
 
 """
@@ -35,104 +36,187 @@ es decir contiene los modelos con los datos en memoria
 # API del TAD Catalogo de Peliculas
 # -----------------------------------------------------
 
-def newCatalog():
-    catalog = {'movies': None,
-               'production companies': None}
-    catalog["movies"] = lt.newList('SINGLE_LINKED', compareMoviesIds)
-    catalog["production companies"]=mp.newMap(2000,
-                                              maptype="CHAINING",
-                                              loadfactor=0.5,
-                                              comparefunction=compareCompaniesByName)
-    return catalog
+def catalogo():
+    catalogo = {"archivo_peliculas": None,
+                "peliculas_por_compañia": None,
+                "Peliculas_por_director": None,
+                "Peliculas_por_genero":None}
 
-def newCompany(name):
-    """
-    Crea una nueva estructura para modelar los libros de un autor
-    y su promedio de ratings
-    """
-    production_comp = {'name': "", "movies": None,  "average_rating": 0}
-    production_comp["name"] = name
-    production_comp["movies"] = lt.newList('SINGLE_LINKED', compareCompaniesByName)
-    return production_comp
+
+    catalogo["peliculas_por_compañia"] = mp.newMap( numelements=1000,
+                                                    prime=109345121,   
+                                                    maptype='CHAINING', 
+                                                    loadfactor=1.0, 
+                                                    comparefunction=companiescomparer)
+    catalogo["peliculas_por_director"] = mp.newMap( numelements=1000,
+                                                    prime=109345121,   
+                                                    maptype='CHAINING', 
+                                                    loadfactor=1.0, 
+                                                    comparefunction=directorscomparer)
+                                                 
+    catalogo["archivo_peliculas"] = mp.newMap(numelements=1000,
+                                                    prime=109345121,   
+                                                    maptype='CHAINING', 
+                                                    loadfactor=1.0, 
+                                                    comparefunction=moviesIds)
+    catalogo["peliculas_por_genero"] = mp.newMap(numelements=41,
+                                                    prime=90537484771,   
+                                                    maptype='PROBING', 
+                                                    loadfactor=0.5, 
+                                                    comparefunction=genrescomparer)
+    return catalogo
+# -----------------------------------------------------
+# API del TAD Catalogo de Peliculas
+# -----------------------------------------------------
+
+
 
 # Funciones para agregar informacion al catalogo
-
-def addMovie(catalog, movie):
-    lt.addLast(catalog["movies"], movie)
-
-def addProductionCompany(catalog, companyname, movie):
-    """
-    Esta función adiciona una compañia a la lista de peliculas publicadas
-    por una compañia.
-    Cuando se adiciona la compañia se actualiza el promedio de dicha compañia
-    """
-    production_comp = catalog["production companies"]
-    compname = movie["production_companies"]
-    existcomp = mp.contains(production_comp, compname)
-    if existcomp:
-        entry = mp.get(production_comp, compname)
-        company = me.getValue(entry)
+def añadir_compañia(catalogo, movie, compañia):
+    if mp.contains(catalogo["peliculas_por_compañia"], compañia) == True:
+        n = mp.get(catalogo["peliculas_por_compañia"], compañia)
+        lt.addLast(me.getValue(n), {"titulo":movie["original_title"], "calificacion":float(movie["vote_average"])})
     else:
-        company = newCompany(compname)
-        mp.put(production_comp, companyname, company)
-    lt.addLast(company["movies"], movie)
+        N = lt.newList("ARRAY_LIST")
+        lt.addLast(N, {"titulo":movie["original_title"], "calificacion":float(movie["vote_average"])})
+        mp.put(catalogo["peliculas_por_compañia"], compañia, N)
 
-    compavg = company["average_rating"]
-    movieavg = movie["vote_average"]
-    if (compavg == 0.0):
-        company["average_rating"] = float(movieavg)
-    else:
-        company["average_rating"] = (compavg + float(movieavg)) / 2
+
+
+def añadir_genero(catalogo, movie, generos):
+    for a in generos:
+        if mp.contains(catalogo["peliculas_por_genero"], a):
+            añadir_peliculas_al_genero(catalogo, movie["id"] ,a)
+        else:
+            D = lt.newList("ARRAY_LIST")
+            lt.addLast(D, {"titulo":movie["original_title"], "calificacion":movie["vote_average"]})
+            mp.put(catalogo["peliculas_por_genero"], a, D)
+
+
+def calificacion(lista):
+    N = 0
+    B = 0
+    A = it.newIterator(lista)
+    while it.hasNext(A):
+        C = it.next(A)
+        N += float(C["calificacion"])
+        B += 1
+    N = round(N/B, 1)
+    return {"Total de peilculas":B,
+            "Calificacion promedio":N}
+
+
+
+def calificacion2(lista):
+    N = 0
+    B = 0
+    for A in lista:
+        K = float(A["calificacion"])
+        N += K
+        B += 1
+    N = round(N/B, 1)
+    return {"Total de peilculas":B,
+            "Calificacion promedio":N}
+
+
+
+def añadir_director(catalogo, movie, director):
+    C = catalogo["peliculas_por_director"]
+    L = movie["id"]
+    if mp.contains(C, director) == False:
+        mp.put(catalogo["peliculas_por_director"], director, [])
+    añadir_peliculas_al_director(catalogo, L, director)
+
+
+
+def añadir_peliculas_al_director(catalogo, idp, director):
+    cat = catalogo["archivo_peliculas"]
+    B = mp.get(cat, idp)
+    A = me.getValue(B)
+    n = mp.get(catalogo["peliculas_por_director"], director)
+    M = me.getValue(n)
+    M.append(A)
+
+def añadir_peliculas_al_genero(catalogo, idp, genero):
+    cat = catalogo["archivo_peliculas"]
+    B = mp.get(cat, idp)
+    A = me.getValue(B)
+    n = mp.get(catalogo["peliculas_por_genero"], genero)
+    M = me.getValue(n)
+    lt.addLast(M, A)
+
+
+
+
+def addmovie(catalogo, movie):
+    A = {"titulo":movie["original_title"],
+         "calificacion":movie["vote_average"]}
+    mp.put(catalogo["archivo_peliculas"], (movie["id"]), A)
+
 
 # ==============================
 # Funciones de consulta
 # ==============================
+def mostrar_director(catalogo, Monika):
+    if mp.contains(catalogo["peliculas_por_director"], Monika):
+        A = mp.get(catalogo["peliculas_por_director"], Monika)
+        A = me.getValue(A)
+    else:
+        A = "No existe ese autor en la base de datos"
+    return A
 
-def moviesByProductionCompany(catalog, compname):
-    """
-    Retorna una productora de cine con sus peliculas a partir del nombre de la productora
-    """
-    company = mp.get(catalog["production companies"], compname)
-    if company:
-        return me.getValue(company)
-    return None
+def mostrar_compañias(catalog, Sara):
+    if mp.contains(catalog["peliculas_por_compañia"], Sara):
+        A = mp.get(catalog["peliculas_por_compañia"], Sara)
+        A = me.getValue(A)
+    else:
+        A ="No existe esa compañia en la base de datos"
+    return A
 
-def moviesSize(catalog):
-    """
-    Número de peliculas en el catalogo
-    """
-    return lt.size(catalog)
-
-def companiesSize(catalog):
-    """
-    Numero de autores en el catalogo
-    """
-    return mp.size(catalog["production companies"])
-
+def mostrar_generos(catalogo, Vanesa):
+    if mp.contains(catalogo["peliculas_por_genero"], Vanesa):
+        A = mp.get(catalogo["peliculas_por_genero"], Vanesa)
+        A = me.getValue(A)
+    else:
+        A ="No existe ese genero en la base de datos"
+    return A
 # ==============================
 # Funciones de Comparacion
 # ==============================
-
-def compareMoviesIds(id1, id2):
-    """
-    Compara dos ids de peliculas
-    """
-    if (id1 == id2):
+        
+def companiescomparer(keyname, compani):
+    comp_entry = me.getKey(compani)
+    if (keyname == comp_entry):
         return 0
-    elif id1 > id2:
+    elif (keyname > comp_entry):
         return 1
     else:
         return -1
 
-def compareCompaniesByName(keyname, company):
-    """
-    Compara dos nombres de compañia de produccion. El primero es una cadena
-    y el segundo un entry de un map
-    """
-    compentry = me.getKey(company)
-    if (keyname == compentry):
+
+def directorscomparer(keyname, director):
+    direc_entry = me.getKey(director)
+    if (keyname == direc_entry):
         return 0
-    elif (keyname > compentry):
+    elif (keyname > direc_entry):
+        return 1
+    else:
+        return -1
+
+def moviesIds(keyname, value):
+    entry = me.getKey(value)
+    if (keyname == entry):
+        return 0
+    elif (keyname > entry):
+        return 1
+    else:
+        return -1
+
+def genrescomparer(keyname, value):
+    entry = me.getKey(value)
+    if (keyname == entry):
+        return 0
+    elif (keyname > entry):
         return 1
     else:
         return -1
