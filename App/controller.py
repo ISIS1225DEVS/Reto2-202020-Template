@@ -81,12 +81,16 @@ def loadMovies(catalog, moviesfile):
 
 
 
-def loadDirectors(catalog, castFile):
+def loadDirectors(catalogo1, castingfile):
 
-    castfile = cf.data_dir + castFile
-    input_file = csv.DictReader(open(castfile, encoding='utf-8-sig'),delimiter=";")
-    for director in input_file:
-        model.addDirector(catalog, director)
+    castingfile = cf.data_dir + castingfile
+    input_file = csv.DictReader(open(castingfile, encoding='utf-8-sig'),delimiter=";")
+    for id in input_file:
+        model.addId(catalogo1, id)
+
+        director= id['director_name'].split(";")  # Se obtienen las productoras
+        for idDir in director:
+            model.addDirectorId(catalogo1, idDir.strip(), id)
 
 
 

@@ -37,6 +37,7 @@ def newCatalog():
 
 
     catalog['movies'] = lt.newList('ARRAY_LIST', compareMovieIds)
+    catalog['casting'] = lt.newList('ARRAY_LIST', compareDirectorIds)
     #lt.newList("SINGLE_LINKED")
 
     catalog['id'] = mp.newMap(2000,
@@ -200,7 +201,9 @@ def newDirector(director, actor1, id):
 
 
 
+def addId(catalogo1,id):
 
+    lt.addLast(catalogo1['id'], id)
 
 
 
@@ -236,9 +239,31 @@ def addGenre(catalog, genre, movie):
 
 
 
+def addDirectorId(catalog1, director, id):
+
+    moviesID = catalog1['directors']
+    existinID = mp.contains(moviesID, director)
+    if existinID:
+        entry = mp.get(moviesID, director)
+        movieAdd = me.getValue(entry)
+    else:
+        movieAdd= newMoviedirect(director)
+        mp.put(moviesID, director, movieAdd)
+    lt.addLast(movieAdd['id'], id)
 
 
 
+
+def newMoviedirect(nameDirector):
+    """
+    Crea una nueva estructura para modelar los libros de un autor
+    y su promedio de ratings
+    """
+    directorCast= {'director': "","id":None, "movies": None,  "average_rating": 0}
+    directorCast['director'] = nameDirector
+    directorCast['id'] = lt.newList('SINGLE_LINKED', compareprodComsCast)    
+    directorCast['movies'] = lt.newList('SINGLE_LINKED', compareprodComsCast)    
+    return directorCast
 
 # ==============================
 # Funciones de Comparacion
@@ -285,6 +310,26 @@ def compareActors(keyname, actor):
         return -1
 
 
+def compareprodComsCast(keyname, directorCat):
+
+    authentry = me.getKey(directorCat)
+    if (keyname == authentry):
+        return 0
+    elif (keyname > authentry):
+        return 1
+    else:
+        return -1
+
+
+
+def compareDirectorIds(id1, id2):
+    if (id1 == id2):
+        return 0
+    elif id1 > id2:
+        return 1
+    else:
+        return -1
+
 
 
 def moviesSize(catalog):
@@ -315,6 +360,8 @@ def getMoviesGenre(cat, genre):
     if genreresult:
         return me.getValue(genreresult)
     return None
+
+
 
 
 
