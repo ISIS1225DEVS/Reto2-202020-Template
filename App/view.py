@@ -77,14 +77,17 @@ def main():
         elif opcion==2:
             nombre=input("Ingrese director")
             lista=cont.buscar_director(mapa_directores,nombre)
+            print("Cantidad de peliculas",lt.size(lista["value"]))
             print(lista)
         elif opcion==3:
             genero=input("Ingrese genero")
             lista=cont.buscar_genero(mapa_generos,genero)
+            print("Cantidad de peliculas",lt.size(lista["value"]))
             print(lista)
         elif opcion==4:
             compañia=input("Ingrese compañia")
             lista=cont.buscar_compañia(mapa_compañias,compañia)
+            print("Cantidad de peliculas",lt.size(lista["value"]))
             print(lista)
      
 main()
