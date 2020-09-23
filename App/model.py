@@ -65,6 +65,10 @@ def newCatalog():
                                    maptype='PROBING',
                                    loadfactor=0.5,
                                    comparefunction=compareProducersByName)
+    catalog['actors'] = mp.newMap(200,
+                                maptype='PROBING',
+                                loadfactor=0.5,
+                                comparefunction=compareActorsByName)
 
     return catalog
 
@@ -94,6 +98,18 @@ def compareDirectorsByName(keyname, director):
     else:
         return -1
 
+def compareActorsByName(keyname, actor):
+    """
+    Compara dos nombres de autor. El primero es una cadena
+    y el segundo un entry de un map
+    """
+    authentry = me.getKey(actor)
+    if (keyname == authentry):
+        return 0
+    elif (keyname > authentry):
+        return 1
+    else:
+        return -1
 
 # Funciones para agregar informacion al catalogo
 
@@ -105,6 +121,9 @@ def addMovies(catalog, movie):
     libro fue publicaco en ese año.
     """
     lt.addLast(catalog['movies'], movie)
+    for i in range(1,5):
+        name= 'actor'+ str(i) + '_name'
+        mp.put(catalog['actors'], movie[name], movie)
     mp.put(catalog['movieIds'], movie['production_companies'], movie)
 
 
@@ -154,6 +173,49 @@ def addMovieDirector(catalog, directorname, movie):
     else:
         director['vote_average'] = (authavg + float(movieavg)) / 2
 
+def addMovieActor(catalog, actorname, producername, movie):
+    """
+    Esta función adiciona un libro a la lista de libros publicados
+    por un autor.
+    Cuando se adiciona el libro se actualiza el promedio de dicho autor
+    """
+    actors = catalog['actors']
+    existactor = mp.contains(actors, actorname)
+    director_name= movie['director_name']
+    if existactor :
+        entry = mp.get(actors, actorname)
+        actor = me.getValue(entry)
+    else:
+        actor = newActor(actorname,director_name)
+        mp.put(actors, actorname, actor)
+    lt.addLast(actor['movies'], movie)
+
+    actavg = actor['vote_average']
+    movieavg = movie['vote_average']
+    directors= actor['directors']
+
+    if director_name in directors :
+        directors[director_name]+=1
+    else:
+        directors[director_name]= 0
+
+    if (actavg == 0.0):
+        actor['vote_average'] = float(movieavg)
+    else:
+        actor['vote_average'] = (actavg + float(movieavg)) / 2
+    
+
+def newActor(name,director):
+    """
+    Crea una nueva estructura para modelar los libros de un autor
+    y su promedio de ratings
+    """
+    actor = {'name': "", "movies": None,'directors': None,  "vote_average": 0}
+    actor['name'] = name
+    actor['directors']= {}
+    actor['movies'] = lt.newList('SINGLE_LINKED', compareActorsByName)
+    return actor
+
 def newDirector(name):
     """
     Crea una nueva estructura para modelar los libros de un autor
@@ -194,6 +256,12 @@ def directorsSize(catalog):
     Número de libros en el catago
     """
     return lt.size(catalog['directors'])
+
+def actorsSize(catalog):
+    """
+    Número de libros en el catago
+    """
+    return lt.size(catalog['actors'])
 # ==============================
 # Funciones de Comparacion
 # ==============================
@@ -228,3 +296,11 @@ def getMoviesByDirector(catalog, directorname):
     if director:
         return me.getValue(director)
     return None
+
+def getMoviesByActor(catalog, actorname):
+ 
+    actor = mp.get(catalog['actors'], actorname)
+    if actor:
+        return me.getValue(actor)
+    return None
+

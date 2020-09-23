@@ -40,8 +40,8 @@ operación seleccionada.
 # ___________________________________________________
 
 
-catalogfile = 'MoviesCastingRaw-small.csv'
-moviesfile = 'AllMoviesDetailsCleaned.csv'
+catalogfile = 'Themoviesdb/MoviesCastingRaw-small.csv'
+moviesfile = 'Themoviesdb/SmallMoviesDetailsCleaned.csv'
 
 
 # ___________________________________________________
@@ -77,6 +77,18 @@ def printMoviesByDirector(director):
     else:
         print('No se encontro el autor')
 
+def printMoviesByActor(actor):
+    
+    if actor:
+        print('Actor encontrado: ' + actor['name'])
+        print('Promedio: ' + str(actor['vote_average']))
+        print('Total de películas: ' + str(lt.size(actor['movies'])))
+        iterator = it.newIterator(actor['movies'])
+        while it.hasNext(iterator):
+            movie = it.next(iterator)
+            print('Titulo: ' + movie['original_title'] + '  Id: ' + movie['id'])
+    else:
+        print('No se encontro el actor')
 
 def printBooksbyTag(books):
     """
@@ -113,6 +125,7 @@ def printMenu():
     print("2- Cargar información de las películas en el catálogo")
     print("3- Descubrir productoras de cine (individual)")
     print("4- Conocer a un director")
+    print('5- Conocer a un actor')
     print("0- Salir")
 
 
@@ -151,7 +164,13 @@ while True:
         t3_stop = process_time() #tiempo final
         print("Tiempo de ejecución ",t3_stop-t3_start," segundos")
         printMoviesByDirector(movies_director)
-
+    elif int(inputs[0]) == 5:
+        actorname= input('Buscando peliculas del autor?: ')
+        t4_start= process_time()
+        movies_actor= controller.getMoviesByActor(cont,actorname)
+        t4_stop= process_time()
+        print("Tiempo de ejecución ",t4_stop-t4_start," segundos")
+        printMoviesByActor(movies_actor)
     else:
         sys.exit(0)
 sys.exit(0)
