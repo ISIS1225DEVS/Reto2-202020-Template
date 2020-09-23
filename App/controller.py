@@ -195,6 +195,3 @@ def cargarByPerson(moviesCatalog,criteria,data,person,cmpfunction=getKeyFunction
     #Agregar a la tabla de hash
     model.agregarAlMap(moviesCatalog[criteria],person, movies_person)
     print("100%" +" completado\n")
-    
-    
-
