@@ -24,6 +24,7 @@ from DISClib.ADT import list as lt
 from DISClib.ADT import map as mp
 from DISClib.DataStructures import mapentry as me
 assert config
+import csv
 
 """
 En este archivo definimos los TADs que vamos a usar,
@@ -52,3 +53,95 @@ es decir contiene los modelos con los datos en memoria
 # ==============================
 
 
+def compareDirectorsByName(keyname, director):
+    direntry = me.getKey(director)
+    if (keyname == direntry):
+        return 0
+    elif (keyname > direntry):
+        return 1
+    else:
+        return -1
+
+def comparegenres(keyname, genre):
+    direntry = me.getKey(genre)
+    if (keyname == direntry):
+        return 0
+    elif (keyname > direntry):
+        return 1
+    else:
+        return -1
+
+
+
+def loadCSVFile2 (file, sep=";"):
+    #lst = lt.newList("ARRAY_LIST") #Usando implementacion arraylist
+    lst = lt.newList() #Usando implementacion linkedlist
+    dialect = csv.excel()
+    dialect.delimiter=sep
+    try:
+        with open(file, encoding="utf-8") as csvfile:
+            spamreader = csv.DictReader(csvfile, dialect=dialect)
+            for row in spamreader: 
+                lt.addLast(lst,row)
+    except:
+        print("Hubo un error con la carga del archivo")
+    return lst
+
+
+def nuevos_mapas():
+    peliculas={"directores":None,"production_companies":None,"genres":None}
+    peliculas["production_companies"]=mp.newMap(2003,2011,maptype='CHAINING',loadfactor=0.9,comparefunction=compareDirectorsByName)
+    peliculas["directores"]=mp.newMap(2003,2011,maptype='CHAINING',loadfactor=0.9,comparefunction=compareDirectorsByName)
+    peliculas["genres"]=mp.newMap(2003,2011,maptype='CHAINING',loadfactor=0.9,comparefunction=comparegenres)
+    return peliculas
+
+def cargar_compañias(catalogo,compañia,valor):
+    mapa=catalogo["production_companies"]
+    pareja=mp.get(mapa,compañia)
+    if pareja==None:
+        #print("Nuevo director",director,pelicula)
+        lista=lt.newList(datastructure="SINGLE_LINKED")
+        lt.addFirst(lista,valor)
+        mp.put(mapa,compañia,lista)
+
+    else:
+        #print("Director existe",director,pelicula)
+        lt.addLast(pareja["value"],valor)
+
+def cargar_directores(catalogo,director,pelicula,promedio):
+    mapa=catalogo["directores"]
+    pareja=mp.get(mapa,director)
+    if pareja==None:
+        #print("Nuevo director",director,pelicula)
+        lista=lt.newList(datastructure="SINGLE_LINKED")
+        lt.addFirst(lista,(pelicula,promedio))
+        mp.put(mapa,director,lista)
+
+    else:
+        #print("Director existe",director,pelicula)
+        lt.addLast(pareja["value"],(pelicula,promedio))
+
+def cargar_generos(catalogo,genre,pelicula,promedio):
+    mapa=catalogo["genres"]
+    pareja=mp.get(mapa,genre)
+    if pareja==None:
+        #print("Nuevo director",director,pelicula)
+        lista=lt.newList(datastructure="SINGLE_LINKED")
+        lt.addFirst(lista,(pelicula,promedio))
+        mp.put(mapa,genre,lista)
+
+    else:
+        #print("Director existe",director,pelicula)
+        lt.addLast(pareja["value"],(pelicula,promedio))
+
+def conocer_director(mapa,director):
+    lista=mp.get(mapa,director)
+    return lista
+
+def conocer_genero(mapa,genero):
+    lista=mp.get(mapa,genero)
+    return lista
+
+def conocer_compañia(mapa,compañia):
+    lista=mp.get(mapa,compañia)
+    return lista

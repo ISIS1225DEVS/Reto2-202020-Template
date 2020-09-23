@@ -26,6 +26,9 @@ from DISClib.ADT import list as lt
 from DISClib.DataStructures import listiterator as it
 from App import controller
 assert config
+import controller as cont
+
+import csv
 
 """
 La vista se encarga de la interacción con el usuario.
@@ -53,3 +56,35 @@ operación seleccionada.
 # ___________________________________________________
 #  Menu principal
 # ___________________________________________________
+
+def main():
+    a=False
+    while a==False:
+        print("""Seleccione opcion:
+        1 Cargar archivo
+        2 Buscar director
+        3 Buscar genero
+        4 Buscar Compañia""")
+        
+        opcion=int(input("Ingrese opcion"))
+        if opcion==1:
+            catalogo=cont.initpeliculas()
+            archivo1=cont.loadMovies()
+            archivo2=cont.loadMovies2()
+            mapa_directores=cont.cargar_directores(catalogo,archivo1,archivo2)
+            mapa_generos=cont.cargar_generos(catalogo,archivo1,archivo2)
+            mapa_compañias=cont.cargar_compañias(catalogo,archivo1)
+        elif opcion==2:
+            nombre=input("Ingrese director")
+            lista=cont.buscar_director(mapa_directores,nombre)
+            print(lista)
+        elif opcion==3:
+            genero=input("Ingrese genero")
+            lista=cont.buscar_genero(mapa_generos,genero)
+            print(lista)
+        elif opcion==4:
+            compañia=input("Ingrese compañia")
+            lista=cont.buscar_compañia(mapa_compañias,compañia)
+            print(lista)
+     
+main()
