@@ -22,7 +22,10 @@
 
 import config as cf
 from App import model
+from DISClib.ADT import map as mp
 import csv
+import model as mdl
+from DISClib.ADT import list as lt
 
 
 """
@@ -44,3 +47,60 @@ recae sobre el controlador.
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
 # ___________________________________________________
+
+
+def compareRecordIds (recordA, recordB):
+    if int(recordA['id']) == int(recordB['id']):
+        return 0
+    elif int(recordA['id']) > int(recordB['id']):
+        return 1
+    return -1
+
+
+def loadMovies():
+    lst = mdl.loadCSVFile2("Data/SmallMoviesDetailsCleaned.csv") 
+    print("Datos cargados, " + str(lt.size(lst)) + " elementos cargados")
+    return lst
+
+def loadMovies2():
+    lst = mdl.loadCSVFile2("Data/MoviesCastingRaw-small.csv") 
+    print("Datos cargados, " + str(lt.size(lst)) + " elementos cargados")
+    return lst
+
+def initpeliculas():
+    catalogo=mdl.nuevos_mapas()
+    return catalogo
+
+def cargar_compañias(catalogo,archivo):
+    for elemento in range(1,lt.size(archivo)):
+        actual=lt.getElement(archivo,elemento)
+        mdl.cargar_compañias(catalogo,actual["production_companies"],actual["title"])
+    mapa=catalogo["production_companies"]
+    return mapa
+
+def cargar_directores(catalogo,movies,casting):
+    for i in range(1,lt.size(movies)):
+        actual=lt.getElement(movies,i)
+        actual2=lt.getElement(casting,i)
+        mdl.cargar_directores(catalogo,actual2["director_name"],actual["title"],actual["vote_average"])
+    mapa=catalogo["directores"]
+    return mapa
+
+def buscar_director(mapa,nombre):
+    retorno=mdl.conocer_director(mapa,nombre)
+    return retorno
+
+def cargar_generos(catalogo,archivo,archivo2):
+    for i in range(1,lt.size(archivo)):
+        actual=lt.getElement(archivo,i)
+        mdl.cargar_generos(catalogo,actual["genres"],actual["title"],actual["vote_average"])
+    mapa=catalogo["genres"]
+    return mapa
+
+def buscar_genero(mapa,genero):
+    lista=mdl.conocer_genero(mapa,genero)
+    return lista
+
+def buscar_compañia(mapa,compañia):
+    lista=mdl.conocer_compañia(mapa,compañia)
+    return lista
