@@ -349,7 +349,6 @@ def getMoviesByDirector(catalog, nameInput):
 
     directorsearched = mp.get(catalog['directors'], nameInput)
     if directorsearched:
-        print(directorsearched)
         return me.getValue(directorsearched)
     return None
 
