@@ -71,6 +71,15 @@ def comparegenres(keyname, genre):
     else:
         return -1
 
+def compareproductor(keyname, productor_companie):
+    direntry = me.getKey(productor_companie)
+    if (keyname == direntry):
+        return 0
+    elif (keyname > direntry):
+        return 1
+    else:
+        return -1
+
 
 
 def loadCSVFile2 (file, sep=";"):
@@ -90,7 +99,7 @@ def loadCSVFile2 (file, sep=";"):
 
 def nuevos_mapas():
     peliculas={"directores":None,"production_companies":None,"genres":None}
-    peliculas["production_companies"]=mp.newMap(2003,2011,maptype='CHAINING',loadfactor=0.9,comparefunction=compareDirectorsByName)
+    peliculas["production_companies"]=mp.newMap(2003,2011,maptype='CHAINING',loadfactor=0.9,comparefunction=compareproductor)
     peliculas["directores"]=mp.newMap(2003,2011,maptype='CHAINING',loadfactor=0.9,comparefunction=compareDirectorsByName)
     peliculas["genres"]=mp.newMap(2003,2011,maptype='CHAINING',loadfactor=0.9,comparefunction=comparegenres)
     return peliculas
