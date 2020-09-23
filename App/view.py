@@ -60,7 +60,7 @@ def printMenu():
     print("2- Cargar información en el catálogo")
     print("3- (Req-1)Consultar peliculas por compañia")
     print("4- (Req-2)Consultar peliculas por director")
-    print("5- (Req-3)Consular peliculas por actor(En construccion)")
+    print("5- (Req-3)Consular peliculas por actor")
     print("6- (Req-4)Consultar peliculas por genero")
 
 
@@ -84,17 +84,25 @@ while Altair == True:
         t1 = process_time()
         print(controller.mostrar_compañias(catalogo, sara))
         t2 = process_time()
-
+        print("tiempo de procesado", t2-t1,"segundos")
     elif int(Monika)== 4:
         monika = input("Nombre del director: ")
         t1 = process_time()
         print(controller.mostrar_directores(catalogo, monika))
         t2 = process_time()
+        print("tiempo de procesado", t2-t1,"segundos")
+    elif int(Monika)== 5:
+        monika = input("Nombre del actor: ")
+        t1 = process_time()
+        print(controller.mostrar_actor(catalogo, monika))
+        t2 = process_time()
+        print("tiempo de procesado", t2-t1,"segundos")
     elif int(Monika)== 6:
-        monika = input("Genero que desea interrogar")
+        monika = input("Genero que desea buscar: ")
         t1 = process_time()
         print(controller.mostrar_generos(catalogo, monika))
         t2 = process_time()
+        print("tiempo de procesado", t2-t1,"segundos")
     else:
         Altair = False
 

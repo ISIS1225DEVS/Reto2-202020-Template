@@ -35,30 +35,36 @@ def catalogo():
     catalogo = {"archivo_peliculas": None,
                 "peliculas_por_compañia": None,
                 "Peliculas_por_director": None,
-                "Peliculas_por_genero":None}
+                "Peliculas_por_genero":None,
+                "peliculas_por_actor":None}
 
 
     catalogo["peliculas_por_compañia"] = mp.newMap( numelements=1000,
                                                     prime=109345121,   
                                                     maptype='CHAINING', 
                                                     loadfactor=1.0, 
-                                                    comparefunction=companiescomparer)
+                                                    comparefunction=comparer)
     catalogo["peliculas_por_director"] = mp.newMap( numelements=1000,
                                                     prime=109345121,   
                                                     maptype='CHAINING', 
                                                     loadfactor=1.0, 
-                                                    comparefunction=directorscomparer)
+                                                    comparefunction=comparer)
                                                  
     catalogo["archivo_peliculas"] = mp.newMap(numelements=1000,
                                                     prime=109345121,   
                                                     maptype='CHAINING', 
                                                     loadfactor=1.0, 
-                                                    comparefunction=moviesIds)
+                                                    comparefunction=comparer)
     catalogo["peliculas_por_genero"] = mp.newMap(numelements=41,
                                                     prime=90537484771,   
                                                     maptype='PROBING', 
                                                     loadfactor=0.5, 
-                                                    comparefunction=genrescomparer)
+                                                    comparefunction=comparer)
+    catalogo["peliculas_por_actor"] = mp.newMap(numelements=2000,
+                                                    prime=109345121,   
+                                                    maptype='CHAINING', 
+                                                    loadfactor=1.0, 
+                                                    comparefunction=comparer)
     return catalogo
 # -----------------------------------------------------
 # API del TAD Catalogo de Libros
@@ -68,6 +74,9 @@ def catalogo():
 
 # Funciones para agregar informacion al catalogo
 def añadir_compañia(catalogo, movie, compañia):
+    """
+    Añade el nombre de una compañia a la tabla de Hash para compañias en el catalogo
+    """
     if mp.contains(catalogo["peliculas_por_compañia"], compañia) == True:
         n = mp.get(catalogo["peliculas_por_compañia"], compañia)
         lt.addLast(me.getValue(n), {"titulo":movie["original_title"], "calificacion":float(movie["vote_average"])})
@@ -78,14 +87,39 @@ def añadir_compañia(catalogo, movie, compañia):
 
 
 
+def añadir_director(catalogo, movie, director):
+    C = catalogo["peliculas_por_director"]
+    L = movie["id"]
+    if mp.contains(C, director) == False:
+        mp.put(catalogo["peliculas_por_director"], director, [])
+    añadir_peliculas_al_director(catalogo, L, director)
+
+
 def añadir_genero(catalogo, movie, generos):
     for a in generos:
         if mp.contains(catalogo["peliculas_por_genero"], a):
             añadir_peliculas_al_genero(catalogo, movie["id"] ,a)
         else:
             D = lt.newList("ARRAY_LIST")
-            lt.addLast(D, {"titulo":movie["original_title"], "calificacion":movie["vote_average"]})
+            lt.addLast(D, {"titulo":movie["original_title"], "calificacion":float(movie["vote_average"])})
             mp.put(catalogo["peliculas_por_genero"], a, D)
+            
+
+def añadir_actor(catalogo, movie):
+    C = {}
+    Ana = catalogo["peliculas_por_actor"]
+    for a in range(1, 6):
+        fila = "actor"+str(a)+"_name"
+        actor = movie[fila]
+        if mp.contains(Ana, movie[fila]):
+            añadir_peliculas_al_actor(catalogo, movie["id"], actor, movie)
+        else:
+            mp.put(catalogo["peliculas_por_actor"], actor, [])
+    
+
+
+
+
 
 
 def calificacion(lista):
@@ -114,14 +148,30 @@ def calificacion2(lista):
             "Calificacion promedio":N}
 
 
+def calificacionActor(lista):
+    Dire = {}
+    N = 0
+    B = 0
+    mayor = 0
+    nombre = None
+    for A in lista:
+        K = float(A["calificacion"])
+        N += K
+        B += 1
+        if A["Nombre director"] not in Dire:
+            Dire[A["Nombre director"]] = 1
+        else:
+            Dire[A["Nombre director"]] += 1
+    for M in Dire:
+        if (Dire[M] > mayor):
+            mayor = Dire[M]
+            nombre = M
+        
 
-def añadir_director(catalogo, movie, director):
-    C = catalogo["peliculas_por_director"]
-    L = movie["id"]
-    if mp.contains(C, director) == False:
-        mp.put(catalogo["peliculas_por_director"], director, [])
-    añadir_peliculas_al_director(catalogo, L, director)
-
+    N = round(N/B, 1)
+    return {"Total de peilculas":B,
+            "Calificacion promedio":N,
+            "Director con mayor colaboracion":nombre}
 
 
 def añadir_peliculas_al_director(catalogo, idp, director):
@@ -140,6 +190,14 @@ def añadir_peliculas_al_genero(catalogo, idp, genero):
     M = me.getValue(n)
     lt.addLast(M, A)
 
+def añadir_peliculas_al_actor(catalogo, idp, actor, movie):
+    cat = catalogo["archivo_peliculas"]
+    B = mp.get(cat, idp)
+    A = me.getValue(B)
+    A["Nombre director"] = movie["director_name"]
+    n = mp.get(catalogo["peliculas_por_actor"], actor)
+    M = me.getValue(n)
+    M.append(A)
 
 
 
@@ -175,39 +233,19 @@ def mostrar_generos(catalogo, Vanesa):
     else:
         A ="No existe ese genero en la base de datos"
     return A
+
+def mostrar_actores(catalogo, Juliana):
+    if mp.contains(catalogo["peliculas_por_actor"], Juliana):
+        A = mp.get(catalogo["peliculas_por_actor"], Juliana)
+        A = me.getValue(A)
+    else:
+        A ="No existe ese actor en la base de datos"
+    return A
 # ==============================
 # Funciones de Comparacion
 # ==============================
         
-def companiescomparer(keyname, compani):
-    comp_entry = me.getKey(compani)
-    if (keyname == comp_entry):
-        return 0
-    elif (keyname > comp_entry):
-        return 1
-    else:
-        return -1
-
-
-def directorscomparer(keyname, director):
-    direc_entry = me.getKey(director)
-    if (keyname == direc_entry):
-        return 0
-    elif (keyname > direc_entry):
-        return 1
-    else:
-        return -1
-
-def moviesIds(keyname, value):
-    entry = me.getKey(value)
-    if (keyname == entry):
-        return 0
-    elif (keyname > entry):
-        return 1
-    else:
-        return -1
-
-def genrescomparer(keyname, value):
+def comparer(keyname, value):
     entry = me.getKey(value)
     if (keyname == entry):
         return 0

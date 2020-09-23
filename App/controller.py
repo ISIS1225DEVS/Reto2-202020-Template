@@ -80,7 +80,7 @@ def cargar_casting(catalogo, archivo):
     for movie in input_file:
         director = movie["director_name"]
         model.añadir_director(catalogo, movie, director)
-
+        model.añadir_actor(catalogo, movie)
 
 
 
@@ -96,7 +96,7 @@ def mostrar_directores(catalogo, Monika):
     N = model.mostrar_director(catalogo, Monika)
     if N != "No existe ese autor en la base de datos":
         C = model.calificacion2(N)
-        return [N, C]
+        return [C, N]
     else:
         return N
 
@@ -108,6 +108,16 @@ def mostrar_generos(catalogo, Misaka):
     else:
         return N
 
+def mostrar_actor(catalogo, Misaka):
+    N = model.mostrar_actores(catalogo, Misaka)
+    if N != "No existe ese actor en la base de datos":
+        C = model.calificacionActor(N)
+        return [C, N]
+    else:
+        return N
+
 
 A = ("A mario lacerna le gusta la papaya").strip()
 print(A)
+
+
