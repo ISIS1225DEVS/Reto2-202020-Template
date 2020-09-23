@@ -25,6 +25,7 @@ import config
 from DISClib.ADT import list as lt
 from DISClib.DataStructures import listiterator as it
 from App import controller
+from time import process_time
 assert config
 
 """
@@ -37,48 +38,85 @@ operación seleccionada.
 # ___________________________________________________
 #  Ruta a los archivos
 # ___________________________________________________
+#detalles = "AllMoviesDetailsCleaned.csv"
+#casting = "AllMoviesCastingRaw.csv"
+detalles = "SmallMoviesDetailsCleaned.csv"
+casting = "MoviesCastingRaw-small.csv"
 
-castingfile="Data/MoviesCastingRaw-small.csv"
-detailsfile="SmallMoviesDetailsCleaned.csv"
 
-# ___________________________________________________
+#___________________________________________________
 #  Funciones para imprimir la inforamación de
 #  respuesta.  La vista solo interactua con
 #  el controlador.
 # ___________________________________________________
 
-
+def imprimirPeliculasPais(paises):
+    print('Se encontraron: ' + str(lt.size(paises)) + ' peliculas')
+    iterator = it.newIterator(paises)
+    while it.hasNext(iterator):
+        pelicula = it.next(iterator)
+        print(pelicula)
+        print("--------------------")
 
 # ___________________________________________________
 #  Menu principal
 # ___________________________________________________
-
 def printMenu():
-    print("¡Bienvenido!")
-    print("1- Inicializar catálogo")
+    print("Bienvenido")
+    print("1- Inicializar Catálogo")
     print("2- Cargar información en el catálogo")
-    print("3- (Req. 1) Descubrir productoras de cine")
-    print("0- Salir")
+    print("3- (Req-1)Consultar peliculas por compañia")
+    print("4- (Req-2)Consultar peliculas por director")
+    print("5- (Req-3)Consular peliculas por actor")
+    print("6- (Req-4)Consultar peliculas por genero")
+    print("7- (Req-5)Consultar peliculas por pais")
 
-while True:
+
+catalogo = None
+Altair = True
+while Altair == True:
     printMenu()
-    inputs = input('Seleccione una opción para continuar\n')
-    if int(inputs[0]) == 1:
-        print("Inicializando Catálogo ....")
-        # cont es el controlador que se usará de acá en adelante
-        cont = controller.initCatalog()
-
-    elif int(inputs[0]) == 2:
-        print("Cargando información de los archivos ....")
-        controller.loadData(cont, castingfile, detailsfile)
-        print('Peliculas cargadas: ' + str(controller.moviesSize(cont)))
-        print("Productoras de cine cargadas: " + str(controller.companiesSize(cont)))
-
-    elif int(inputs[0]) == 3:
-        name = input("Ingrese el nombre de la productora de cine: ")
-        movies = controller.moviesByProductionCompanies(cont, name)
-        print(movies)
-
+    Monika = input('Seleccione una opción para continuar\n')
+    if int(Monika) == 1:
+        catalogo = controller.iniciar_catalogo()
+        print("Catalogo creado exitosamente")
+    elif int(Monika) == 2:
+        t1 = process_time()
+        controller.cargar_info(catalogo, detalles, casting)
+        print(lt.size(catalogo["archivo_peliculas"]))
+        t2 = process_time()
+        
+        print("tiempo de procesado", t2-t1,"segundos")
+    elif int(Monika) == 3:
+        sara = input("Nombre de la compañia: ")
+        t1 = process_time()
+        print(controller.mostrar_compañias(catalogo, sara))
+        t2 = process_time()
+        print("tiempo de procesado", t2-t1,"segundos")
+    elif int(Monika)== 4:
+        monika = input("Nombre del director: ")
+        t1 = process_time()
+        print(controller.mostrar_directores(catalogo, monika))
+        t2 = process_time()
+        print("tiempo de procesado", t2-t1,"segundos")
+    elif int(Monika)== 5:
+        monika = input("Nombre del actor: ")
+        t1 = process_time()
+        print(controller.mostrar_actor(catalogo, monika))
+        t2 = process_time()
+        print("tiempo de procesado", t2-t1,"segundos")
+    elif int(Monika)== 6:
+        monika = input("Genero que desea buscar: ")
+        t1 = process_time()
+        print(controller.mostrar_generos(catalogo, monika))
+        t2 = process_time()
+        print("tiempo de procesado", t2-t1,"segundos")
+    elif int(Monika)== 7:
+        monika = input("Pais que desea buscar: ")
+        t1 = process_time()
+        paises = controller.mostrar_pais(catalogo, monika)
+        t2 = process_time()
+        imprimirPeliculasPais(paises)
+        print("tiempo de procesado", t2-t1,"segundos")
     else:
-        sys.exit(0)
-sys.exit(0)
+        Altair = False
