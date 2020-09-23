@@ -159,44 +159,42 @@ def limpiarPersona(mapa,key):
     dir = {}
     suma = 0
     for pelicula in peliculas['value']['elements']:
-        model.agregarFinal(peliculas_lista,(pelicula['title'],pelicula['vote_count'],pelicula['genres']))
+        model.agregarFinal(peliculas_lista,(pelicula['title'],pelicula['vote_count'],pelicula['director_name']))
         suma += float(pelicula['vote_count'])
     size = model.tamanio(peliculas_lista)
-    if size != 0:
-        return (peliculas_lista,size,suma/size,)
 
     for director in peliculas['value']['elements']:
-        if director not in dir:
-            dir[direcotr["director_name"]]=1
-        
+        if director['director_name'] not in dir:
+            dir[director["director_name"]]=1
         else:
-            dir[direcotr["director_name"]]+=1
-    v=list(d.values())
-    k=list(d.keys())
+            dir[director["director_name"]]+=1
+    v=list(dir.values())
+    k=list(dir.keys())
     dirColaboraciones= k[v.index(max(v))]
+    if size != 0:
+        return (peliculas_lista,size,suma/size,dirColaboraciones)
     return (peliculas_lista,0,0,dirColaboraciones)
 
 def cargarByPerson(moviesCatalog,criteria,data,person,cmpfunction=getKeyFunction,hashType='PROBING',loadfactor=0.5):
     moviesCatalog[criteria] = crearHash(hashType)
-    person = model.crearCatalogo('ARRAY_LIST')
+    movies_person = model.crearCatalogo('ARRAY_LIST')
             
     #Este ciclo ingresa cada uno de los datos
     i = 0
     p = 0
-    print("Organizando Archivos...")
+    print("Creando y organizando un mapa...") 
     for element in data['elements']:
         if i%3290 == 0:
             print (" " + str(p) + "%" + " completado", end="\r")
             p+=1
     #Caso en el que solo se necesite una columna
-        actores_movie = element["actor1_name"] + element["actor2_name"] + element["actor3_name"]+element["actor4_name"]+element["actor5_name"]
-
-        if criteria in actores_movie:
-            model.agregarFinal(person,element)
+        actores_movie = [element["actor1_name"],element["actor2_name"],element["actor3_name"],element["actor4_name"],element["actor5_name"]]
+        if person in actores_movie:
+            model.agregarFinal(movies_person,element)
         i+=1
-
     #Agregar a la tabla de hash
+    model.agregarAlMap(moviesCatalog[criteria],person, movies_person)
     print("100%" +" completado\n")
-    print("Creando y organizando un mapa...") 
-    model.agregarAlMap(moviesCatalog[criteria],criteria, person)
+    
+    
 

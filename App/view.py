@@ -76,7 +76,7 @@ def imprimirActores(result):
     iterator = it.newIterator(result[0])
     while it.hasNext(iterator):
         pelicula = it.next(iterator)
-        print("{:<50}{:<5}{:<10}".format(pelicula[0],pelicula[1],pelicula[2]))
+        print("{:<50}{:<10}{:}".format(pelicula[0],pelicula[1],pelicula[2]))
     print("\nLa cantidad de películas del actor es:",result[1])
     print("El promedio de la cantidad de votos de las películas del actor:",round(result[2],2))
     print("El nombre del director con el que mas ha colaborado es:", result[3])    
@@ -112,6 +112,8 @@ while True:
             print("Cargando generos:")
             controller.cargarByCriteria(moviesCatalog,"genres",data)
             t2 = process_time()
+            
+
             print("Tiempo de ejecución:",t2-t1,"Segundos")
         else:
             print("\nPor favor inicialice el catálogo primero")
@@ -133,7 +135,7 @@ while True:
         actor = input("Por favor ingrese el nombre del actor que desea consultar:\n")
         t1 = process_time()
         controller.cargarByPerson(moviesCatalog,"actor",data,actor)
-        result = controller.limpiarPersona(moviesCatalog[actor],actor)
+        result = controller.limpiarPersona(moviesCatalog["actor"],actor)
         t2 = process_time()
         imprimirActores(result)
         print("Tiempo de ejecución:",t2-t1,"Segundos")
