@@ -26,10 +26,11 @@ from DISClib.ADT import list as lt
 from DISClib.DataStructures import listiterator as it
 from App import controller
 assert config
+from time import process_time 
 
 """
 La vista se encarga de la interacción con el usuario.
-Presenta el menu de opciones y por cada seleccion
+Presenta el menu de opciones  y  por cada seleccion
 hace la solicitud al controlador para ejecutar la
 operación seleccionada.
 """
@@ -39,7 +40,8 @@ operación seleccionada.
 # ___________________________________________________
 
 
-
+catalogfile = 'Themoviesdb/MoviesCastingRaw-small.csv'
+moviesfile = 'Themoviesdb/SmallMoviesDetailsCleaned.csv'
 
 
 # ___________________________________________________
@@ -49,7 +51,126 @@ operación seleccionada.
 # ___________________________________________________
 
 
+def printMoviesByProducer(producer):
+    
+    if producer:
+        print('Productor encontrado: ' + producer['name'])
+        print('Promedio: ' + str(producer['vote_average']))
+        print('Total de películas: ' + str(lt.size(producer['movies'])))
+        iterator = it.newIterator(producer['movies'])
+        while it.hasNext(iterator):
+            book = it.next(iterator)
+            print('Titulo: ' + book['original_title'] + '  Id: ' + book['id'])
+    else:
+        print('No se encontro el autor')
+
+def printMoviesByDirector(director):
+    
+    if director:
+        print('Director encontrado: ' + director['name'])
+        print('Promedio: ' + str(director['vote_average']))
+        print('Total de películas: ' + str(lt.size(director['movies'])))
+        iterator = it.newIterator(director['movies'])
+        while it.hasNext(iterator):
+            book = it.next(iterator)
+            print('Titulo: ' + book['original_title'] + '  Id: ' + book['id'])
+    else:
+        print('No se encontro el autor')
+
+def printMoviesByActor(actor):
+    
+    if actor:
+        print('Actor encontrado: ' + actor['name'])
+        print('Promedio: ' + str(actor['vote_average']))
+        print('Total de películas: ' + str(lt.size(actor['movies'])))
+        iterator = it.newIterator(actor['movies'])
+        while it.hasNext(iterator):
+            movie = it.next(iterator)
+            print('Titulo: ' + movie['original_title'] + '  Id: ' + movie['id'])
+    else:
+        print('No se encontro el actor')
+
+def printBooksbyTag(books):
+    """
+    Imprime los libros que han sido clasificados con
+    una etiqueta
+    """
+    print('Se encontraron: ' + str(lt.size(books)) + ' Libros')
+    iterator = it.newIterator(books)
+    while it.hasNext(iterator):
+        book = it.next(iterator)
+        print(book['title'])
+
+
+def printBooksbyYear(books):
+    """
+    Imprime los libros que han sido publicados en un
+    año
+    """
+    print('Se encontraron: ' + str(lt.size(books)) + ' Libros')
+    iterator = it.newIterator(books)
+    while it.hasNext(iterator):
+        book = it.next(iterator)
+        print(book['title'])
+
 
 # ___________________________________________________
 #  Menu principal
 # ___________________________________________________
+
+
+def printMenu():
+    print("Bienvenido")
+    print("1- Inicializar Catálogo")
+    print("2- Cargar información de las películas en el catálogo")
+    print("3- Descubrir productoras de cine (individual)")
+    print("4- Conocer a un director")
+    print('5- Conocer a un actor')
+    print("0- Salir")
+
+
+"""
+Menu principal
+"""
+while True:
+    printMenu()
+    inputs = input('Seleccione una opción para continuar\n')
+
+    if int(inputs[0]) == 1:
+        print("Inicializando Catálogo ....")
+        # cont es el controlador que se usará de acá en adelante
+        cont = controller.initCatalog()
+
+    elif int(inputs[0]) == 2:
+        print("Cargando información de los archivos ....")
+        t1_start = process_time() #tiempo inicial
+        controller.loadData(cont, moviesfile)
+        t1_stop = process_time() #tiempo final
+        print("Tiempo de ejecución ",t1_stop-t1_start," segundos")
+        print('Películas cargadas: ' + str(controller.moviesSize(cont)))
+
+    elif int(inputs[0]) == 3:
+        producer = input("Buscando películas de la productora?: ")
+        t2_start = process_time() #tiempo inicial
+        moviesproductor = controller.getMoviesByProducer(cont, producer)
+        t2_stop = process_time() #tiempo final
+        print("Tiempo de ejecución ",t2_stop-t2_start," segundos")
+        printMoviesByProducer(moviesproductor)
+
+    elif int(inputs[0]) == 4:
+        directorname=input("Buscando películas de director?: ")
+        t3_start=process_time()#tiempo inicial
+        movies_director= controller.getMoviesByDirector(cont,directorname)
+        t3_stop = process_time() #tiempo final
+        print("Tiempo de ejecución ",t3_stop-t3_start," segundos")
+        printMoviesByDirector(movies_director)
+    elif int(inputs[0]) == 5:
+        actorname= input('Buscando peliculas del autor?: ')
+        t4_start= process_time()
+        movies_actor= controller.getMoviesByActor(cont,actorname)
+        t4_stop= process_time()
+        print("Tiempo de ejecución ",t4_stop-t4_start," segundos")
+        printMoviesByActor(movies_actor)
+    else:
+        sys.exit(0)
+sys.exit(0)
