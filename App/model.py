@@ -90,7 +90,11 @@ def newCatalog():
 # Funciones de consulta
 # ==============================
 
-
+def getActorsByMovie(catalog, actor_name):
+    actor = mp.get(catalog["Actors"], actor_name)
+    if actor:
+        return me.getValue(actor)
+    return None
 
 # ==============================
 # Funciones de Comparacion

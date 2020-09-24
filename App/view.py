@@ -47,7 +47,19 @@ operación seleccionada.
 #  respuesta.  La vista solo interactua con
 #  el controlador.
 # ___________________________________________________
+def printActorData(Actor):
 
+    if Actor:
+        print("Actor encontrado: " + Actor["name"])
+        print("Peliculas dirigidas: " + Actor["movies"])
+        print("Numero de peliculas: " + lt.size(Actor["movies"]))
+        print("Promedio de calificación: " + Actor["average"])
+        iterator = it.newIterator(Actor["movies"])
+        while it.hasNext(iterator):
+            movie = it.next(iterator)
+            print("Titulo: " + movie["Title"])
+    else:
+        print("No se encontró el Actor")
 
 
 # ___________________________________________________
@@ -79,9 +91,9 @@ while True:
         print("Casting cargados: "+ str(controller.castingsSize(cont)))
         print("Actores cargados: "+ str(controller.actorsSize(cont)))
     elif int(input[0]) == 3:
-        actor = input("A al que desea conocer: ")
+        actor = input("Actor al que desea conocer: ")
         actorinformacion = controller.getMoviesByActor(catalog, actor)
-        print(actorinformacion)
+        printActorData(actorinformacion)
     else:
         sys.exit(0)
 sys.exit(0)
