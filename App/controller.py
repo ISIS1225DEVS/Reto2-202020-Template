@@ -36,6 +36,9 @@ recae sobre el controlador.
 # ___________________________________________________
 #  Inicializacion del catalogo
 # ___________________________________________________
+def iniciar_catalogo():
+    catalogo = model.catalogo()
+    return catalogo
 
 def iniciar_catalogo():
     catalogo = model.catalogo()
@@ -68,10 +71,12 @@ def cargar_datos(catalogo, archivo):
         model.addmovie(catalogo, movie)
         compañia = movie["production_companies"] # Se obtienen las compañias
         generos = (movie["genres"]).split(sep="|")
+
         pais = movie["production_countries"] #Se obtienen los paises
         model.añadir_compañia(catalogo, movie, compañia)
         model.añadir_genero(catalogo, movie, generos)
         model.añadir_pais(catalogo, movie, pais)
+
 
 def cargar_casting(catalogo, archivo):
     sep = ";"
@@ -119,6 +124,12 @@ def mostrar_actor(catalogo, Misaka):
     else:
         return N
 
+
 def mostrar_pais(catalogo, pais):
     N = model.mostrar_paises(catalogo, pais)
-    return N
+    if N != "No existe ese pais en la base de datos":
+        C = model.calificacionActor(N)
+        return [C, N]
+    else:
+        return N
+

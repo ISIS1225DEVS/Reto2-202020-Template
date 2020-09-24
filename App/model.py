@@ -31,7 +31,41 @@ En este archivo definimos los TADs que vamos a usar,
 es decir contiene los modelos con los datos en memoria
 
 """
+def catalogo():
+    catalogo = {"archivo_peliculas": None,
+                "peliculas_por_compañia": None,
+                "Peliculas_por_director": None,
+                "Peliculas_por_genero":None,
+                "peliculas_por_actor":None}
 
+
+    catalogo["peliculas_por_compañia"] = mp.newMap( numelements=1000,
+                                                    prime=109345121,   
+                                                    maptype='CHAINING', 
+                                                    loadfactor=1.0, 
+                                                    comparefunction=comparer)
+    catalogo["peliculas_por_director"] = mp.newMap( numelements=1000,
+                                                    prime=109345121,   
+                                                    maptype='CHAINING', 
+                                                    loadfactor=1.0, 
+                                                    comparefunction=comparer)
+                                                 
+    catalogo["archivo_peliculas"] = mp.newMap(numelements=1000,
+                                                    prime=109345121,   
+                                                    maptype='CHAINING', 
+                                                    loadfactor=1.0, 
+                                                    comparefunction=comparer)
+    catalogo["peliculas_por_genero"] = mp.newMap(numelements=41,
+                                                    prime=90537484771,   
+                                                    maptype='PROBING', 
+                                                    loadfactor=0.5, 
+                                                    comparefunction=comparer)
+    catalogo["peliculas_por_actor"] = mp.newMap(numelements=2000,
+                                                    prime=109345121,   
+                                                    maptype='CHAINING', 
+                                                    loadfactor=1.0, 
+                                                    comparefunction=comparer)
+    return catalogo
 # -----------------------------------------------------
 # API del TAD Catalogo de Peliculas
 # -----------------------------------------------------
@@ -128,6 +162,7 @@ def añadir_actor(catalogo, movie):
         else:
             mp.put(catalogo["peliculas_por_actor"], actor, [])
     
+
 def añadir_pais(catalogo, movie, pais):
     if mp.contains(catalogo["peliculas_por_pais"], pais) == True:
         n = mp.get(catalogo["peliculas_por_compañia"], pais)
@@ -224,6 +259,7 @@ def añadir_peliculas_al_pais(catalogo, idp, pais, movie):
     del A["calificacion"]
     lt.addLast(M, A)
 
+
 def addmovie(catalogo, movie):
     A = {"titulo":movie["original_title"],
          "calificacion":movie["vote_average"]}
@@ -272,6 +308,7 @@ def mostrar_paises(catalogo, pais):
     else:
         A ="No existe ese pais en la base de datos"
     return A
+
 # ==============================
 # Funciones de Comparacion
 # ==============================

@@ -21,9 +21,9 @@
  """
 
 import sys
-import config
+import config as conf
 from DISClib.ADT import list as lt
-from DISClib.DataStructures import listiterator as it
+from DISClib.ADT import map as mp
 from App import controller
 from time import process_time
 assert config
@@ -69,7 +69,9 @@ def printMenu():
     print("4- (Req-2)Consultar peliculas por director")
     print("5- (Req-3)Consular peliculas por actor")
     print("6- (Req-4)Consultar peliculas por genero")
+
     print("7- (Req-5)Consultar peliculas por pais")
+
 
 
 catalogo = None
