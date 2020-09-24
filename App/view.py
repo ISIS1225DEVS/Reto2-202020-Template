@@ -75,6 +75,7 @@ def printMenu():
     print("2- Cargar información en el catálogo")
     print("3- Conocer a un actor3")
     print("4- Conocer a un director")
+    print("5- Encontrar películas por país")
     print("0- Salir")
 
 """
@@ -101,6 +102,10 @@ while True:
         director = input("Director al que busca: ")
         directorinfo = controller.getMoviesbyDirector(director)
         printDirectorData(directorinfo)
+    elif int(inputs[0]) == 5:
+        pais = input("País al que busca: ")
+        paisinfo = controller.
+
     else:
         sys.exit(0)
 sys.exit(0)

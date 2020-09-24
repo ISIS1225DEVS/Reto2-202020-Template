@@ -88,3 +88,6 @@ def getMoviesbyDirector(catalog, directorname):
 def getMoviesByActor(catalog, actor_name):
     actor = model.getMoviesByActor(catalog, actor_name)
     return (actor["movies"], model.moviesSize(movies), (actor["vote_average"]/int(size)),model.getMostFeaturedDirector(actor))
+
+def getMoviesByCountry(catalog, country_name):
+    pais = 
