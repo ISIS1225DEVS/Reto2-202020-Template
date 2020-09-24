@@ -34,7 +34,7 @@ es decir contiene los modelos con los datos en memoria
 # -----------------------------------------------------
 # API del TAD Catalogo de Libros
 # -----------------------------------------------------
-def newCatalog():
+def newCatalogMovies():
     """ Inicializa el catálogo de libros
 
     Crea una lista vacia para guardar todos los libros
@@ -61,16 +61,44 @@ def newCatalog():
                                   maptype='PROBING',
                                   loadfactor=0.5,
                                   comparefunction=compareProducersByName)
+
+    return catalog
+
+
+def newCatalog():
+    """ Inicializa el catálogo de libros
+
+    Crea una lista vacia para guardar todos los libros
+
+    Se crean indices (Maps) por los siguientes criterios:
+    Autores
+    ID libros
+    Tags
+    Año de publicacion
+
+    Retorna el catalogo inicializado.
+    """
+    catalog = {'producers': None,
+                'movies': None,
+                'movieIds':None,
+                'directors':None}
+
+    catalog['movies'] = lt.newList('SINGLE_LINKED', comparemovieIds)
+    catalog['movieIds'] = mp.newMap(1000,
+                                  maptype='PROBING',
+                                  loadfactor=0.5,
+                                  comparefunction=compareProducersByName)
+    catalog['actors'] = mp.newMap(200,
+                                   maptype='PROBING',
+                                   loadfactor=0.5,
+                                   comparefunction=compareActorsByName)
     catalog['directors'] = mp.newMap(200,
                                    maptype='PROBING',
                                    loadfactor=0.5,
                                    comparefunction=compareProducersByName)
-    catalog['actors'] = mp.newMap(200,
-                                maptype='PROBING',
-                                loadfactor=0.5,
-                                comparefunction=compareActorsByName)
 
     return catalog
+
 
 def compareProducersByName(keyname, producer):
     """
@@ -121,9 +149,6 @@ def addMovies(catalog, movie):
     libro fue publicaco en ese año.
     """
     lt.addLast(catalog['movies'], movie)
-    for i in range(1,5):
-        name= 'actor'+ str(i) + '_name'
-        mp.put(catalog['actors'], movie[name], movie)
     mp.put(catalog['movieIds'], movie['production_companies'], movie)
 
 
@@ -173,7 +198,7 @@ def addMovieDirector(catalog, directorname, movie):
     else:
         director['vote_average'] = (authavg + float(movieavg)) / 2
 
-def addMovieActor(catalog, actorname, producername, movie):
+def addMovieActor(catalog, actorname, movie):
     """
     Esta función adiciona un libro a la lista de libros publicados
     por un autor.
