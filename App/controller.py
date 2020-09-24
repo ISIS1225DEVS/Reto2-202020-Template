@@ -37,6 +37,10 @@ recae sobre el controlador.
 #  Inicializacion del catalogo
 # ___________________________________________________
 
+def initCatalog():
+
+    catalog = model.newCatalog()
+    return catalog
 
 
 
@@ -44,3 +48,38 @@ recae sobre el controlador.
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
 # ___________________________________________________
+
+def loadDataMovies(catalog,moviesDetails,moviesCasting):
+    loadMovieDetails(catalog, moviesDetails)
+    loadMoviesCasting(catalog, moviesCasting)
+
+def loadMovieDetails(catalog, moviesDetails):
+    moviesDetails=cf.data_dir + moviesDetails
+    input_file = csv.DictReader(open(moviesDetails))
+    for movie in input_file:
+        model.addMovie(catalog, movie)
+
+def loadMoviesCasting(catalog, moviesCasting):
+    moviesCasting=cf.data_dir + moviesCasting
+    input_file = csv.DictReader(open(moviesCasting))
+    for director in input_file:
+        model.addMovie(catalog, director)
+
+
+
+
+def moviesSize(catalog):
+    return model.moviesSize(catalog)
+
+def directorsSize(catalog):
+    return model.directorsSize(catalog)
+
+def actorsSize(catalog):
+    return model.actorsSize(catalog)
+
+def getMoviesbyDirector(catalog, directorname):
+    directorinfo = model.getMoviesByDirector(catalog, directorname)
+    return directorinfo
+
+        
+        

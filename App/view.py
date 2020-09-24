@@ -38,7 +38,8 @@ operación seleccionada.
 #  Ruta a los archivos
 # ___________________________________________________
 
-
+moviesDetails="SmallMoviesDetailsCleaned.csv"
+moviesCasting= "MoviesCastingRaw-small.csv"
 
 
 
@@ -48,8 +49,46 @@ operación seleccionada.
 #  el controlador.
 # ___________________________________________________
 
+def printDirectorData(director):
 
+    if director:
+        print("Director encontrado: " + director["name"])
+        print("Peliculas dirigidas: " + director["movies"])
+        print("Numero de peliculas: " + lt.size(director["movies"]))
+        print("Promedio de calificación: " + director["average"])
 
 # ___________________________________________________
 #  Menu principal
 # ___________________________________________________
+
+def printMenu():
+    print("Bienvenido")
+    print("1- Inicializar Catalogo")
+    print("2- Cargar información en el catálogo")
+    print("3- Conocer a un director")
+    print("0- Salir")
+
+"""
+Menu Principal
+"""
+while True:
+    printMenu()
+    inputs = input("Seleccione una opción para continuar\n")
+
+    if int(inputs[0]) == 1:
+        print("Inicializando Catálogo...")
+        cont = controller.initCatalog()
+    elif int(inputs[0]) == 2:
+        print("Cargando información de los archivos")
+        controller.loadDataMovies(cont, moviesDetails, moviesCasting)
+        print("Peliculas cargadas: "+str(controller.moviesSize(cont)))
+        print("Casting cargados: "+ str(controller.castingsSize(cont)))
+        print("Actores cargados: "+ str(controller.actorsSize(cont)))
+    elif int(input[0]) == 3:
+        director = input("Director al que busca: ")
+        directorinfo = controller.getMoviesbyDirector(director)
+        printDirectorData(directorinfo)
+    else:
+        sys.exit(0)
+sys.exit(0)
+ 
