@@ -54,8 +54,8 @@ def printDirectorData(director):
     if director:
         print("Director encontrado: " + director["name"])
         print("Peliculas dirigidas: " + director["movies"])
-        print("Numero de peliculas: " + len(director["movies"])
-        print("Promedio de calificación: " + director)
+        print("Numero de peliculas: " + lt.size(director["movies"]))
+        print("Promedio de calificación: " + director["average"])
 
 # ___________________________________________________
 #  Menu principal
@@ -79,12 +79,16 @@ while True:
         print("Inicializando Catálogo...")
         cont = controller.initCatalog()
     elif int(inputs[0]) == 2:
-        print("Cargando información de los archvios")
+        print("Cargando información de los archivos")
         controller.loadDataMovies(cont, moviesDetails, moviesCasting)
         print("Peliculas cargadas: "+str(controller.moviesSize(cont)))
         print("Casting cargados: "+ str(controller.castingsSize(cont)))
         print("Actores cargados: "+ str(controller.actorsSize(cont)))
     elif int(input[0]) == 3:
+        director = input("Director al que busca: ")
+        directorinfo = controller.getMoviesbyDirector(director)
+        printDirectorData(directorinfo)
     else:
         sys.exit(0)
 sys.exit(0)
+ 

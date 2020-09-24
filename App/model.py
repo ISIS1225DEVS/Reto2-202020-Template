@@ -145,7 +145,16 @@ def addDirector(catalog, directorname, movie):
         director = newDirector(directorname)
         mp.put(directors, directorname, director)
     lt.addLast(director["movies"], movie)
-    
+
+    dirAverage = director["average"]
+    movieAverage = movie["average_rating"]
+
+    if (dirAverage == 0.0):
+        director["average_rating"] = float(movieAverage)
+    else:
+        director["average_rating"] = (dirAverage + float(movieAverage))/ 2
+
+ 
 def newDate(release_date):
     
     entry = {"Date": "", "Movies": None}
