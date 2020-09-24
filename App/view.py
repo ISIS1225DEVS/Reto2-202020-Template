@@ -62,32 +62,49 @@ def main():
     while a==False:
         print("""Seleccione opcion:
         1 Cargar archivo
-        2 Buscar director
-        3 Buscar genero
-        4 Buscar Compañia""")
+        2 Buscar productora
+        3 Buscar director
+        4 Buscar actor
+        5 buscar genero
+        6 buscar pais""")
         
-        opcion=int(input("Ingrese opcion"))
+        opcion=int(input("Ingrese opcion\n"))
         if opcion==1:
             catalogo=cont.initpeliculas()
             archivo1=cont.loadMovies()
             archivo2=cont.loadMovies2()
+            mapa_actores=cont.cargar_actores(catalogo,archivo1,archivo2)
             mapa_directores=cont.cargar_directores(catalogo,archivo1,archivo2)
             mapa_generos=cont.cargar_generos(catalogo,archivo1,archivo2)
             mapa_compañias=cont.cargar_compañias(catalogo,archivo1)
-        elif opcion==2:
-            nombre=input("Ingrese director")
-            lista=cont.buscar_director(mapa_directores,nombre)
-            print("Cantidad de peliculas",lt.size(lista["value"]))
-            print(lista)
+            mapa_pais=cont.cargar_pais(catalogo,archivo1,archivo2)
+            
         elif opcion==3:
-            genero=input("Ingrese genero")
-            lista=cont.buscar_genero(mapa_generos,genero)
-            print("Cantidad de peliculas",lt.size(lista["value"]))
+            nombre=input("Ingrese director\n")
+            lista=cont.buscar_director(mapa_directores,nombre)
+            print("Cantidad de peliculas:",lt.size(lista["lista"]["value"]))
+            print(lista)
+        elif opcion==5:
+            genero=input("Ingrese genero\n")
+            lista=cont.buscar_genero(mapa_generos,genero,catalogo["genres_vote"])
+            print("Cantidad de peliculas:",lt.size(lista["lista"]["value"]))
+            print(lista)
+        elif opcion==2:
+            compañia=input("Ingrese compañia\n")
+            lista=cont.buscar_compañia(mapa_compañias,compañia)
+            print("Cantidad de peliculas:",lt.size(lista["lista"]["value"]))
             print(lista)
         elif opcion==4:
-            compañia=input("Ingrese compañia")
-            lista=cont.buscar_compañia(mapa_compañias,compañia)
-            print("Cantidad de peliculas",lt.size(lista["value"]))
+            actor=input("ingrese nombre del actor\n")
+            lista=cont.buscar_actores(mapa_actores,actor)
+            print("cantidad de peliculas:",lt.size(lista["lista"]["value"]))
             print(lista)
+        elif opcion==6:
+            pais=input("ingrese el nombre del pais de interes\n")
+            lista=cont.buscar_pais(mapa_pais,pais)
+            
+            print(lista)
+
+
      
 main()
