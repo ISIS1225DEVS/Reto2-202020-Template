@@ -237,6 +237,7 @@ def removeLast(lst):
         error.reraise(exp, 'TADList->removeLast: ')
 
 
+
 def insertElement(lst, element, pos):
     """ Inserta el elemento element en la posición pos de la lista.
 
