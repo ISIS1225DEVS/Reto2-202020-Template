@@ -74,8 +74,12 @@ def printMenu():
     print("1- Inicializar Catalogo")
     print("2- Cargar información en el catálogo")
     print("3- Conocer a un actor3")
+<<<<<<< HEAD
     print("4- Conocer a un director")
     print("5- Encontrar películas por país")
+=======
+    # print("4- Conocer a un director")
+>>>>>>> 359f0e46ee19265635114ad854bb6e47ba22bbdf
     print("0- Salir")
 
 """
@@ -102,7 +106,15 @@ while True:
         director = input("Director al que busca: ")
         directorinfo = controller.getMoviesbyDirector(director)
         printDirectorData(directorinfo)
-    elif int(inputs[0]) == 5:
+    elif int(intput[0]) == 5:
+        tiempo= process_time()
+        gen= intput("Ingrese el genero deseado")
+        gen=controller.inputGenre(catalog, gen)
+        for genero in gen:
+             Movies= controller.getMoviesByGenre(cont, gen)
+        print Movies     
+        print("la candidad de peliculas son ") + str(controller.genreSize(Movies))    
+    elif int(inputs[0]) == 6:
         pais = input("País al que busca: ")
         paisinfo = controller.
 
