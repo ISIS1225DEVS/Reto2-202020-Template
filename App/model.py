@@ -207,6 +207,11 @@ def getMoviesByGenre(catalog, genre):
 def genreSize(catalog):
     
     return mp.size(catalog['Genres'])
+def getActorsByMovie(catalog, actor_name):
+    actor = mp.get(catalog["Actors"], actor_name)
+    if actor:
+        return me.getValue(actor)
+    return None
 
 
 def newGenre(name):

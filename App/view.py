@@ -49,6 +49,7 @@ moviesCasting= "MoviesCastingRaw-small.csv"
 #  el controlador.
 # ___________________________________________________
 
+
 def printDirectorData(director):
 
     if director:
@@ -57,11 +58,21 @@ def printDirectorData(director):
         print("Numero de peliculas: " + lt.size(director["movies"]))
         print("Promedio de calificación: " + director["average"])
         iterator = it.newIterator(director["movies"])
+    else:
+    print("No se encontró al Director")
+    
+def printActorData(Actor):
+    if Actor:
+        print("Actor encontrado: " + Actor["name"])
+        print("Peliculas dirigidas: " + Actor["movies"])
+        print("Numero de peliculas: " + lt.size(Actor["movies"]))
+        print("Promedio de calificación: " + Actor["average"])
+        iterator = it.newIterator(Actor["movies"])
         while it.hasNext(iterator):
             movie = it.next(iterator)
             print("Titulo: " + movie["Title"])
     else:
-        print("No se encontró al director")
+        print("No se encontró el Actor")
 
 
 # ___________________________________________________
@@ -94,10 +105,10 @@ while True:
         print("Peliculas cargadas: "+str(controller.moviesSize(cont)))
         print("Casting cargados: "+ str(controller.castingsSize(cont)))
         print("Actores cargados: "+ str(controller.actorsSize(cont)))
-    elif int(inputs[0])==3:
-        actor = input("A al que desea conocer: ")
+    elif int(input[0]) == 3:
+        actor = input("Actor al que desea conocer: ")
         actorinformacion = controller.getMoviesByActor(catalog, actor)
-        print(actorinformacion)
+        printActorData(actorinformacion)
     elif int(inputs[0]) == 4:
         director = input("Director al que busca: ")
         directorinfo = controller.getMoviesbyDirector(director)
@@ -113,7 +124,6 @@ while True:
     elif int(inputs[0]) == 6:
         pais = input("País al que busca: ")
         paisinfo = controller.
-
     else:
         sys.exit(0)
 sys.exit(0)
