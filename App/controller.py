@@ -23,20 +23,19 @@
 import config as cf
 from App import model
 import csv
+from DISClib.ADT import list as lt
+from time import process_time
 
-
-"""
-El controlador se encarga de mediar entre la vista y el modelo.
-Existen algunas operaciones en las que se necesita invocar
-el modelo varias veces o integrar varias de las respuestas
-del modelo en una sola respuesta. Esta responsabilidad
-recae sobre el controlador.
-"""
 
 # ___________________________________________________
 #  Inicializacion del catalogo
 # ___________________________________________________
 
+
+def initCatalog():
+
+    catalog = model.newCatalog()
+    return catalog
 
 
 
@@ -44,3 +43,49 @@ recae sobre el controlador.
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
 # ___________________________________________________
+
+def loadData(catalog, Moviesfile):
+    loadDetails(catalog, Moviesfile)
+
+def loadDetails(catalog, Moviesfile):
+
+    dialect = csv.excel()
+    dialect.delimiter=";"
+
+    try:
+        with open( Moviesfile, encoding="utf-8") as csvfile:
+            spamreader = csv.DictReader(csvfile, dialect=dialect)
+            for row in spamreader:
+                model.addDetails(catalog, row)
+                companies = row['production_companies']
+                
+                model.addProductoraMovie(catalog, companies, row)  
+                model.addGenreMovie(catalog, genres, row)           
+    except:
+        print("Hubo un error con la carga del archivo")
+    
+    return 0
+# ___________________________________________________
+#  Funciones para consultas
+# ___________________________________________________
+
+def companySize(catalog):
+    resultado = model.companySize(catalog)
+    return resultado
+
+
+def moviesByProductionCompany(catalog, productoraname):
+    productorainfo = model.moviesByProductionCompany(catalog, productoraname)
+    return productorainfo
+
+#def moviesByGenre(catalog, genre):
+    #genre_info = model.moviesByGenre(catalog,genre)
+    #return genre_info
+
+def detailSize(catalog):
+    resultado = model.detailSize(catalog)
+    return resultado
+
+def encontrarElemento(camino,posicion):
+    resultado = model.encontrarElemento(camino,posicion)
+    return resultado
