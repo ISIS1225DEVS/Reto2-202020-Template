@@ -54,10 +54,12 @@ operación seleccionada.
 #  Menu principal
 # ___________________________________________________
 
+
 def printMenu():
     print("Bienvenido")
     print("1- Inicializar Catalogo")
     print("2- Cargar información en el catálogo")
+    print("4- Conocer un actor")
     print("0- Salir")
 
 """
@@ -70,3 +72,16 @@ while True:
     if int(inputs[0]) == 1:
         print("Inicializando Catálogo...")
         cont = controller.initCatalog()
+    elif int(inputs[0]) == 2:
+        print("Cargando información de los archivos")
+        controller.loadDataMovies(cont, moviesDetails, moviesCasting)
+        print("Peliculas cargadas: "+str(controller.moviesSize(cont)))
+        print("Casting cargados: "+ str(controller.castingsSize(cont)))
+        print("Actores cargados: "+ str(controller.actorsSize(cont)))
+    elif int(input[0]) == 3:
+        actor = input("A al que desea conocer: ")
+        actorinformacion = controller.getMoviesByActor(catalog, actor)
+        print(actorinformacion)
+    else:
+        sys.exit(0)
+sys.exit(0)
