@@ -243,7 +243,7 @@ def compareMapMovieIds(id, entry):
     else:
         return -1
 
-def compareProdCompanies(keyname, entry):
+def compareCompanies(keyname, entry):
 
     prodEntry = me.getKey(entry)
     if (keyname == prodEntry):
