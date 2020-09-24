@@ -68,11 +68,13 @@ def printDirectorData(director):
 #  Menu principal
 # ___________________________________________________
 
+
 def printMenu():
     print("Bienvenido")
     print("1- Inicializar Catalogo")
     print("2- Cargar información en el catálogo")
-    print("3- Conocer a un director")
+    print("3- Conocer a un actor3")
+    print("4- Conocer a un director")
     print("0- Salir")
 
 """
@@ -91,11 +93,14 @@ while True:
         print("Peliculas cargadas: "+str(controller.moviesSize(cont)))
         print("Casting cargados: "+ str(controller.castingsSize(cont)))
         print("Actores cargados: "+ str(controller.actorsSize(cont)))
-    elif int(input[0]) == 3:
+    elif int(inputs[0])==3:
+        actor = input("A al que desea conocer: ")
+        actorinformacion = controller.getMoviesByActor(catalog, actor)
+        print(actorinformacion)
+    elif int(inputs[0]) == 4:
         director = input("Director al que busca: ")
         directorinfo = controller.getMoviesbyDirector(director)
         printDirectorData(directorinfo)
     else:
         sys.exit(0)
 sys.exit(0)
- 
