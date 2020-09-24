@@ -74,7 +74,7 @@ def initpeliculas():
 def cargar_compañias(catalogo,archivo):
     for elemento in range(1,lt.size(archivo)):
         actual=lt.getElement(archivo,elemento)
-        mdl.cargar_compañias(catalogo,actual["production_companies"],actual["title"])
+        mdl.cargar_compañias(catalogo,actual["production_companies"],actual["title"],actual["vote_average"])
     mapa=catalogo["production_companies"]
     return mapa
 
@@ -93,14 +93,46 @@ def buscar_director(mapa,nombre):
 def cargar_generos(catalogo,archivo,archivo2):
     for i in range(1,lt.size(archivo)):
         actual=lt.getElement(archivo,i)
-        mdl.cargar_generos(catalogo,actual["genres"],actual["title"],actual["vote_average"])
+        mdl.cargar_generos(catalogo,actual["genres"],actual["title"],actual["vote_average"],actual["vote_count"])
     mapa=catalogo["genres"]
     return mapa
 
-def buscar_genero(mapa,genero):
-    lista=mdl.conocer_genero(mapa,genero)
+def buscar_genero(mapa,genero,mapa2):
+    lista=mdl.conocer_genero(mapa,genero,mapa2)
     return lista
+
 
 def buscar_compañia(mapa,compañia):
     lista=mdl.conocer_compañia(mapa,compañia)
     return lista
+
+def buscar_actores(mapa,actor):
+    lista=mdl.conocer_actor(mapa,actor)
+    return lista
+
+def buscar_pais(mapa,pais):
+    lista=mdl.conocer_pais(mapa,pais)
+    return lista
+
+def cargar_actores(catalogo,movies,casting):
+    for i in range(1,lt.size(movies)):
+        actual=lt.getElement(movies,i)
+        actual2=lt.getElement(casting,i)
+        mdl.cargar_actores(catalogo,actual2["actor1_name"],actual["title"],actual["vote_average"],actual2["director_name"])
+        mdl.cargar_actores(catalogo,actual2["actor2_name"],actual["title"],actual["vote_average"],actual2["director_name"])
+        mdl.cargar_actores(catalogo,actual2["actor3_name"],actual["title"],actual["vote_average"],actual2["director_name"])
+        mdl.cargar_actores(catalogo,actual2["actor4_name"],actual["title"],actual["vote_average"],actual2["director_name"])
+        mdl.cargar_actores(catalogo,actual2["actor5_name"],actual["title"],actual["vote_average"],actual2["director_name"])
+    mapa=catalogo["actores"]
+    return mapa
+
+
+
+def cargar_pais(catalogo,movies,casting):
+    for i in range(1,lt.size(movies)):
+        actual=lt.getElement(movies,i)
+        actual2=lt.getElement(casting,i)
+        mdl.cargar_pais(catalogo,actual["production_countries"],actual["title"],actual["release_date"],actual2["director_name"])
+    mapa=catalogo["paises"]
+    return mapa
+       
