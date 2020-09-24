@@ -34,7 +34,6 @@ from time import process_time
 
 def initCatalog():
 
-    # catalog es utilizado para interactuar con el modelo
     catalog = model.newCatalog()
     return catalog
 
@@ -52,18 +51,20 @@ def loadDetails(catalog, Moviesfile):
 
     dialect = csv.excel()
     dialect.delimiter=";"
+
     try:
         with open( Moviesfile, encoding="utf-8") as csvfile:
             spamreader = csv.DictReader(csvfile, dialect=dialect)
             for row in spamreader:
                 model.addDetails(catalog, row)
                 companies = row['production_companies']
-                model.addProductoraMovie(catalog, companies, row)             
+                
+                model.addProductoraMovie(catalog, companies, row)  
+                model.addGenreMovie(catalog, genres, row)           
     except:
         print("Hubo un error con la carga del archivo")
     
     return 0
-
 # ___________________________________________________
 #  Funciones para consultas
 # ___________________________________________________
@@ -77,6 +78,9 @@ def moviesByProductionCompany(catalog, productoraname):
     productorainfo = model.moviesByProductionCompany(catalog, productoraname)
     return productorainfo
 
+#def moviesByGenre(catalog, genre):
+    #genre_info = model.moviesByGenre(catalog,genre)
+    #return genre_info
 
 def detailSize(catalog):
     resultado = model.detailSize(catalog)

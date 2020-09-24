@@ -108,7 +108,8 @@ def main():
                 print(controller.encontrarElemento(cont,2000))
 
             elif int(inputs[0]) ==2: #opcion 2
-
+                
+                cont = controller.initCatalog()
                 productorname = input("Inserte el nombre de la compañia de producción: ")
                 productorinfo = controller.moviesByProductionCompany(cont, productorname)
                 printProductoraData(productorinfo)
@@ -117,6 +118,9 @@ def main():
                 pass
             elif int(inputs[0])==4: #opcion 4
                 pass
+                #genre = input("Ingrese el género de interés: ")
+                #genre_info = controller.moviesByGenre(cont,genre)
+
             elif int(inputs[0])==5: #opcion 5
                 pass
             elif int(inputs[0])==0:
