@@ -193,6 +193,27 @@ def actorsSize(catalog):
     
     return lt.size(catalog["Actors"])
 
+def getMoviesByGenre(catalog, genre):
+    genre = mp.get(catalog["Genres"], genre)    
+    if genre:
+        return me.getValue(genre)
+
+def genreSize(catalog):
+    
+    return mp.size(catalog['Genres'])
+
+
+def newGenre(name):
+    genre= {"name": name, "movies":lt.newList("ARRAY_LIST", compare_producers),  ' average_rating':0} 
+    return genre
+
+def inputGenre(catalog, genre):
+    if genre == None:
+        return inputGenre(catalog)
+    genre= genre.replace (' ', '') 
+    genre= genre.split(',')
+    genre= model.inputGenre(catalog,genres)
+    return genre
 # ==============================
 # Funciones de Comparacion
 # ==============================
