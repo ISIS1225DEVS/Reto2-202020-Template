@@ -47,17 +47,21 @@ def initCatalog():
 # ___________________________________________________
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
-# ___________________________________________________
 
 def loadDataMovies(catalog,moviesDetails,moviesCasting):
     loadMovieDetails(catalog, moviesDetails)
     loadMoviesCasting(catalog, moviesCasting)
+
 
 def loadMovieDetails(catalog, moviesDetails):
     moviesDetails=cf.data_dir + moviesDetails
     input_file = csv.DictReader(open(moviesDetails))
     for movie in input_file:
         model.addMovie(catalog, movie)
+
+def loadDataMovies(catalog,moviesDetails,moviesCasting):
+    loadMovieDetails(catalog, moviesDetails)
+    loadMoviesCasting(catalog, moviesCasting)
 
 def loadMoviesCasting(catalog, moviesCasting):
     moviesCasting=cf.data_dir + moviesCasting
@@ -81,5 +85,6 @@ def getMoviesbyDirector(catalog, directorname):
     directorinfo = model.getMoviesByDirector(catalog, directorname)
     return directorinfo
 
-        
-        
+def getMoviesByActor(catalog, actor_name):
+    actor = model.getMoviesByActor(catalog, actor_name)
+    return (actor["movies"], model.moviesSize(movies), (actor["vote_average"]/int(size)),model.getMostFeaturedDirector(actor))
