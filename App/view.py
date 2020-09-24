@@ -56,6 +56,13 @@ def printDirectorData(director):
         print("Peliculas dirigidas: " + director["movies"])
         print("Numero de peliculas: " + lt.size(director["movies"]))
         print("Promedio de calificación: " + director["average"])
+        iterator = it.newIterator(director["movies"])
+        while it.hasNext(iterator):
+            movie = it.next(iterator)
+            print("Titulo: " + movie["Title"])
+    else:
+        print("No se encontró al director")
+
 
 # ___________________________________________________
 #  Menu principal
@@ -67,7 +74,8 @@ def printMenu():
     print("1- Inicializar Catalogo")
     print("2- Cargar información en el catálogo")
     print("3- Conocer a un actor3")
-    # print("4- Conocer a un director")
+    print("4- Conocer a un director")
+    print("5- Encontrar películas por país")
     print("0- Salir")
 
 """
@@ -102,6 +110,10 @@ while True:
              Movies= controller.getMoviesByGenre(cont, gen)
         print Movies     
         print("la candidad de peliculas son ") + str(controller.genreSize(Movies))    
+    elif int(inputs[0]) == 6:
+        pais = input("País al que busca: ")
+        paisinfo = controller.
+
     else:
         sys.exit(0)
 sys.exit(0)

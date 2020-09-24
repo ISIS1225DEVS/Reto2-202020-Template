@@ -76,7 +76,7 @@ def newCatalog():
                                     maptype="PROBING",
                                     loadfactor=0.4,
                                     comparefunction=compareVoteCounts)
-    catalog["ProdCountries"] = mp.newMap(100000,
+    catalog["Countries"] = mp.newMap(100000,
                                         maptype="PROBING",
                                         loadfactor=0.4,
                                         comparefunction=compareCountries)
@@ -181,6 +181,12 @@ def getMoviesByDate(catalog, date):
         return me.getValue(date)["Movies"]
     return None
 
+def getMoviesByCountry(catalog, country):
+
+    country = mp.get(catalog["Countries"], country)
+    if country:
+        return me.getValue(country)
+
 def moviesSize(catalog):
 
     return lt.size(catalog["Movies"])
@@ -237,7 +243,7 @@ def compareMapMovieIds(id, entry):
     else:
         return -1
 
-def compareProdCompanies(keyname, entry):
+def compareCompanies(keyname, entry):
 
     prodEntry = me.getKey(entry)
     if (keyname == prodEntry):
