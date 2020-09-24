@@ -37,6 +37,10 @@ recae sobre el controlador.
 #  Inicializacion del catalogo
 # ___________________________________________________
 
+def iniciar_catalogo():
+    catalogo = model.catalogo()
+    return catalogo
+
 
 
 
@@ -44,3 +48,77 @@ recae sobre el controlador.
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
 # ___________________________________________________
+def cargar_info(catalogo, archivo1, archivo2):
+    cargar_datos(catalogo, archivo1)
+    cargar_casting(catalogo, archivo2)
+    
+    
+
+
+
+
+def cargar_datos(catalogo, archivo):
+    sep = ";"
+    dialect = csv.excel()
+    dialect.delimiter=sep
+    archivo = cf.data_dir + archivo
+    input_file = csv.DictReader(open(archivo, encoding="utf-8"), dialect=dialect)
+    
+    for movie in input_file:
+        model.addmovie(catalogo, movie)
+        compañia = movie["production_companies"] # Se obtienen las compañias
+        generos = (movie["genres"]).split(sep="|")
+        pais = movie["production_countries"] #Se obtienen los paises
+        model.añadir_compañia(catalogo, movie, compañia)
+        model.añadir_genero(catalogo, movie, generos)
+        model.añadir_pais(catalogo, movie, pais)
+
+def cargar_casting(catalogo, archivo):
+    sep = ";"
+    dialect = csv.excel()
+    dialect.delimiter=sep
+    archivo = cf.data_dir + archivo
+    input_file = csv.DictReader(open(archivo, encoding="utf-8"), dialect=dialect)
+
+    for movie in input_file:
+        director = movie["director_name"]
+        model.añadir_director(catalogo, movie, director)
+        model.añadir_actor(catalogo, movie)
+
+
+
+def mostrar_compañias(catalogo, sara):
+    N = model.mostrar_compañias(catalogo, sara)
+    if N != "No existe esa compañia en la base de datos":
+        C = model.calificacion(N)
+        return [C, N]
+    else:
+        return N
+
+def mostrar_directores(catalogo, Monika):
+    N = model.mostrar_director(catalogo, Monika)
+    if N != "No existe ese autor en la base de datos":
+        C = model.calificacion2(N)
+        return [C, N]
+    else:
+        return N
+
+def mostrar_generos(catalogo, Misaka):
+    N = model.mostrar_generos(catalogo, Misaka)
+    if N != "No existe ese genero en la base de datos":
+        C = model.calificacion(N)
+        return [C, N]
+    else:
+        return N
+
+def mostrar_actor(catalogo, Misaka):
+    N = model.mostrar_actores(catalogo, Misaka)
+    if N != "No existe ese actor en la base de datos":
+        C = model.calificacionActor(N)
+        return [C, N]
+    else:
+        return N
+
+def mostrar_pais(catalogo, pais):
+    N = model.mostrar_paises(catalogo, pais)
+    return N
