@@ -102,4 +102,5 @@ def inputGenre(catalog, genre):
     return genre
 
 def getMoviesByCountry(catalog, country_name):
-    pais = 
+    pais = model.getMoviesByCountry(catalog, country_name)
+    return country

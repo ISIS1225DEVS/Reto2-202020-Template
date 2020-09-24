@@ -74,12 +74,8 @@ def printMenu():
     print("1- Inicializar Catalogo")
     print("2- Cargar información en el catálogo")
     print("3- Conocer a un actor3")
-<<<<<<< HEAD
     print("4- Conocer a un director")
     print("5- Encontrar películas por país")
-=======
-    # print("4- Conocer a un director")
->>>>>>> 359f0e46ee19265635114ad854bb6e47ba22bbdf
     print("0- Salir")
 
 """
