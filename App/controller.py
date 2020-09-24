@@ -81,5 +81,6 @@ def getMoviesbyDirector(catalog, directorname):
     directorinfo = model.getMoviesByDirector(catalog, directorname)
     return directorinfo
 
+
         
         

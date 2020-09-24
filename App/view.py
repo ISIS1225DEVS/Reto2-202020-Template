@@ -56,6 +56,13 @@ def printDirectorData(director):
         print("Peliculas dirigidas: " + director["movies"])
         print("Numero de peliculas: " + lt.size(director["movies"]))
         print("Promedio de calificación: " + director["average"])
+        iterator = it.newIterator(director["movies"])
+        while it.hasNext(iterator):
+            movie = it.next(iterator)
+            print("Titulo: " + movie["Title"])
+    else:
+        print("No se encontró al director")
+
 
 # ___________________________________________________
 #  Menu principal
