@@ -30,3 +30,11 @@ Este directorio contiene todo el código de base que se entrega para el funciona
 -Test
 Este directorio contiene las pruebas realizadas a los TADs, Estructuras de Datos y Algoritmos.
 
+Datos:
+
+Lucas Sandoval Corena - l.sandovalc@uniandes.edu.co - 201923159
+Juan Felipe Castro Vanegas - jf.castrov@uniandes.edu.co - 201818130
+Blanca Reina Valencia Aguirre - b.valenciaa@uniandes.edu.co - 202013797
+
+Debido a un error en el merge, Juan Felipe no pudo subir su parte (Controller y View), pero para completar el código toco subirlo desde mi rama.
+
